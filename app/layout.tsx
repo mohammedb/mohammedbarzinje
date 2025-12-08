@@ -23,7 +23,7 @@ const siteConfig = {
   ogImage: "/og-image.png",
   links: {
     email: "mailto:mohammedbarzinje@gmail.com",
-    linkedin: "https://linkedin.com/in/mohammedbarzinje",
+    linkedin: "https://www.linkedin.com/in/mohammed-barzinje-9237b5a5/",
   },
 };
 

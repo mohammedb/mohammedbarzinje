@@ -7,7 +7,7 @@ export function Footer() {
                     <a href="mailto:mohammedbarzinje@gmail.com" className="retro-btn bg-[#b0aefb] hover:text-[#b0aefb]">
                         Email Me
                     </a>
-                    <a href="https://linkedin.com" className="retro-btn bg-[#ffcdc2] hover:text-[#ffcdc2]">
+                    <a href="https://www.linkedin.com/in/mohammed-barzinje-9237b5a5/" target="_blank" rel="noopener noreferrer" className="retro-btn bg-[#ffcdc2] hover:text-[#ffcdc2]">
                         LinkedIn
                     </a>
                 </div>

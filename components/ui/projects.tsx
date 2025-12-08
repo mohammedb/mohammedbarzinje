@@ -9,7 +9,7 @@ const projects = [
         title: "ReddMaten",
         category: "Sustainability",
         description: "Direct-to-consumer marketplace for 'imperfect' produce.",
-        stats: ["Founder", "Tech"],
+        stats: ["Founder", "Full-Stack", "Next.js"],
         bg: "bg-[#cafb42]",
         url: "https://reddmaten.no",
         previewImage: "/projects/reddmaten.png"
@@ -18,7 +18,7 @@ const projects = [
         title: "RIDDLE",
         category: "Esports",
         description: "Northern Europe's premier esports organization.",
-        stats: ["EU Masters", "Brand"],
+        stats: ["Founder & GM", "10+ Years", "EU Masters"],
         bg: "bg-[#b0aefb]",
         url: "https://riddle.no",
         previewImage: "/projects/riddle.png"
@@ -27,7 +27,7 @@ const projects = [
         title: "Gamers8",
         category: "Event Tech",
         description: "World's largest gaming festival ecosystem management.",
-        stats: ["Global", "Data"],
+        stats: ["Senior PM", "ESL FACEIT", "Global"],
         bg: "bg-[#ffcdc2]",
         url: "https://esportsworldcup.com/en"
     },
