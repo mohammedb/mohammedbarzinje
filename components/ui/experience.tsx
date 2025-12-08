@@ -54,7 +54,7 @@ export function Experience() {
                     <h2 className="text-xl font-black uppercase tracking-wider">Experience.log</h2>
                 </div>
 
-                <div ref={ref} className="relative ml-6 space-y-12">
+                <div ref={ref} className="relative ml-2 md:ml-6 space-y-12">
                     {/* Animated Line */}
                     <motion.div
                         style={{ scaleY }}
@@ -69,7 +69,7 @@ export function Experience() {
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
-                            className="relative pl-12"
+                            className="relative pl-8 md:pl-12"
                         >
                             {/* Node */}
                             <motion.div

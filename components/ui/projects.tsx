@@ -37,7 +37,7 @@ export function Projects() {
     const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
     return (
-        <section id="projects" className="py-20 px-4">
+        <section id="projects" className="py-20 px-4 md:px-4">
             <div className="max-w-6xl mx-auto">
 
                 <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform rotate-1">
@@ -110,7 +110,7 @@ export function Projects() {
                     >
                         <motion.div
                             layoutId={`card-${selectedProject.title}`}
-                            className="w-full max-w-5xl h-[80vh] flex flex-col window-frame relative border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] bg-white"
+                            className="w-full max-w-5xl h-[85vh] md:h-[80vh] flex flex-col window-frame relative border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] bg-white"
                             onClick={(e) => e.stopPropagation()}
                         >
                             {/* Expanded App Header */}

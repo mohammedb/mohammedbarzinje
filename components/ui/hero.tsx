@@ -41,7 +41,7 @@ export function Hero() {
     };
 
     return (
-        <section className="min-h-screen flex items-center justify-center p-4 md:p-8 overflow-hidden">
+        <section className="min-h-screen flex items-center justify-center p-2 md:p-8 overflow-hidden">
             {/* The Window Container */}
             <motion.div
                 variants={containerVariants}
@@ -54,7 +54,7 @@ export function Hero() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[600px] relative">
                     {/* Left: Image / Graphic Area (7 cols) */}
-                    <div className="lg:col-span-5 p-8 md:p-12 flex flex-col justify-center items-center lg:items-end relative border-b-2 lg:border-b-0 lg:border-r-2 border-black bg-zinc-50/50 overflow-hidden">
+                    <div className="lg:col-span-5 p-6 md:p-12 flex flex-col justify-center items-center lg:items-end relative border-b-2 lg:border-b-0 lg:border-r-2 border-black bg-zinc-50/50 overflow-hidden">
                         {/* Decorative Background Shape */}
                         <motion.div
                             style={{ y: y1, rotate: rotate }}
@@ -90,10 +90,10 @@ export function Hero() {
                     </div>
 
                     {/* Right: Content Area (5 cols) */}
-                    <div className="lg:col-span-7 p-8 md:p-16 flex flex-col justify-center text-left relative z-10">
+                    <div className="lg:col-span-7 p-6 md:p-16 flex flex-col justify-center text-left relative z-10">
                         <motion.h4 variants={itemVariants} className="font-bold text-lg mb-4 text-[#666]">Hi, I&apos;m Mohammed!</motion.h4>
 
-                        <div className="text-6xl md:text-8xl font-black leading-[0.9] text-[#1a1a1a] mb-8 tracking-tighter">
+                        <div className="text-5xl sm:text-6xl md:text-8xl font-black leading-[0.9] text-[#1a1a1a] mb-8 tracking-tighter">
                             <motion.div variants={itemVariants}>Product</motion.div>
                             <motion.div
                                 variants={letterContainer}

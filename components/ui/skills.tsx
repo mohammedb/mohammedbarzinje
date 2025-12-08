@@ -44,7 +44,7 @@ export function Skills() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                     viewport={{ once: true }}
-                    className="window-frame bg-white p-8 md:p-12 relative overflow-hidden"
+                    className="window-frame bg-white p-6 md:p-12 relative overflow-hidden"
                 >
                     {/* Background Pattern */}
                     <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
