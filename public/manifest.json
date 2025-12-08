@@ -1,0 +1,16 @@
+{
+    "name": "Mohammed Barzinje - Product Manager",
+    "short_name": "M. Barzinje",
+    "description": "Product Manager based in Norway. Founder of ReddMaten & Riddle Esports.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#fdfbf7",
+    "theme_color": "#1a1a1a",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "any",
+            "type": "image/x-icon"
+        }
+    ]
+}
