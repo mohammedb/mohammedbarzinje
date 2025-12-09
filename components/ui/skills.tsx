@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Reveal } from "@/components/ui/reveal";
 import { Code2, Database, Cpu } from "lucide-react";
 
 const skills = [
@@ -51,97 +52,87 @@ export function Skills() {
                         <span className="text-9xl font-black">&lt;/&gt;</span>
                     </div>
 
-                    <h2 className="text-2xl font-black mb-8 uppercase border-b-2 border-black inline-block">Tech_Stack</h2>
+                    <Reveal>
+                        <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[var(--shadow-retro-sm)] transform rotate-1">
+                            <h2 className="type-label text-xl text-black">My_Skills</h2>
+                        </div>
+                    </Reveal>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                    {/* Tech Stack Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                         {/* Frontend */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            viewport={{ once: true }}
-                        >
-                            <div className="flex items-center gap-2 mb-4">
-                                <Code2 className="w-5 h-5" />
-                                <h3 className="font-bold uppercase text-sm tracking-wide">Frontend</h3>
+                        <Reveal delay={0.2}>
+                            <div className="window-frame p-6 bg-white rotate-1 hover:rotate-0 transition-transform duration-300">
+                                <div className="border-b-2 border-black pb-4 mb-6 flex items-center justify-between">
+                                    <h3 className="type-display text-xl">Frontend</h3>
+                                    <div className="flex gap-2">
+                                        <div className="w-3 h-3 rounded-full bg-red-500 border border-black" />
+                                        <div className="w-3 h-3 rounded-full bg-yellow-500 border border-black" />
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap gap-3">
+                                    {techStack.frontend.map((tech) => (
+                                        <motion.div
+                                            key={tech.name}
+                                            whileHover={{ scale: 1.05, y: -2 }}
+                                            className={`flex items-center gap-2 px-3 py-2 border border-black text-sm font-bold cursor-default ${tech.highlight ? 'bg-[#cafb42] shadow-[var(--shadow-retro-sm)]' : 'bg-[#f0f0f0] shadow-[var(--shadow-retro-sm)]'} `}
+                                        >
+                                            <span>{tech.name}</span>
+                                        </motion.div>
+                                    ))}
+                                </div>
                             </div>
-                            <div className="space-y-2">
-                                {techStack.frontend.map((tech, index) => (
-                                    <motion.div
-                                        key={index}
-                                        initial={{ scale: 0, x: -10 }}
-                                        whileInView={{ scale: 1, x: 0 }}
-                                        whileHover={{ x: 5 }}
-                                        viewport={{ once: true }}
-                                        transition={{ type: "spring", stiffness: 300, delay: index * 0.05 }}
-                                        className={`flex items-center gap-2 px-3 py-2 border border-black text-sm font-bold cursor-default ${tech.highlight ? 'bg-[#cafb42] shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]' : 'bg-[#f0f0f0] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
-                                            }`}
-                                    >
-                                        {tech.name}
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </motion.div>
+                        </Reveal>
 
-                        {/* Backend */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            viewport={{ once: true }}
-                        >
-                            <div className="flex items-center gap-2 mb-4">
-                                <Database className="w-5 h-5" />
-                                <h3 className="font-bold uppercase text-sm tracking-wide">Backend</h3>
-                            </div>
-                            <div className="space-y-2">
-                                {techStack.backend.map((tech, index) => (
-                                    <motion.div
-                                        key={index}
-                                        initial={{ scale: 0, x: -10 }}
-                                        whileInView={{ scale: 1, x: 0 }}
-                                        whileHover={{ x: 5 }}
-                                        viewport={{ once: true }}
-                                        transition={{ type: "spring", stiffness: 300, delay: index * 0.05 }}
-                                        className={`flex items-center gap-2 px-3 py-2 border border-black text-sm font-bold cursor-default ${tech.highlight ? 'bg-[#b0aefb] shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]' : 'bg-[#f0f0f0] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
-                                            }`}
-                                    >
-                                        {tech.name}
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </motion.div>
+                        {/* Backend & Tools (Grouped for layout balance) */}
+                        <div className="space-y-12">
+                            <Reveal delay={0.3}>
+                                <div className="window-frame p-6 bg-white -rotate-1 hover:rotate-0 transition-transform duration-300">
+                                    <div className="border-b-2 border-black pb-4 mb-6 flex items-center justify-between">
+                                        <h3 className="type-display text-xl">Backend</h3>
+                                        <div className="flex gap-2">
+                                            <div className="w-3 h-3 rounded-full bg-red-500 border border-black" />
+                                            <div className="w-3 h-3 rounded-full bg-yellow-500 border border-black" />
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-wrap gap-3">
+                                        {techStack.backend.map((tech) => (
+                                            <motion.div
+                                                key={tech.name}
+                                                whileHover={{ scale: 1.05, y: -2 }}
+                                                className={`flex items-center gap-2 px-3 py-2 border border-black text-sm font-bold cursor-default ${tech.highlight ? 'bg-[#b0aefb] shadow-[var(--shadow-retro-sm)]' : 'bg-[#f0f0f0] shadow-[var(--shadow-retro-sm)]'} `}
+                                            >
+                                                <span>{tech.name}</span>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </Reveal>
 
-                        {/* Tools & Approach */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
-                            viewport={{ once: true }}
-                        >
-                            <div className="flex items-center gap-2 mb-4">
-                                <Cpu className="w-5 h-5" />
-                                <h3 className="font-bold uppercase text-sm tracking-wide">Tools</h3>
-                            </div>
-                            <div className="space-y-2">
-                                {techStack.tools.map((tech, index) => (
-                                    <motion.div
-                                        key={index}
-                                        initial={{ scale: 0, x: -10 }}
-                                        whileInView={{ scale: 1, x: 0 }}
-                                        whileHover={{ x: 5 }}
-                                        viewport={{ once: true }}
-                                        transition={{ type: "spring", stiffness: 300, delay: index * 0.05 }}
-                                        className={`flex items-center gap-2 px-3 py-2 border border-black text-sm font-bold cursor-default ${tech.highlight ? 'bg-[#ffcdc2] shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]' : 'bg-[#f0f0f0] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
-                                            }`}
-                                    >
-                                        {tech.name}
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </motion.div>
+                            <Reveal delay={0.4}>
+                                <div className="window-frame p-6 bg-white rotate-1 hover:rotate-0 transition-transform duration-300">
+                                    <div className="border-b-2 border-black pb-4 mb-6 flex items-center justify-between">
+                                        <h3 className="type-display text-xl">Tools</h3>
+                                        <div className="flex gap-2">
+                                            <div className="w-3 h-3 rounded-full bg-red-500 border border-black" />
+                                            <div className="w-3 h-3 rounded-full bg-yellow-500 border border-black" />
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-wrap gap-3">
+                                        {techStack.tools.map((tech) => (
+                                            <motion.div
+                                                key={tech.name}
+                                                whileHover={{ scale: 1.05, y: -2 }}
+                                                className={`flex items-center gap-2 px-3 py-2 border border-black text-sm font-bold cursor-default ${tech.highlight ? 'bg-[#ffcdc2] shadow-[var(--shadow-retro-sm)]' : 'bg-[#f0f0f0] shadow-[var(--shadow-retro-sm)]'} `}
+                                            >
+                                                <span>{tech.name}</span>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </Reveal>
+                        </div>
                     </div>
-
                     {/* Built with note */}
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -208,7 +199,7 @@ export function Skills() {
                                         whileHover={{ scale: 1.1, rotate: 3, backgroundColor: "#cafb42" }}
                                         viewport={{ once: true }}
                                         transition={{ type: "spring", stiffness: 300, delay: index * 0.05 }}
-                                        className="px-3 py-1 bg-[#f0f0f0] border border-black text-sm font-bold uppercase cursor-default shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                                        className="px-3 py-1 bg-[#f0f0f0] border border-black text-sm font-bold uppercase cursor-default shadow-[var(--shadow-retro-sm)]"
                                     >
                                         {skill}
                                     </motion.span>

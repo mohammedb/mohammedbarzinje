@@ -35,7 +35,7 @@ export function About() {
         <section id="about" className="py-20 px-4">
             <div className="max-w-5xl mx-auto">
                 {/* Section Title */}
-                <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform -rotate-1">
+                <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[var(--shadow-retro-sm)] transform -rotate-1">
                     <h2 className="text-xl font-black uppercase tracking-wider">About_Me.txt</h2>
                 </div>
 

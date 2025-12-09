@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { Navbar } from "@/components/ui/navbar";
+import { Reveal } from "@/components/ui/reveal";
 
 export function Hero() {
     const { scrollY } = useScroll();
@@ -61,14 +62,14 @@ export function Hero() {
                             initial={{ rotate: -5, scale: 0.8 }}
                             animate={{ rotate: 3, scale: 1 }}
                             transition={{ duration: 1, delay: 0.2 }}
-                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[70%] bg-[#b0aefb] rounded-[2rem] border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-0"
+                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[70%] bg-[#b0aefb] rounded-[2rem] border-2 border-black shadow-[var(--shadow-retro-md)] z-0"
                         />
 
                         {/* Image placeholder wrapper */}
                         <motion.div
                             style={{ y: y2 }}
                             whileHover={{ scale: 1.02, rotate: -2 }}
-                            className="relative w-64 h-80 md:w-80 md:h-96 bg-zinc-200 rounded-[2rem] border-2 border-black overflow-hidden -rotate-3 z-10 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer"
+                            className="relative w-64 h-80 md:w-80 md:h-96 bg-zinc-200 rounded-[2rem] border-2 border-black overflow-hidden -rotate-3 z-10 shadow-[var(--shadow-retro-md)] grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer"
                         >
                             <img
                                 src="/meg2.png"
@@ -77,72 +78,79 @@ export function Hero() {
                             />
                         </motion.div>
 
+
+
                         {/* Floating Badge */}
-                        <motion.div
-                            variants={itemVariants}
-                            animate={{ y: [0, -10, 0] }}
-                            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                            className="absolute bottom-16 left-8 md:left-12 z-20 bg-white border-2 border-black px-4 py-2 rounded-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2"
-                        >
-                            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                            <span className="text-xs font-bold uppercase tracking-wider">Open to Work</span>
-                        </motion.div>
+                        <Reveal delay={0.8} className="absolute bottom-16 left-8 md:left-12 z-20">
+                            <motion.div
+                                animate={{ y: [0, -10, 0] }}
+                                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                                className="bg-white border-2 border-black px-4 py-2 rounded-full shadow-[var(--shadow-retro-sm)] flex items-center gap-2"
+                            >
+                                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                <span className="type-label text-[10px] tracking-widest text-black">Open to Work</span>
+                            </motion.div>
+                        </Reveal>
                     </div>
 
                     {/* Right: Content Area (5 cols) */}
                     <div className="lg:col-span-7 p-6 md:p-16 flex flex-col justify-center text-left relative z-10">
-                        <motion.h4 variants={itemVariants} className="font-bold text-lg mb-4 text-[#666]">Hi, I&apos;m Mohammed!</motion.h4>
+                        <Reveal>
+                            <h4 className="font-bold text-lg mb-4 text-[#666]">Hi, I&apos;m Mohammed!</h4>
+                        </Reveal>
 
-                        <div className="text-5xl sm:text-6xl md:text-8xl font-black leading-[0.9] text-[#1a1a1a] mb-8 tracking-tighter">
-                            <motion.div variants={itemVariants}>Product</motion.div>
-                            <motion.div
-                                variants={letterContainer}
-                                initial="hidden"
-                                animate="visible"
-                                className="relative inline-block mt-2"
-                            >
-                                <span className="sr-only">Manager</span>
-                                <span aria-hidden="true" className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#b0aefb] to-[#cafb42]" style={{ WebkitTextStroke: "1.5px black" }}>
-                                    {Array.from("Manager").map((char, index) => (
-                                        <motion.span key={index} variants={letter} className="inline-block">
-                                            {char}
-                                        </motion.span>
-                                    ))}
-                                </span>
-                                <span className="absolute top-1 left-1 -z-10 text-black flex" style={{ WebkitTextStroke: "1.5px black" }}>
-                                    {Array.from("Manager").map((char, index) => (
-                                        <motion.span key={index} variants={letter} className="inline-block">
-                                            {char}
-                                        </motion.span>
-                                    ))}
-                                </span>
-                            </motion.div>
+                        <div className="mb-8">
+                            <Reveal delay={0.35}>
+                                <div className="type-display text-5xl sm:text-6xl md:text-8xl leading-[0.9] text-[#1a1a1a]">Product</div>
+                            </Reveal>
+                            <Reveal delay={0.45}>
+                                <div
+                                    className="relative inline-block mt-2"
+                                >
+                                    <span className="sr-only">Manager</span>
+                                    {/* Keeping the complex gradient text but wrapping or styling it? 
+                                        Let's keep the existing complex letter logic but wrap the container 
+                                        Or just simplify for now to focus on the request.
+                                        Actually, let's keep the cool letter animation but maybe tighten the container?
+                                    */}
+                                    <span aria-hidden="true" className="type-display text-5xl sm:text-6xl md:text-8xl leading-[0.9] relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#b0aefb] to-[#cafb42]" style={{ WebkitTextStroke: "1.5px black" }}>
+                                        MANAGER
+                                    </span>
+                                    <span className="type-display text-5xl sm:text-6xl md:text-8xl leading-[0.9] absolute top-1 left-1 -z-10 text-black flex" style={{ WebkitTextStroke: "1.5px black" }}>
+                                        MANAGER
+                                    </span>
+                                </div>
+                            </Reveal>
                         </div>
 
-                        <motion.p variants={itemVariants} className="text-lg md:text-xl font-medium text-[#444] leading-relaxed max-w-lg mb-10">
-                            Based in Norway. Managing <span className="bg-[#cafb42] border border-black px-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-[#b0aefb] transition-colors cursor-default">esports</span> ecosystems and building meaningful digital experiences.
-                            <br /><br />
-                            Founder of ReddMaten & Riddle Esports.
-                        </motion.p>
+                        <Reveal delay={0.6}>
+                            <p className="text-lg md:text-xl font-medium text-[#444] leading-relaxed max-w-lg mb-10">
+                                Based in Norway. Managing <span className="bg-[#cafb42] border border-black px-1 shadow-[var(--shadow-retro-sm)] hover:bg-[#b0aefb] transition-colors cursor-default">esports</span> ecosystems and building meaningful digital experiences.
+                                <br /><br />
+                                Founder of ReddMaten & Riddle Esports.
+                            </p>
+                        </Reveal>
 
-                        <motion.div variants={itemVariants} className="flex gap-4">
-                            <motion.a
-                                href="#projects"
-                                className="retro-btn relative overflow-hidden group"
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                <span className="relative z-10">View Work</span>
-                            </motion.a>
-                            <motion.a
-                                href="#about"
-                                className="font-bold uppercase tracking-wide px-6 py-2 border-2 border-transparent hover:border-black rounded-full transition-all hover:bg-white"
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                About Me
-                            </motion.a>
-                        </motion.div>
+                        <Reveal delay={0.7}>
+                            <div className="flex gap-4">
+                                <motion.a
+                                    href="#projects"
+                                    className="retro-btn relative overflow-hidden group"
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <span className="relative z-10">View Work</span>
+                                </motion.a>
+                                <motion.a
+                                    href="#about"
+                                    className="type-label px-6 py-2 border-2 border-transparent hover:border-black rounded-full transition-all hover:bg-white"
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    About Me
+                                </motion.a>
+                            </div>
+                        </Reveal>
                     </div>
                 </div>
             </motion.div>

@@ -17,6 +17,11 @@
     --accent-purple: #b0aefb;
     /* Lavender */
     --accent-dark: #121212;
+
+    /* Semantic Shadows (Standardized) */
+    --shadow-retro-sm: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-retro-md: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-retro-lg: 12px 12px 0px 0px rgba(0, 0, 0, 0.8);
   }
 }
 
@@ -44,23 +49,32 @@
     pointer-events: none;
     z-index: 50;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-    opacity: 0.4;
+    opacity: 0.15;
     mix-blend-mode: overlay;
   }
 
   /* Retro Window Utilities */
   .window-frame {
     @apply bg-[var(--bg-window)] border-2 border-black rounded-3xl overflow-hidden;
-    box-shadow: 12px 12px 0px 0px rgba(0, 0, 0, 0.8);
+    box-shadow: var(--shadow-retro-lg);
   }
 
   .window-header {
     @apply border-b-2 border-black bg-[var(--bg-window)] px-6 py-4 flex items-center justify-between;
   }
 
+  /* Typography Utilities */
+  .type-display {
+    @apply font-black uppercase tracking-tighter;
+  }
+
+  .type-label {
+    @apply font-bold uppercase tracking-widest text-xs;
+  }
+
   .retro-btn {
-    @apply bg-[var(--accent-lime)] text-black font-black px-6 py-2 border-2 border-black rounded-full hover:bg-black hover:text-[#cafb42] transition-colors uppercase tracking-wide text-sm;
-    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+    @apply bg-[var(--accent-lime)] text-black font-black px-6 py-2 border-2 border-black rounded-full hover:bg-black hover:text-[#cafb42] transition-all duration-300 uppercase tracking-wide text-sm;
+    box-shadow: var(--shadow-retro-sm);
   }
 
   .retro-btn:hover {

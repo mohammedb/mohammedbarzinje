@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { Reveal } from "@/components/ui/reveal";
 
 const experiences = [
     {
@@ -50,9 +51,11 @@ export function Experience() {
         <section id="experience" className="py-20 px-4">
             <div className="max-w-4xl mx-auto">
                 {/* Section Title as a 'File Label' */}
-                <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform -rotate-1">
-                    <h2 className="text-xl font-black uppercase tracking-wider">Experience.log</h2>
-                </div>
+                <Reveal>
+                    <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[var(--shadow-retro-sm)] transform -rotate-1">
+                        <h2 className="type-label text-xl text-black">Experience.log</h2>
+                    </div>
+                </Reveal>
 
                 <div ref={ref} className="relative ml-2 md:ml-6 space-y-12">
                     {/* Animated Line */}
@@ -80,7 +83,7 @@ export function Experience() {
                                 className={`absolute -left-[9px] top-6 w-5 h-5 border-2 border-black rounded-full ${exp.color} z-10`}
                             />
 
-                            <div className="window-frame p-6 hover:translate-x-1 transition-transform bg-[#fdfbf7]">
+                            <div className="window-frame p-6 hover:-translate-y-1 hover:shadow-[var(--shadow-retro-lg)] transition-all duration-300 bg-[#fdfbf7]">
                                 <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
                                     <h3 className="text-xl font-bold uppercase">{exp.role}</h3>
                                     <span className="text-xs font-mono bg-black text-white px-2 py-1">{exp.period}</span>

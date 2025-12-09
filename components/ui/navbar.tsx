@@ -46,7 +46,7 @@ export function Navbar() {
         },
         sticky: {
             backgroundColor: "var(--bg-window)",
-            boxShadow: "4px 4px 0px 0px rgba(0,0,0,0.8)",
+            boxShadow: "var(--shadow-retro-sm)",
             backdropFilter: "blur(12px)",
             borderColor: "#000000",
         }
@@ -98,9 +98,10 @@ export function Navbar() {
                         <Link
                             key={link.name}
                             href={link.href}
-                            className="font-bold uppercase text-xs tracking-widest hover:text-[var(--accent-purple)] transition-colors"
+                            className="relative font-bold uppercase text-xs tracking-widest hover:text-[var(--accent-purple)] transition-colors group"
                         >
                             {link.name}
+                            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-[var(--accent-purple)] transition-all duration-300 group-hover:w-full" />
                         </Link>
                     ))}
                     <a
@@ -131,7 +132,7 @@ export function Navbar() {
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="absolute top-full left-0 right-0 mt-2 bg-[var(--bg-window)] border-2 border-black rounded-xl p-4 flex flex-col gap-4 md:hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)]"
+                        className="absolute top-full left-0 right-0 mt-2 bg-[var(--bg-window)] border-2 border-black rounded-xl p-4 flex flex-col gap-4 md:hidden shadow-[var(--shadow-retro-md)]"
                     >
                         {links.map((link) => (
                             <Link

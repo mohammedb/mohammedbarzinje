@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Reveal } from "@/components/ui/reveal";
 
 const partners = [
     { name: "ESL", logo: "/logos/esl.png" },
@@ -16,9 +17,11 @@ export function Partners() {
     return (
         <section className="py-24 overflow-hidden">
             <div className="max-w-6xl mx-auto px-4 mb-16">
-                <div className="inline-block bg-[#cafb42] border-2 border-black px-6 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform -rotate-2 hover:rotate-0 transition-transform duration-300">
-                    <h2 className="text-2xl md:text-3xl font-black uppercase tracking-wider text-black">Worked_With</h2>
-                </div>
+                <Reveal>
+                    <div className="inline-block bg-[#cafb42] border-2 border-black px-6 py-2 shadow-[var(--shadow-retro-sm)] transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+                        <h2 className="type-label text-2xl md:text-3xl text-black">Worked_With</h2>
+                    </div>
+                </Reveal>
             </div>
 
             {/* Marquee Container */}
@@ -40,7 +43,7 @@ export function Partners() {
                             key={`${partner.name}-${index}`}
                             className="flex-shrink-0 mx-8 group/card"
                         >
-                            <div className="w-48 h-32 md:w-64 md:h-40 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                            <div className="w-48 h-32 md:w-64 md:h-40 bg-white border-2 border-black shadow-[var(--shadow-retro-sm)] flex items-center justify-center p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-retro-md)]">
                                 <div className="relative w-full h-full filter grayscale opacity-60 transition-all duration-500 group-hover/card:grayscale-0 group-hover/card:opacity-100 mix-blend-multiply">
                                     <Image
                                         src={partner.logo}

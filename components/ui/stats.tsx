@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import { Reveal } from "@/components/ui/reveal";
 import { useRef, useEffect, useState } from "react";
 import { Trophy, Target, DollarSign, Medal, Gamepad2, Calendar } from "lucide-react";
 
@@ -76,12 +77,14 @@ export function Stats() {
         <section id="stats" className="py-20 px-4">
             <div className="max-w-6xl mx-auto">
                 {/* Section Title */}
-                <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform rotate-1">
-                    <h2 className="text-xl font-black uppercase tracking-wider">Riddle Esports Legacy</h2>
-                </div>
+                <Reveal>
+                    <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[var(--shadow-retro-sm)] transform rotate-1">
+                        <h2 className="type-label text-xl text-black">Riddle Esports Legacy</h2>
+                    </div>
+                </Reveal>
 
                 {/* Stats Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {stats.map((stat, index) => (
                         <motion.div
                             key={index}

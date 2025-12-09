@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Folder, ArrowUpRight, X, ExternalLink } from "lucide-react";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { Folder, ArrowUpRight, X, ExternalLink, Github } from "lucide-react";
+import Image from "next/image";
+import { Reveal } from "@/components/ui/reveal";
 
 const projects = [
     {
@@ -38,11 +40,12 @@ export function Projects() {
 
     return (
         <section id="projects" className="py-20 px-4 md:px-4">
-            <div className="max-w-6xl mx-auto">
-
-                <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform rotate-1">
-                    <h2 className="text-xl font-black uppercase tracking-wider">Projects_Folder</h2>
-                </div>
+            <div className="max-w-6xl mx-auto px-4 mb-20">
+                <Reveal>
+                    <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[var(--shadow-retro-sm)] transform rotate-1">
+                        <h2 className="type-label text-xl text-black">Projects_Folder</h2>
+                    </div>
+                </Reveal>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {projects.map((project, index) => (

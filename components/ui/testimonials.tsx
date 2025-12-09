@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
+import { Reveal } from "@/components/ui/reveal";
 
 const testimonials = [
     {
@@ -32,9 +33,11 @@ export function Testimonials() {
         <section id="testimonials" className="py-20 px-4">
             <div className="max-w-6xl mx-auto">
                 {/* Section Title */}
-                <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform rotate-2">
-                    <h2 className="text-xl font-black uppercase tracking-wider">Kind_Words.txt</h2>
-                </div>
+                <Reveal>
+                    <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[var(--shadow-retro-sm)] transform rotate-2">
+                        <h2 className="type-label text-xl text-black">Kind_Words.txt</h2>
+                    </div>
+                </Reveal>
 
                 {/* Testimonials Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -49,7 +52,7 @@ export function Testimonials() {
                             className={`window-frame p-6 pt-8 ${testimonial.color} ${testimonial.rotate} hover:rotate-0 transition-transform relative overflow-visible`}
                         >
                             {/* Quote Icon */}
-                            <div className="absolute -top-4 left-4 w-10 h-10 bg-black rounded-full flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)]">
+                            <div className="absolute -top-4 left-4 w-10 h-10 bg-black rounded-full flex items-center justify-center border-2 border-black shadow-[var(--shadow-retro-sm)]">
                                 <Quote className="w-5 h-5 text-white fill-white" />
                             </div>
 

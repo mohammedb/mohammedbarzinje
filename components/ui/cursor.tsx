@@ -8,14 +8,14 @@ export function CustomCursor() {
     const [isHovering, setIsHovering] = useState(false);
     const [magneticPos, setMagneticPos] = useState({ x: 0, y: 0 });
     const [isMagnetic, setIsMagnetic] = useState(false);
+    const [isClicking, setIsClicking] = useState(false);
 
     useEffect(() => {
         const updateMousePosition = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
-            const isClickable = target.closest('a') || target.closest('button');
+            const isClickable = target.closest('a') || target.closest('button') || target.closest('.cursor-pointer');
 
             setIsHovering(!!isClickable);
-
             if (isClickable) {
                 const rect = (isClickable as HTMLElement).getBoundingClientRect();
                 const centerX = rect.left + rect.width / 2;
@@ -25,14 +25,9 @@ export function CustomCursor() {
                 const disX = Math.abs(centerX - e.clientX);
                 const disY = Math.abs(centerY - e.clientY);
 
-                // If close to center, snap
                 if (disX < rect.width / 2 && disY < rect.height / 2) {
                     setIsMagnetic(true);
                     setMagneticPos({ x: centerX, y: centerY });
-                    // Still update mouse pos but blend it? 
-                    // For simple magnetic, we just override the cursor pos to be center
-                    // But usually we want some "pull". 
-                    // Let's just track raw mouse for now and handle "stick" in animation
                     setMousePosition({ x: e.clientX, y: e.clientY });
                 } else {
                     setIsMagnetic(false);
@@ -44,10 +39,17 @@ export function CustomCursor() {
             }
         };
 
+        const handleMouseDown = () => setIsClicking(true);
+        const handleMouseUp = () => setIsClicking(false);
+
         window.addEventListener("mousemove", updateMousePosition);
+        window.addEventListener("mousedown", handleMouseDown);
+        window.addEventListener("mouseup", handleMouseUp);
 
         return () => {
             window.removeEventListener("mousemove", updateMousePosition);
+            window.removeEventListener("mousedown", handleMouseDown);
+            window.removeEventListener("mouseup", handleMouseUp);
         };
     }, []);
 
@@ -58,10 +60,11 @@ export function CustomCursor() {
                 animate={{
                     x: isMagnetic ? magneticPos.x - 24 : mousePosition.x - 16,
                     y: isMagnetic ? magneticPos.y - 24 : mousePosition.y - 16,
-                    scale: isMagnetic ? 1.5 : (isHovering ? 1.5 : 1),
+                    scale: isClicking ? 0.8 : (isMagnetic ? 1.5 : (isHovering ? 1.5 : 1)),
                     height: isMagnetic ? 48 : 32,
                     width: isMagnetic ? 48 : 32,
                     rotate: isHovering ? 45 : 0,
+                    borderColor: isClicking ? "#b0aefb" : "#cafb42"
                 }}
                 transition={{
                     type: "spring",
@@ -75,6 +78,7 @@ export function CustomCursor() {
                 animate={{
                     x: mousePosition.x - 4,
                     y: mousePosition.y - 4,
+                    scale: isClicking ? 0.5 : 1
                 }}
                 transition={{
                     type: "spring",
