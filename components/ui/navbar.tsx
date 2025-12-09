@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 export function Navbar() {
     const links = [
         { name: "Home", href: "/" },
+        { name: "About", href: "#about" },
         { name: "Experience", href: "#experience" },
         { name: "Projects", href: "#projects" },
         { name: "Contact", href: "#contact" },
@@ -102,6 +103,13 @@ export function Navbar() {
                             {link.name}
                         </Link>
                     ))}
+                    <a
+                        href="/Resume.pdf"
+                        download
+                        className="font-bold uppercase text-xs tracking-widest hover:text-[var(--accent-purple)] transition-colors border-2 border-black px-3 py-1.5 rounded-full hover:bg-black hover:text-white"
+                    >
+                        Download CV
+                    </a>
                     <a
                         href="mailto:mohammedbarzinje@gmail.com"
                         className="retro-btn py-1.5 px-4 text-xs"
