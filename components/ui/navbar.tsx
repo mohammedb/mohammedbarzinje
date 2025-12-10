@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -87,9 +88,19 @@ export function Navbar() {
                         <div className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-black/20" />
                         <div className="w-3 h-3 rounded-full bg-[#27c93f] border border-black/20" />
                     </div>
-                    <span className="font-black uppercase tracking-wider text-sm md:text-base border-l-2 border-black pl-4 ml-2">
-                        mohammedbarzinje.com
-                    </span>
+                    <Link href="/" className="border-l-2 border-black pl-4 ml-2 flex items-center gap-3">
+                        <Image
+                            src="/logo.webp"
+                            alt="Mohammed Barzinje"
+                            width={120}
+                            height={32}
+                            className="h-6 md:h-8 w-auto"
+                            priority
+                        />
+                        <span className="font-black uppercase tracking-wider text-xs md:text-sm hidden sm:inline">
+                            Mohammed Barzinje
+                        </span>
+                    </Link>
                 </div>
 
                 {/* Desktop Links */}

@@ -1,7 +1,16 @@
+import Image from "next/image";
+
 export function Footer() {
     return (
         <footer id="contact" className="py-12 px-4 text-center">
             <div className="max-w-2xl mx-auto">
+                <Image
+                    src="/logo.webp"
+                    alt="Mohammed Barzinje"
+                    width={150}
+                    height={40}
+                    className="h-10 w-auto mx-auto mb-8 opacity-80"
+                />
                 <h2 className="text-3xl font-black mb-8">Ready to Collaborate?</h2>
                 <div className="flex justify-center gap-6 mb-12">
                     <a href="mailto:mohammedbarzinje@gmail.com" className="retro-btn bg-[#b0aefb] hover:text-[#b0aefb]">
