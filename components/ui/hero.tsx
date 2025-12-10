@@ -125,7 +125,7 @@ export function Hero() {
 
                         <Reveal delay={0.6}>
                             <p className="text-lg md:text-xl font-medium text-[#444] leading-relaxed max-w-lg mb-10">
-                                Based in Norway. Managing <span className="bg-[#cafb42] border border-black px-1 shadow-[var(--shadow-retro-sm)] hover:bg-[#b0aefb] transition-colors cursor-default">esports</span> ecosystems and building meaningful digital experiences.
+                                Based in Norway. Driving <span className="bg-[#cafb42] border border-black px-1 shadow-[var(--shadow-retro-sm)] hover:bg-[#b0aefb] transition-colors cursor-default">product strategy</span> and building meaningful digital experiences across esports and marketplace verticals.
                                 <br /><br />
                                 Founder of ReddMaten & Riddle Esports.
                             </p>

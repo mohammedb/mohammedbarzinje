@@ -5,31 +5,31 @@ import { Reveal } from "@/components/ui/reveal";
 
 const experiences = [
     {
-        role: "Founder",
+        role: "Founder & Product Lead",
         company: "ReddMaten",
         period: "Jun 2025 – Present",
-        description: "Marketplace connecting farmers directly with consumers. Reducing food waste.",
+        description: "Leading end-to-end product development for a D2C marketplace. Driving product strategy, user research, sprint planning, and stakeholder alignment.",
         color: "bg-[#cafb42]" // Lime
     },
     {
-        role: "Founder & GM",
+        role: "Founder & General Manager",
         company: "RIDDLE ESPORTS",
         period: "Jan 2015 – Jul 2025",
-        description: "Built one of Northern Europe’s largest esports clubs. 10+ years of growth.",
+        description: "Built Northern Europe's premier esports organization. Led product roadmaps, team operations, and strategic partnerships across 10+ years.",
         color: "bg-[#b0aefb]" // Lavender
     },
     {
-        role: "Senior PM",
+        role: "Senior Product Manager",
         company: "ESL FACEIT Group",
         period: "May 2023 – Mar 2024",
-        description: "Managed large-scale tournament ecosystems for Gamers8 and EWC in Riyadh.",
+        description: "Managed tournament ecosystem products for Gamers8 and Esports World Cup. Led cross-functional teams, defined KPIs, and delivered data-driven improvements.",
         color: "bg-[#ffcdc2]" // Peach
     },
     {
-        role: "Paid Search",
+        role: "Digital Marketing Manager",
         company: "s360",
         period: "Dec 2021 – May 2023",
-        description: "Managed diverse client portfolios including Toyota Norway.",
+        description: "Managed paid search campaigns and analytics for enterprise clients including Toyota Norway. Delivered measurable ROI through data analysis.",
         color: "bg-white"
     },
 ];

@@ -18,14 +18,14 @@ const facts = [
     },
     {
         icon: Gamepad2,
-        label: "Passion",
-        value: "Gaming & Esports",
+        label: "Focus",
+        value: "Product Strategy & UX",
         color: "bg-[#ffcdc2]"
     },
     {
         icon: Coffee,
-        label: "Fuel",
-        value: "Coffee & Ambition",
+        label: "Experience",
+        value: "10+ Years in Tech",
         color: "bg-white"
     },
 ];
@@ -50,19 +50,21 @@ export function About() {
                         <h3 className="text-2xl font-black mb-6 uppercase">My Story</h3>
                         <div className="space-y-4 text-[#444] font-medium leading-relaxed">
                             <p>
-                                I started my journey in esports back in <span className="bg-[#cafb42] px-1 border border-black">2015</span> when
-                                I founded Riddle Esports. What began as a passion project grew into one of
-                                Northern Europe&apos;s largest esports organizations.
+                                As a <span className="bg-[#cafb42] px-1 border border-black">Senior Product Manager</span> with 10+ years of experience,
+                                I specialize in turning complex challenges into elegant digital solutions. My journey
+                                began in <span className="bg-[#b0aefb] px-1 border border-black">2015</span> when I founded Riddle Esports,
+                                growing it into one of Northern Europe&apos;s largest esports organizations.
                             </p>
                             <p>
-                                Over the past decade, I&apos;ve worn many hats, from building competitive teams
-                                to managing large-scale tournament ecosystems at events like <span className="bg-[#b0aefb] px-1 border border-black">Gamers8</span> and
-                                the <span className="bg-[#ffcdc2] px-1 border border-black">Esports World Cup</span>.
+                                I&apos;ve led product strategy and stakeholder management for large-scale tournament
+                                ecosystems at events like <span className="bg-[#b0aefb] px-1 border border-black">Gamers8</span> and
+                                the <span className="bg-[#ffcdc2] px-1 border border-black">Esports World Cup</span>, driving
+                                roadmap planning, cross-functional collaboration, and data-driven decision making.
                             </p>
                             <p>
-                                Today, I&apos;m channeling my entrepreneurial energy into <span className="font-bold">ReddMaten</span>,
-                                a sustainability-focused marketplace connecting farmers directly with consumers,
-                                tackling food waste one delivery at a time.
+                                Today, I&apos;m applying my product management expertise to <span className="font-bold">ReddMaten</span>,
+                                a sustainability-focused marketplace where I lead end-to-end product development,
+                                user research, and agile sprints to tackle food waste one delivery at a time.
                             </p>
                         </div>
                     </motion.div>
@@ -97,7 +99,7 @@ export function About() {
                     className="mt-8 window-frame p-6 bg-black text-white"
                 >
                     <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-                        {["Innovation", "Sustainability", "Community", "Excellence"].map((value, i) => (
+                        {["Product-Led", "Data-Driven", "User-Focused", "Agile"].map((value, i) => (
                             <span
                                 key={i}
                                 className="text-sm md:text-lg font-black uppercase tracking-wider opacity-80 hover:opacity-100 transition-opacity"

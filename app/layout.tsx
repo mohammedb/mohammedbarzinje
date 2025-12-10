@@ -18,9 +18,9 @@ const geistMono = Geist_Mono({
 
 const siteConfig = {
   name: "Mohammed Barzinje",
-  title: "Mohammed Barzinje | Product Manager & Esports Entrepreneur",
+  title: "Mohammed Barzinje | Senior Product Manager in Norway",
   description:
-    "Product Manager based in Norway. Founder of ReddMaten & Riddle Esports. Managing esports ecosystems and building meaningful digital experiences.",
+    "Senior Product Manager based in Norway with 10+ years experience in digital products, esports ecosystems, and marketplace development. Expert in agile methodologies, stakeholder management, and product strategy. Founder of ReddMaten & Riddle Esports.",
   url: "https://mohammedbarzinje.com",
   ogImage: "/og-image.png",
   links: {
@@ -39,12 +39,25 @@ export const metadata: Metadata = {
   keywords: [
     "Mohammed Barzinje",
     "Product Manager",
-    "Esports",
+    "Senior Product Manager",
+    "Product Manager Norway",
+    "Digital Product Manager",
+    "Product Management",
+    "Product Strategy",
+    "Agile Product Manager",
+    "Tech Product Manager",
+    "Stakeholder Management",
+    "Product Roadmap",
+    "User Experience",
+    "Esports Product Manager",
+    "Marketplace Product Manager",
     "Riddle Esports",
     "ReddMaten",
     "Norway",
+    "Oslo",
     "Digital Products",
     "Entrepreneur",
+    "Startup Founder",
   ],
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
