@@ -21,17 +21,26 @@ export function CustomCursor() {
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
 
-                // Distance from center
-                const disX = Math.abs(centerX - e.clientX);
-                const disY = Math.abs(centerY - e.clientY);
+                // Skip magnetic effect for large elements (like images) or elements with no-magnetic class
+                const isLargeElement = rect.width > 150 || rect.height > 150;
+                const hasNoMagnetic = (isClickable as HTMLElement).classList.contains('no-magnetic');
 
-                if (disX < rect.width / 2 && disY < rect.height / 2) {
-                    setIsMagnetic(true);
-                    setMagneticPos({ x: centerX, y: centerY });
-                    setMousePosition({ x: e.clientX, y: e.clientY });
-                } else {
+                if (isLargeElement || hasNoMagnetic) {
                     setIsMagnetic(false);
                     setMousePosition({ x: e.clientX, y: e.clientY });
+                } else {
+                    // Distance from center
+                    const disX = Math.abs(centerX - e.clientX);
+                    const disY = Math.abs(centerY - e.clientY);
+
+                    if (disX < rect.width / 2 && disY < rect.height / 2) {
+                        setIsMagnetic(true);
+                        setMagneticPos({ x: centerX, y: centerY });
+                        setMousePosition({ x: e.clientX, y: e.clientY });
+                    } else {
+                        setIsMagnetic(false);
+                        setMousePosition({ x: e.clientX, y: e.clientY });
+                    }
                 }
             } else {
                 setIsMagnetic(false);
