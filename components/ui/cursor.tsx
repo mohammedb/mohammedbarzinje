@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/lib/hooks/use-is-mobile";
 
 export function CustomCursor() {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -9,8 +10,11 @@ export function CustomCursor() {
     const [magneticPos, setMagneticPos] = useState({ x: 0, y: 0 });
     const [isMagnetic, setIsMagnetic] = useState(false);
     const [isClicking, setIsClicking] = useState(false);
+    const isMobile = useIsMobile();
 
     useEffect(() => {
+        // Skip all event listeners on mobile
+        if (isMobile) return;
         const updateMousePosition = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
             const isClickable = target.closest('a') || target.closest('button') || target.closest('.cursor-pointer');
@@ -60,7 +64,10 @@ export function CustomCursor() {
             window.removeEventListener("mousedown", handleMouseDown);
             window.removeEventListener("mouseup", handleMouseUp);
         };
-    }, []);
+    }, [isMobile]);
+
+    // Don't render anything on mobile
+    if (isMobile) return null;
 
     return (
         <>

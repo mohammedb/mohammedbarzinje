@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
+import Image from "next/image";
 import { Navbar } from "@/components/ui/navbar";
 import { Reveal } from "@/components/ui/reveal";
 
@@ -71,10 +72,13 @@ export function Hero() {
                             whileHover={{ scale: 1.02, rotate: -2 }}
                             className="relative w-64 h-80 md:w-80 md:h-96 bg-zinc-200 rounded-[2rem] border-2 border-black overflow-hidden -rotate-3 z-10 shadow-[var(--shadow-retro-md)] grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer"
                         >
-                            <img
+                            <Image
                                 src="/meg2.png"
                                 alt="Mohammed Barzinje"
-                                className="w-full h-full object-cover"
+                                fill
+                                sizes="(max-width: 768px) 256px, 320px"
+                                className="object-cover"
+                                priority
                             />
                         </motion.div>
 
