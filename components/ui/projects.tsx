@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import { Folder, ArrowUpRight, X, ExternalLink, Github } from "lucide-react";
+import { Folder, ArrowUpRight, X, ExternalLink, Github, FileText } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { Reveal } from "@/components/ui/reveal";
 
 const projects = [
@@ -14,7 +15,8 @@ const projects = [
         stats: ["Founder", "Full-Stack", "Next.js"],
         bg: "bg-[#cafb42]",
         url: "https://reddmaten.no",
-        previewImage: "/projects/reddmaten.png"
+        previewImage: "/projects/reddmaten.png",
+        caseStudySlug: "reddmaten"
     },
     {
         title: "RIDDLE",
@@ -23,7 +25,8 @@ const projects = [
         stats: ["Founder & GM", "10+ Years", "EU Masters"],
         bg: "bg-[#b0aefb]",
         url: "https://riddle.no",
-        previewImage: "/projects/riddle.png"
+        previewImage: "/projects/riddle.png",
+        caseStudySlug: "riddle-esports"
     },
     {
         title: "Gamers8",
@@ -89,13 +92,24 @@ export function Projects() {
                                     {project.description}
                                 </p>
 
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 flex-wrap">
                                     {project.stats.map((stat, i) => (
                                         <span key={i} className="text-[10px] font-bold bg-black text-white px-2 py-1 uppercase">
                                             {stat}
                                         </span>
                                     ))}
                                 </div>
+
+                                {project.caseStudySlug && (
+                                    <Link
+                                        href={`/case-studies/${project.caseStudySlug}`}
+                                        className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase hover:underline"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <FileText className="w-3 h-3" />
+                                        View Case Study
+                                    </Link>
+                                )}
                             </div>
                         </motion.div>
                     ))}
