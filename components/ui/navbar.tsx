@@ -1,164 +1,248 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
-import { Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+
+const links = [
+    { name: "About", href: "/#about" },
+    { name: "Work", href: "/#work" },
+    { name: "Case Studies", href: "/case-studies" },
+    { name: "Skills", href: "/#skills" },
+];
 
 export function Navbar() {
-    const links = [
-        { name: "Home", href: "/" },
-        { name: "About", href: "#about" },
-        { name: "Experience", href: "#experience" },
-        { name: "Projects", href: "#projects" },
-        { name: "Case Studies", href: "/case-studies" },
-        { name: "Contact", href: "#contact" },
-    ];
-
     const [isOpen, setIsOpen] = useState(false);
-    const [isSticky, setIsSticky] = useState(false);
-    const sentinelRef = useRef<HTMLDivElement>(null);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const { scrollY } = useScroll();
 
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        setIsScrolled(latest > 24);
+    });
+
+    // Lock body scroll when menu open
     useEffect(() => {
-        const handleScroll = () => {
-            if (sentinelRef.current) {
-                const rect = sentinelRef.current.getBoundingClientRect();
-                // 16px (1rem) is the top-4 offset
-                setIsSticky(rect.top <= 16);
-            }
-        };
-
-        // Initial check
-        handleScroll();
-        window.addEventListener("scroll", handleScroll);
-        window.addEventListener("resize", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-            window.removeEventListener("resize", handleScroll);
-        };
-    }, []);
-
-    const navbarVariants = {
-        initial: {
-            backgroundColor: "rgba(253, 251, 247, 0)", // transparent
-            boxShadow: "0px 0px 0px 0px rgba(0,0,0,0)",
-            backdropFilter: "blur(0px)",
-            borderColor: "transparent",
-        },
-        sticky: {
-            backgroundColor: "var(--bg-window)",
-            boxShadow: "var(--shadow-retro-sm)",
-            backdropFilter: "blur(12px)",
-            borderColor: "#000000",
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
         }
-    };
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [isOpen]);
 
     return (
         <>
-            {/* Sentinel / Spacer */}
-            {/* This element marks where the navbar SHOULD be in the flow. 
-                We use its position to toggle sticky state. 
-                When sticky, it acts as a spacer to hold height. */}
-            <div
-                ref={sentinelRef}
-                className={`w-full ${isSticky ? 'h-20 md:h-24' : 'h-px absolute opacity-0'}`}
-                aria-hidden="true"
-            />
-
-            <motion.nav
-                layout
-                initial="initial"
-                animate={isSticky ? "sticky" : "initial"}
-                variants={navbarVariants}
-                transition={{
-                    duration: 0.3,
-                    ease: "easeInOut",
-                    layout: { duration: 0.3, ease: "easeInOut" }
-                }}
-                className={`z-50 flex items-center justify-between px-6 py-4 md:px-8 border-2 rounded-2xl
-                    ${isSticky
-                        ? "fixed top-4 left-4 right-4 md:left-8 md:right-8"
-                        : "relative w-full border-transparent"
-                    }`}
-            >
-                {/* Brand / Window Title */}
-                <div className="flex items-center gap-4">
-                    <div className="flex gap-2">
-                        <div className="w-3 h-3 rounded-full bg-[#ff5f56] border border-black/20" />
-                        <div className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-black/20" />
-                        <div className="w-3 h-3 rounded-full bg-[#27c93f] border border-black/20" />
-                    </div>
-                    <Link href="/" className="border-l-2 border-black pl-4 ml-2 flex items-center gap-3">
-                        <Image
-                            src="/logo.webp"
-                            alt="Mohammed Barzinje"
-                            width={120}
-                            height={32}
-                            className="h-6 md:h-8 w-auto"
-                            priority
-                        />
-                        <span className="font-black uppercase tracking-wider text-xs md:text-sm hidden sm:inline">
-                            Mohammed Barzinje
+            <div className="fixed top-5 inset-x-0 z-[70] flex justify-center pointer-events-none px-4">
+                <motion.nav
+                    initial={false}
+                    animate={{
+                        backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.72)" : "rgba(255, 255, 255, 0.55)",
+                        boxShadow: isScrolled
+                            ? "0 8px 24px -4px rgba(10,10,10,0.10), 0 24px 56px -16px rgba(10,10,10,0.08)"
+                            : "0 2px 6px rgba(10,10,10,0.04), 0 8px 16px -4px rgba(10,10,10,0.04)",
+                    }}
+                    transition={{ duration: 0.55, ease: [0.32, 0.72, 0, 1] }}
+                    className="pointer-events-auto inline-flex items-center gap-1 rounded-full border border-[var(--rule-strong)] backdrop-blur-2xl py-1.5 pl-2 pr-1.5 max-w-full"
+                    style={{
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7)",
+                    }}
+                >
+                    {/* Brand */}
+                    <Link
+                        href="/"
+                        className="flex items-center gap-2 pl-2.5 pr-3 py-1.5 rounded-full hover:bg-[var(--ink)]/5 transition-colors duration-300"
+                        aria-label="Mohammed Barzinje — home"
+                    >
+                        <span className="relative h-7 w-7 rounded-full bg-[var(--ink)] text-[var(--canvas-soft)] flex items-center justify-center font-medium text-[12px] tracking-tight">
+                            <span className="relative z-10">MB</span>
+                            <span className="absolute inset-[2px] rounded-full ring-1 ring-white/15 pointer-events-none" />
+                        </span>
+                        <span className="hidden sm:inline-flex items-center gap-1.5 text-[12px] font-medium tracking-tight text-[var(--ink-soft)]">
+                            Mohammed
+                            <span className="text-[var(--ink-mute)]">Barzinje</span>
                         </span>
                     </Link>
-                </div>
 
-                {/* Desktop Links */}
-                <div className="hidden md:flex items-center gap-8">
-                    {links.map((link) => (
-                        <Link
-                            key={link.name}
-                            href={link.href}
-                            className="relative font-bold uppercase text-xs tracking-widest hover:text-[var(--accent-purple)] transition-colors group"
-                        >
-                            {link.name}
-                            <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-[var(--accent-purple)] transition-all duration-300 group-hover:w-full" />
-                        </Link>
-                    ))}
-                    <a
-                        href="/Resume.pdf"
-                        download
-                        className="font-bold uppercase text-xs tracking-widest hover:text-[var(--accent-purple)] transition-colors border-2 border-black px-3 py-1.5 rounded-full hover:bg-black hover:text-white"
-                    >
-                        Download CV
-                    </a>
+                    {/* Hairline divider */}
+                    <span className="hidden md:block h-5 w-px bg-[var(--rule-strong)] mx-1" aria-hidden="true" />
+
+                    {/* Desktop links */}
+                    <ul className="hidden md:flex items-center">
+                        {links.map((link) => (
+                            <li key={link.name}>
+                                <Link
+                                    href={link.href}
+                                    className="block px-3.5 py-1.5 text-[12.5px] font-medium tracking-tight text-[var(--ink-soft)] rounded-full hover:text-[var(--ink)] hover:bg-[var(--ink)]/5 transition-colors duration-300"
+                                >
+                                    {link.name}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+
+                    {/* CTA — button-in-button */}
                     <a
                         href="mailto:mohammedbarzinje@gmail.com"
-                        className="retro-btn py-1.5 px-4 text-xs"
+                        className="group hidden md:inline-flex items-center gap-2 ml-1 pl-4 pr-1 py-1 rounded-full bg-[var(--ink)] text-[var(--canvas-soft)] hover:bg-[var(--ink-soft)] transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
                     >
-                        Hire Me
+                        <span className="text-[12.5px] font-medium tracking-tight">Get in touch</span>
+                        <span className="flex items-center justify-center h-7 w-7 rounded-full bg-white/10 ring-1 ring-white/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px]">
+                            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                                <path d="M3 9 9 3M9 3H4M9 3v5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </span>
                     </a>
-                </div>
 
-                {/* Mobile Menu Toggle */}
-                <button
-                    className="md:hidden p-1 hover:bg-black/5 rounded"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    {isOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
+                    {/* Mobile toggle */}
+                    <button
+                        onClick={() => setIsOpen(true)}
+                        className="md:hidden ml-1 h-9 w-9 rounded-full bg-[var(--ink)] text-[var(--canvas-soft)] flex items-center justify-center"
+                        aria-label="Open menu"
+                    >
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                            <path d="M2 4h10M2 10h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                        </svg>
+                    </button>
+                </motion.nav>
+            </div>
 
-                {/* Mobile Menu Dropdown */}
+            {/* Full-screen mobile overlay */}
+            <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="absolute top-full left-0 right-0 mt-2 bg-[var(--bg-window)] border-2 border-black rounded-xl p-4 flex flex-col gap-4 md:hidden shadow-[var(--shadow-retro-md)]"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+                        className="fixed inset-0 z-[80] flex flex-col md:hidden"
+                        style={{
+                            backgroundColor: "rgba(244, 244, 242, 0.92)",
+                            backdropFilter: "blur(24px)",
+                            WebkitBackdropFilter: "blur(24px)",
+                        }}
                     >
-                        {links.map((link) => (
+                        {/* Close bar */}
+                        <div className="flex items-center justify-between p-5">
                             <Link
-                                key={link.name}
-                                href={link.href}
+                                href="/"
                                 onClick={() => setIsOpen(false)}
-                                className="font-bold uppercase text-sm tracking-widest hover:text-[var(--accent-purple)]"
+                                className="flex items-center gap-2"
                             >
-                                {link.name}
+                                <span className="h-8 w-8 rounded-full bg-[var(--ink)] text-[var(--canvas-soft)] flex items-center justify-center font-medium text-[12px] tracking-tight">
+                                    MB
+                                </span>
+                                <span className="text-[13px] font-medium tracking-tight text-[var(--ink-soft)]">
+                                    Mohammed Barzinje
+                                </span>
                             </Link>
-                        ))}
+                            <button
+                                onClick={() => setIsOpen(false)}
+                                className="h-10 w-10 rounded-full bg-[var(--ink)] text-[var(--canvas-soft)] flex items-center justify-center"
+                                aria-label="Close menu"
+                            >
+                                <span className="relative block h-3 w-3">
+                                    <motion.span
+                                        className="absolute left-0 top-1/2 h-px w-full bg-current origin-center"
+                                        initial={{ rotate: 0 }}
+                                        animate={{ rotate: 45 }}
+                                        transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1], delay: 0.05 }}
+                                    />
+                                    <motion.span
+                                        className="absolute left-0 top-1/2 h-px w-full bg-current origin-center"
+                                        initial={{ rotate: 0 }}
+                                        animate={{ rotate: -45 }}
+                                        transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1], delay: 0.05 }}
+                                    />
+                                </span>
+                            </button>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto px-6 pb-12 flex flex-col justify-between">
+                            <ul className="mt-8 space-y-2">
+                                {links.map((link, i) => (
+                                    <motion.li
+                                        key={link.name}
+                                        initial={{ y: 32, opacity: 0, filter: "blur(6px)" }}
+                                        animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                                        transition={{
+                                            duration: 0.7,
+                                            delay: 0.08 + i * 0.06,
+                                            ease: [0.16, 1, 0.3, 1],
+                                        }}
+                                    >
+                                        <Link
+                                            href={link.href}
+                                            onClick={() => setIsOpen(false)}
+                                            className="group flex items-baseline justify-between border-b border-[var(--rule)] py-5"
+                                        >
+                                            <span className="text-[44px] font-medium tracking-[-0.04em] leading-none text-[var(--ink)]">
+                                                {link.name}
+                                            </span>
+                                            <span className="text-[var(--ink-mute)] text-xs font-mono tabular-nums">
+                                                0{i + 1}
+                                            </span>
+                                        </Link>
+                                    </motion.li>
+                                ))}
+                                <motion.li
+                                    initial={{ y: 32, opacity: 0, filter: "blur(6px)" }}
+                                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                                    transition={{
+                                        duration: 0.7,
+                                        delay: 0.08 + links.length * 0.06,
+                                        ease: [0.16, 1, 0.3, 1],
+                                    }}
+                                >
+                                    <a
+                                        href="/Resume.pdf"
+                                        download
+                                        onClick={() => setIsOpen(false)}
+                                        className="group flex items-baseline justify-between border-b border-[var(--rule)] py-5"
+                                    >
+                                        <span className="text-[44px] font-medium tracking-[-0.04em] leading-none text-[var(--ink)]">
+                                            Résumé
+                                        </span>
+                                        <span className="text-[var(--ink-mute)] text-xs font-mono tabular-nums">
+                                            PDF
+                                        </span>
+                                    </a>
+                                </motion.li>
+                            </ul>
+
+                            <motion.div
+                                initial={{ y: 24, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                                className="mt-12 space-y-6"
+                            >
+                                <a
+                                    href="mailto:mohammedbarzinje@gmail.com"
+                                    onClick={() => setIsOpen(false)}
+                                    className="group flex items-center justify-between rounded-full bg-[var(--ink)] text-[var(--canvas-soft)] pl-5 pr-1.5 py-1.5"
+                                >
+                                    <span className="text-sm font-medium tracking-tight">
+                                        Get in touch
+                                    </span>
+                                    <span className="flex items-center justify-center h-9 w-9 rounded-full bg-white/10 ring-1 ring-white/15">
+                                        <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                                            <path d="M3 9 9 3M9 3H4M9 3v5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </span>
+                                </a>
+                                <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
+                                    <span>Oslo / Norway</span>
+                                    <span className="inline-flex items-center gap-1.5">
+                                        <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
+                                        Available
+                                    </span>
+                                </div>
+                            </motion.div>
+                        </div>
                     </motion.div>
                 )}
-            </motion.nav>
+            </AnimatePresence>
         </>
     );
 }

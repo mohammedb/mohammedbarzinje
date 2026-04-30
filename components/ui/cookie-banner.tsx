@@ -2,17 +2,14 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { X, Cookie } from "lucide-react";
 
 export const CookieBanner = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        // Check local storage after mount to avoid hydration mismatch
         const consent = localStorage.getItem("cookie-consent");
         if (!consent) {
-            // Small delay for better UX on load
-            const timer = setTimeout(() => setIsVisible(true), 1000);
+            const timer = setTimeout(() => setIsVisible(true), 1100);
             return () => clearTimeout(timer);
         }
     }, []);
@@ -31,44 +28,46 @@ export const CookieBanner = () => {
         <AnimatePresence>
             {isVisible && (
                 <motion.div
-                    initial={{ y: 100, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 100, opacity: 0 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className="fixed bottom-4 right-4 z-50 w-[90vw] max-w-md sm:right-8 sm:bottom-8"
+                    initial={{ y: 24, opacity: 0, filter: "blur(6px)" }}
+                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                    exit={{ y: 16, opacity: 0, filter: "blur(4px)" }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    className="fixed bottom-4 right-4 left-4 sm:left-auto z-[75] sm:right-6 sm:bottom-6 max-w-md"
                 >
-                    <div className="window-frame bg-[var(--bg-window)] flex flex-col shadow-[var(--shadow-retro-lg)]">
-                        {/* Window Header */}
-                        <div className="window-header py-3">
-                            <div className="flex items-center gap-2">
-                                <Cookie className="w-5 h-5 text-[var(--text-main)]" />
-                                <span className="type-label text-sm">COOKIE_POLICY.EXE</span>
+                    <div className="bezel-shell">
+                        <div className="bezel-core p-5 md:p-6 relative">
+                            <div className="flex items-center justify-between mb-4 text-[10.5px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
+                                <span className="inline-flex items-center gap-2">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+                                    Cookies
+                                </span>
+                                <span className="font-mono">/ EU GDPR</span>
                             </div>
-                            <div className="flex gap-2">
-                                <div className="w-3 h-3 rounded-full bg-yellow-400 border border-black" />
-                                <div className="w-3 h-3 rounded-full bg-green-500 border border-black" />
-                                <div className="w-3 h-3 rounded-full bg-red-500 border border-black cursor-pointer" onClick={handleDecline} />
-                            </div>
-                        </div>
-
-                        {/* Window Body */}
-                        <div className="p-6">
-                            <p className="font-bold text-lg mb-2 uppercase">We use cookies!</p>
-                            <p className="text-sm text-[var(--text-muted)] mb-6 leading-relaxed">
-                                This website uses cookies to ensure you get the best retro experience possible.
-                                We don't track anything weird, just the essentials to keep things running smoothly.
+                            <p className="text-[15px] font-medium tracking-tight text-[var(--ink)] leading-snug mb-2">
+                                Just the essentials.
+                            </p>
+                            <p className="text-[13.5px] leading-[1.55] text-[var(--ink-soft)] mb-6">
+                                This site uses minimal cookies for performance and analytics —
+                                nothing creepy, no third-party tracking.
                             </p>
 
-                            <div className="flex gap-4">
+                            <div className="flex items-center gap-2">
                                 <button
                                     onClick={handleAccept}
-                                    className="retro-btn flex-1 text-center justify-center"
+                                    className="group inline-flex items-center gap-2 rounded-full bg-[var(--ink)] text-[var(--canvas-soft)] pl-4 pr-1 py-1 transition-colors duration-500 hover:bg-[var(--ink-soft)]"
                                 >
-                                    Accept All
+                                    <span className="text-[12.5px] font-medium tracking-tight">
+                                        Accept
+                                    </span>
+                                    <span className="flex items-center justify-center h-7 w-7 rounded-full bg-white/10 ring-1 ring-white/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px]">
+                                        <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                                            <path d="M2.5 6.2 5 8.6 9.5 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </span>
                                 </button>
                                 <button
                                     onClick={handleDecline}
-                                    className="px-6 py-2 border-2 border-black rounded-full font-bold uppercase text-sm hover:bg-black hover:text-white transition-colors duration-300"
+                                    className="px-4 py-2 rounded-full text-[12.5px] font-medium tracking-tight text-[var(--ink-soft)] hover:text-[var(--ink)] hover:bg-[var(--canvas-deep)] transition-colors duration-300"
                                 >
                                     Decline
                                 </button>

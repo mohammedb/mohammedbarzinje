@@ -2,230 +2,217 @@
 
 import { motion } from "framer-motion";
 import { Reveal } from "@/components/ui/reveal";
-import { Code2, Database, Cpu } from "lucide-react";
 
 const skills = [
-    "Marketing", "Esports", "Strategy", "Product", "Retail", "SEM", "Leadership", "Data"
+    "Product Strategy",
+    "Roadmapping",
+    "User Research",
+    "Stakeholder",
+    "Sprint Planning",
+    "Data & Analytics",
+    "SEM / Paid",
+    "Leadership",
+    "Esports Ops",
 ];
 
 const languages = [
-    "Kurdish", "Norwegian", "English", "German", "Arabic"
+    { name: "Norwegian", level: "Native" },
+    { name: "English", level: "Fluent" },
+    { name: "Kurdish", level: "Native" },
+    { name: "German", level: "Conversational" },
+    { name: "Arabic", level: "Conversational" },
 ];
 
-const techStack = {
-    frontend: [
-        { name: "Next.js", highlight: true },
-        { name: "React", highlight: false },
-        { name: "TypeScript", highlight: true },
-        { name: "Tailwind CSS", highlight: false },
-        { name: "Framer Motion", highlight: false },
-    ],
-    backend: [
-        { name: "PostgreSQL", highlight: true },
-        { name: "Supabase", highlight: true },
-        { name: "Node.js", highlight: false },
-        { name: "REST APIs", highlight: false },
-    ],
-    tools: [
-        { name: "AI Coding", highlight: true },
-        { name: "Git", highlight: false },
-        { name: "Vercel", highlight: false },
-        { name: "VS Code", highlight: false },
-    ]
+const stack = {
+    Frontend: ["Next.js", "React", "TypeScript", "Tailwind", "Framer Motion"],
+    Backend: ["PostgreSQL", "Supabase", "Node.js", "REST"],
+    Tooling: ["AI-coding", "Git", "Vercel", "VS Code"],
 };
+
+const builds = [
+    {
+        name: "GGWP.no",
+        url: "https://ggwp.no",
+        note: "Full-stack Next.js + Supabase. Built from zero with AI-assisted dev.",
+    },
+    {
+        name: "Samtakhelse.no",
+        url: "https://samtakhelse.no",
+        note: "Client project — site build + ongoing technical & IT support.",
+    },
+];
 
 export function Skills() {
     return (
-        <section className="py-20 px-4">
-            <div className="max-w-5xl mx-auto space-y-8">
-
-                {/* Tech Stack Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    viewport={{ once: true }}
-                    className="window-frame bg-white p-6 md:p-12 relative overflow-hidden"
-                >
-                    {/* Background Pattern */}
-                    <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-                        <span className="text-9xl font-black">&lt;/&gt;</span>
+        <section id="skills" className="relative py-32 md:py-40 px-4 md:px-8">
+            <div className="max-w-[1280px] mx-auto">
+                {/* Section header */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-20 md:mb-24 items-end">
+                    <div className="md:col-span-7">
+                        <Reveal>
+                            <div className="eyebrow mb-6">
+                                <span className="dot" />
+                                Stack &amp; Skills{" "}
+                                <span className="text-[var(--ink-mute)] ml-1">/ N°.07</span>
+                            </div>
+                        </Reveal>
+                        <Reveal delay={0.05}>
+                            <h2 className="font-medium text-[clamp(2.5rem,6vw,5.5rem)] h-display text-[var(--ink)]">
+                                Tools I reach{" "}
+                                <span className="italic font-normal text-[var(--ink-mute)]">
+                                    for, daily.
+                                </span>
+                            </h2>
+                        </Reveal>
                     </div>
-
-                    <Reveal>
-                        <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[var(--shadow-retro-sm)] transform rotate-1">
-                            <h2 className="type-label text-xl text-black">My_Skills</h2>
+                    <Reveal delay={0.15} className="md:col-span-5">
+                        <div className="md:max-w-sm md:ml-auto text-[14px] uppercase tracking-[0.18em] text-[var(--ink-mute)] leading-[1.7]">
+                            Senior PM by training, hands-on with the modern web stack — and
+                            comfortable wherever code, design, and strategy intersect.
                         </div>
                     </Reveal>
+                </div>
 
-                    {/* Tech Stack Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        {/* Frontend */}
-                        <Reveal delay={0.2}>
-                            <div className="window-frame p-6 bg-white rotate-1 hover:rotate-0 transition-transform duration-300">
-                                <div className="border-b-2 border-black pb-4 mb-6 flex items-center justify-between">
-                                    <h3 className="type-display text-xl">Frontend</h3>
-                                    <div className="flex gap-2">
-                                        <div className="w-3 h-3 rounded-full bg-red-500 border border-black" />
-                                        <div className="w-3 h-3 rounded-full bg-yellow-500 border border-black" />
+                {/* Stack columns */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-6">
+                    {/* Tech stack — large column */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 28 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-60px" }}
+                        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+                        className="lg:col-span-7"
+                    >
+                        <div className="bezel-shell h-full">
+                            <div className="bezel-core h-full p-7 md:p-10">
+                                <div className="flex items-center justify-between mb-8 text-[10.5px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
+                                    <span>Stack</span>
+                                    <span className="font-mono">01 / 03</span>
+                                </div>
+                                <div className="space-y-8">
+                                    {Object.entries(stack).map(([group, items]) => (
+                                        <div
+                                            key={group}
+                                            className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 pb-6 last:pb-0 border-b border-[var(--rule)] last:border-b-0"
+                                        >
+                                            <div className="md:col-span-3 text-[13.5px] tracking-tight text-[var(--ink)] font-medium">
+                                                {group}
+                                            </div>
+                                            <div className="md:col-span-9 flex flex-wrap gap-2">
+                                                {items.map((item) => (
+                                                    <span
+                                                        key={item}
+                                                        className="inline-flex items-center rounded-full border border-[var(--rule-strong)] bg-[var(--canvas)] px-3 py-1.5 text-[12px] font-medium tracking-tight text-[var(--ink-soft)] transition-colors hover:bg-[var(--ink)] hover:text-[var(--canvas-soft)]"
+                                                    >
+                                                        {item}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Notable builds */}
+                                <div className="mt-10 pt-6 border-t border-[var(--rule)]">
+                                    <div className="text-[10.5px] uppercase tracking-[0.22em] text-[var(--ink-mute)] mb-5">
+                                        Notable builds
+                                    </div>
+                                    <div className="space-y-4">
+                                        {builds.map((build) => (
+                                            <a
+                                                key={build.name}
+                                                href={build.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="group flex flex-col md:flex-row md:items-baseline md:gap-6 gap-1 py-3 -mx-2 px-2 rounded-2xl transition-colors hover:bg-[var(--canvas)]"
+                                            >
+                                                <span className="text-[16px] font-medium tracking-tight text-[var(--ink)] inline-flex items-center gap-2">
+                                                    {build.name}
+                                                    <span className="inline-block transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-0.5">
+                                                        ↗
+                                                    </span>
+                                                </span>
+                                                <span className="text-[13px] text-[var(--ink-soft)] leading-[1.55]">
+                                                    {build.note}
+                                                </span>
+                                            </a>
+                                        ))}
                                     </div>
                                 </div>
-                                <div className="flex flex-wrap gap-3">
-                                    {techStack.frontend.map((tech) => (
-                                        <motion.div
-                                            key={tech.name}
-                                            whileHover={{ scale: 1.05, y: -2 }}
-                                            className={`flex items-center gap-2 px-3 py-2 border border-black text-sm font-bold cursor-default ${tech.highlight ? 'bg-[#cafb42] shadow-[var(--shadow-retro-sm)]' : 'bg-[#f0f0f0] shadow-[var(--shadow-retro-sm)]'} `}
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Skills + Languages stack */}
+                    <div className="lg:col-span-5 grid grid-cols-1 gap-5 md:gap-6">
+                        {/* Skills */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 28 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            transition={{ duration: 0.85, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                            <div className="rounded-[1.75rem] border border-[var(--rule-strong)] bg-[var(--ink)] text-[var(--canvas-soft)] p-7 md:p-9 relative overflow-hidden"
+                                style={{ boxShadow: "0 12px 32px -8px rgba(10,10,10,0.20)" }}>
+                                <div className="absolute -top-10 -right-10 h-44 w-44 rounded-full bg-[var(--accent)]/15 blur-3xl pointer-events-none" />
+                                <div className="flex items-center justify-between mb-7 text-[10.5px] uppercase tracking-[0.22em] text-white/55">
+                                    <span>Skills</span>
+                                    <span className="font-mono">02 / 03</span>
+                                </div>
+                                <div className="flex flex-wrap gap-2">
+                                    {skills.map((skill, i) => (
+                                        <motion.span
+                                            key={skill}
+                                            initial={{ opacity: 0, scale: 0.95 }}
+                                            whileInView={{ opacity: 1, scale: 1 }}
+                                            viewport={{ once: true }}
+                                            transition={{
+                                                duration: 0.6,
+                                                delay: 0.05 * i,
+                                                ease: [0.16, 1, 0.3, 1],
+                                            }}
+                                            className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[12px] font-medium tracking-tight text-white/85"
                                         >
-                                            <span>{tech.name}</span>
-                                        </motion.div>
+                                            {skill}
+                                        </motion.span>
                                     ))}
                                 </div>
                             </div>
-                        </Reveal>
-
-                        {/* Backend & Tools (Grouped for layout balance) */}
-                        <div className="space-y-12">
-                            <Reveal delay={0.3}>
-                                <div className="window-frame p-6 bg-white -rotate-1 hover:rotate-0 transition-transform duration-300">
-                                    <div className="border-b-2 border-black pb-4 mb-6 flex items-center justify-between">
-                                        <h3 className="type-display text-xl">Backend</h3>
-                                        <div className="flex gap-2">
-                                            <div className="w-3 h-3 rounded-full bg-red-500 border border-black" />
-                                            <div className="w-3 h-3 rounded-full bg-yellow-500 border border-black" />
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-wrap gap-3">
-                                        {techStack.backend.map((tech) => (
-                                            <motion.div
-                                                key={tech.name}
-                                                whileHover={{ scale: 1.05, y: -2 }}
-                                                className={`flex items-center gap-2 px-3 py-2 border border-black text-sm font-bold cursor-default ${tech.highlight ? 'bg-[#b0aefb] shadow-[var(--shadow-retro-sm)]' : 'bg-[#f0f0f0] shadow-[var(--shadow-retro-sm)]'} `}
-                                            >
-                                                <span>{tech.name}</span>
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </Reveal>
-
-                            <Reveal delay={0.4}>
-                                <div className="window-frame p-6 bg-white rotate-1 hover:rotate-0 transition-transform duration-300">
-                                    <div className="border-b-2 border-black pb-4 mb-6 flex items-center justify-between">
-                                        <h3 className="type-display text-xl">Tools</h3>
-                                        <div className="flex gap-2">
-                                            <div className="w-3 h-3 rounded-full bg-red-500 border border-black" />
-                                            <div className="w-3 h-3 rounded-full bg-yellow-500 border border-black" />
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-wrap gap-3">
-                                        {techStack.tools.map((tech) => (
-                                            <motion.div
-                                                key={tech.name}
-                                                whileHover={{ scale: 1.05, y: -2 }}
-                                                className={`flex items-center gap-2 px-3 py-2 border border-black text-sm font-bold cursor-default ${tech.highlight ? 'bg-[#ffcdc2] shadow-[var(--shadow-retro-sm)]' : 'bg-[#f0f0f0] shadow-[var(--shadow-retro-sm)]'} `}
-                                            >
-                                                <span>{tech.name}</span>
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </Reveal>
-                        </div>
-                    </div>
-                    {/* Built with note */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
-                        viewport={{ once: true }}
-                        className="mt-8 pt-6 border-t border-black/20"
-                    >
-                        <div className="text-sm text-[#666] font-medium space-y-2">
-                            <p className="font-bold text-black mb-3">Notable Builds:</p>
-                            <p className="flex items-start gap-2">
-                                <span className="w-1.5 h-1.5 bg-[#cafb42] rounded-full mt-1.5 flex-shrink-0" />
-                                <span>
-                                    <a
-                                        href="https://ggwp.no"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="font-bold text-black underline hover:text-[#b0aefb] transition-colors"
-                                    >
-                                        GGWP.no
-                                    </a>{" "}
-                                    — Full-stack Next.js + Supabase (PostgreSQL), built from scratch with AI-assisted development.
-                                </span>
-                            </p>
-                            <p className="flex items-start gap-2">
-                                <span className="w-1.5 h-1.5 bg-[#b0aefb] rounded-full mt-1.5 flex-shrink-0" />
-                                <span>
-                                    <a
-                                        href="https://samtakhelse.no"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="font-bold text-black underline hover:text-[#cafb42] transition-colors"
-                                    >
-                                        Samtakhelse.no
-                                    </a>{" "}
-                                    — Client project: Built entire site + ongoing technical support & IT operations.
-                                </span>
-                            </p>
-                        </div>
-                    </motion.div>
-                </motion.div>
-
-                {/* Original Skills & Languages Section */}
-                <div className="window-frame bg-white p-8 md:p-12 relative overflow-hidden">
-                    {/* Background Pattern */}
-                    <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-                        <span className="text-9xl font-black">?</span>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5 }}
-                            viewport={{ once: true }}
-                        >
-                            <h2 className="text-2xl font-black mb-6 uppercase border-b-2 border-black inline-block">My_Skills</h2>
-                            <div className="flex flex-wrap gap-3">
-                                {skills.map((skill, index) => (
-                                    <motion.span
-                                        key={index}
-                                        initial={{ scale: 0 }}
-                                        whileInView={{ scale: 1 }}
-                                        whileHover={{ scale: 1.1, rotate: 3, backgroundColor: "#cafb42" }}
-                                        viewport={{ once: true }}
-                                        transition={{ type: "spring", stiffness: 300, delay: index * 0.05 }}
-                                        className="px-3 py-1 bg-[#f0f0f0] border border-black text-sm font-bold uppercase cursor-default shadow-[var(--shadow-retro-sm)]"
-                                    >
-                                        {skill}
-                                    </motion.span>
-                                ))}
-                            </div>
                         </motion.div>
 
+                        {/* Languages */}
                         <motion.div
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            viewport={{ once: true }}
+                            initial={{ opacity: 0, y: 28 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            transition={{ duration: 0.85, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
                         >
-                            <h2 className="text-2xl font-black mb-6 uppercase border-b-2 border-black inline-block">Languages</h2>
-                            <div className="space-y-3">
-                                {languages.map((lang, index) => (
-                                    <div key={index} className="flex items-center gap-3">
-                                        <span className="w-2 h-2 bg-black rounded-full" />
-                                        <span className="font-bold text-lg">{lang}</span>
+                            <div className="bezel-shell">
+                                <div className="bezel-core p-7 md:p-9">
+                                    <div className="flex items-center justify-between mb-7 text-[10.5px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
+                                        <span>Languages</span>
+                                        <span className="font-mono">03 / 03</span>
                                     </div>
-                                ))}
+                                    <ul className="divide-y divide-[var(--rule)]">
+                                        {languages.map((lang) => (
+                                            <li
+                                                key={lang.name}
+                                                className="flex items-baseline justify-between py-3 first:pt-0"
+                                            >
+                                                <span className="text-[16px] font-medium tracking-tight text-[var(--ink)]">
+                                                    {lang.name}
+                                                </span>
+                                                <span className="text-[11px] uppercase tracking-[0.18em] text-[var(--ink-mute)]">
+                                                    {lang.level}
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
                         </motion.div>
                     </div>
                 </div>
-
             </div>
         </section>
     );

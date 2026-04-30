@@ -5,102 +5,102 @@ import { motion } from "framer-motion";
 import { useIsMobile } from "@/lib/hooks/use-is-mobile";
 
 export function CustomCursor() {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [isHovering, setIsHovering] = useState(false);
-    const [magneticPos, setMagneticPos] = useState({ x: 0, y: 0 });
-    const [isMagnetic, setIsMagnetic] = useState(false);
-    const [isClicking, setIsClicking] = useState(false);
+    const [pos, setPos] = useState({ x: 0, y: 0 });
+    const [hovering, setHovering] = useState(false);
+    const [magnetic, setMagnetic] = useState({ active: false, x: 0, y: 0 });
+    const [clicking, setClicking] = useState(false);
     const isMobile = useIsMobile();
 
     useEffect(() => {
-        // Skip all event listeners on mobile
         if (isMobile) return;
-        const updateMousePosition = (e: MouseEvent) => {
+
+        const onMove = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
-            const isClickable = target.closest('a') || target.closest('button') || target.closest('.cursor-pointer');
+            const interactive = target.closest("a, button, .cursor-pointer");
 
-            setIsHovering(!!isClickable);
-            if (isClickable) {
-                const rect = (isClickable as HTMLElement).getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
+            if (interactive) {
+                setHovering(true);
+                const rect = (interactive as HTMLElement).getBoundingClientRect();
+                const isLarge = rect.width > 220 || rect.height > 220;
+                const noMag = (interactive as HTMLElement).classList.contains("no-magnetic");
 
-                // Skip magnetic effect for large elements (like images) or elements with no-magnetic class
-                const isLargeElement = rect.width > 150 || rect.height > 150;
-                const hasNoMagnetic = (isClickable as HTMLElement).classList.contains('no-magnetic');
-
-                if (isLargeElement || hasNoMagnetic) {
-                    setIsMagnetic(false);
-                    setMousePosition({ x: e.clientX, y: e.clientY });
+                if (isLarge || noMag) {
+                    setMagnetic({ active: false, x: 0, y: 0 });
                 } else {
-                    // Distance from center
-                    const disX = Math.abs(centerX - e.clientX);
-                    const disY = Math.abs(centerY - e.clientY);
-
-                    if (disX < rect.width / 2 && disY < rect.height / 2) {
-                        setIsMagnetic(true);
-                        setMagneticPos({ x: centerX, y: centerY });
-                        setMousePosition({ x: e.clientX, y: e.clientY });
+                    const cx = rect.left + rect.width / 2;
+                    const cy = rect.top + rect.height / 2;
+                    const dx = Math.abs(cx - e.clientX);
+                    const dy = Math.abs(cy - e.clientY);
+                    if (dx < rect.width / 2 && dy < rect.height / 2) {
+                        setMagnetic({ active: true, x: cx, y: cy });
                     } else {
-                        setIsMagnetic(false);
-                        setMousePosition({ x: e.clientX, y: e.clientY });
+                        setMagnetic({ active: false, x: 0, y: 0 });
                     }
                 }
             } else {
-                setIsMagnetic(false);
-                setMousePosition({ x: e.clientX, y: e.clientY });
+                setHovering(false);
+                setMagnetic({ active: false, x: 0, y: 0 });
             }
+            setPos({ x: e.clientX, y: e.clientY });
         };
 
-        const handleMouseDown = () => setIsClicking(true);
-        const handleMouseUp = () => setIsClicking(false);
+        const onDown = () => setClicking(true);
+        const onUp = () => setClicking(false);
 
-        window.addEventListener("mousemove", updateMousePosition);
-        window.addEventListener("mousedown", handleMouseDown);
-        window.addEventListener("mouseup", handleMouseUp);
-
+        window.addEventListener("mousemove", onMove);
+        window.addEventListener("mousedown", onDown);
+        window.addEventListener("mouseup", onUp);
         return () => {
-            window.removeEventListener("mousemove", updateMousePosition);
-            window.removeEventListener("mousedown", handleMouseDown);
-            window.removeEventListener("mouseup", handleMouseUp);
+            window.removeEventListener("mousemove", onMove);
+            window.removeEventListener("mousedown", onDown);
+            window.removeEventListener("mouseup", onUp);
         };
     }, [isMobile]);
 
-    // Don't render anything on mobile
     if (isMobile) return null;
+
+    const ringX = magnetic.active ? magnetic.x : pos.x;
+    const ringY = magnetic.active ? magnetic.y : pos.y;
+    const ringSize = magnetic.active ? 56 : hovering ? 40 : 28;
+    const dotSize = clicking ? 4 : 3;
 
     return (
         <>
+            {/* Ring */}
             <motion.div
-                className="fixed top-0 left-0 w-8 h-8 border-2 border-[#cafb42] rounded-full pointer-events-none z-[9999] mix-blend-difference"
+                className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full border"
+                style={{
+                    borderColor: "rgba(10, 10, 10, 0.35)",
+                    mixBlendMode: "multiply",
+                }}
                 animate={{
-                    x: isMagnetic ? magneticPos.x - 24 : mousePosition.x - 16,
-                    y: isMagnetic ? magneticPos.y - 24 : mousePosition.y - 16,
-                    scale: isClicking ? 0.8 : (isMagnetic ? 1.5 : (isHovering ? 1.5 : 1)),
-                    height: isMagnetic ? 48 : 32,
-                    width: isMagnetic ? 48 : 32,
-                    rotate: isHovering ? 45 : 0,
-                    borderColor: isClicking ? "#b0aefb" : "#cafb42"
+                    x: ringX - ringSize / 2,
+                    y: ringY - ringSize / 2,
+                    width: ringSize,
+                    height: ringSize,
+                    scale: clicking ? 0.85 : 1,
                 }}
                 transition={{
                     type: "spring",
-                    stiffness: 150,
-                    damping: 15,
-                    mass: 0.1
+                    stiffness: 180,
+                    damping: 20,
+                    mass: 0.18,
                 }}
             />
+            {/* Dot */}
             <motion.div
-                className="fixed top-0 left-0 w-2 h-2 bg-[#ccff00] rounded-full pointer-events-none z-[9999]"
+                className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full bg-[var(--ink)]"
                 animate={{
-                    x: mousePosition.x - 4,
-                    y: mousePosition.y - 4,
-                    scale: isClicking ? 0.5 : 1
+                    x: pos.x - dotSize / 2,
+                    y: pos.y - dotSize / 2,
+                    width: dotSize,
+                    height: dotSize,
                 }}
                 transition={{
                     type: "spring",
-                    stiffness: 500,
+                    stiffness: 600,
                     damping: 28,
-                    mass: 0.1
+                    mass: 0.1,
                 }}
             />
         </>

@@ -1,162 +1,223 @@
 "use client";
 
-import { motion, useScroll, useTransform, Variants } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { Navbar } from "@/components/ui/navbar";
-import { Reveal } from "@/components/ui/reveal";
+import Link from "next/link";
+import { useRef } from "react";
+
+const stagger = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+    },
+};
+
+const fadeUp = {
+    hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
+    show: {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] as const },
+    },
+};
 
 export function Hero() {
-    const { scrollY } = useScroll();
-    const y1 = useTransform(scrollY, [0, 500], [0, 100]);
-    const y2 = useTransform(scrollY, [0, 500], [0, -100]);
-    const rotate = useTransform(scrollY, [0, 500], [0, 10]);
+    const ref = useRef<HTMLElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start start", "end start"],
+    });
 
-    const containerVariants: Variants = {
-        hidden: { opacity: 0, scale: 0.95 },
-        visible: {
-            opacity: 1,
-            scale: 1,
-            transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.1 }
-        }
-    };
-
-    const itemVariants: Variants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-    };
-
-    const letterContainer: Variants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.05, delayChildren: 0.5 }
-        }
-    };
-
-    const letter: Variants = {
-        hidden: { y: 40, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: { type: "spring", stiffness: 100, damping: 10 }
-        }
-    };
+    const portraitY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+    const portraitScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
 
     return (
-        <section className="min-h-screen flex items-center justify-center p-2 md:p-8 overflow-hidden">
-            {/* The Window Container */}
+        <section
+            ref={ref}
+            id="top"
+            className="relative min-h-[100dvh] flex items-end pt-32 pb-12 md:pt-40 md:pb-16 px-4 md:px-8 overflow-hidden"
+        >
+            {/* Soft mesh accent — fixed-position safe (within section, not blurring scroll content) */}
+            <div className="absolute inset-0 pointer-events-none -z-10">
+                <div className="absolute top-1/3 -right-40 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle_at_center,var(--mesh-warm),transparent_60%)] blur-3xl" />
+                <div className="absolute -bottom-20 -left-20 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle_at_center,var(--mesh-cool),transparent_60%)] blur-3xl" />
+            </div>
+
             <motion.div
-                variants={containerVariants}
+                variants={stagger}
                 initial="hidden"
-                animate="visible"
-                className="w-full max-w-6xl window-frame bg-[#fdfbf7] relative mb-12"
+                animate="show"
+                className="relative w-full max-w-[1280px] mx-auto"
             >
-                {/* Window Header (Navbar) */}
-                <Navbar />
+                {/* Top meta row */}
+                <motion.div
+                    variants={fadeUp}
+                    className="hidden md:flex items-center justify-between mb-16 lg:mb-20"
+                >
+                    <div className="eyebrow">
+                        <span className="dot" />
+                        Senior Product Manager
+                    </div>
+                    <div className="flex items-center gap-6 text-[11px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
+                        <span>Oslo / Norway</span>
+                        <span className="h-3 w-px bg-[var(--rule-strong)]" aria-hidden="true" />
+                        <span>2015 — Now</span>
+                        <span className="h-3 w-px bg-[var(--rule-strong)]" aria-hidden="true" />
+                        <span className="font-mono tabular-nums">N°.01</span>
+                    </div>
+                </motion.div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[600px] relative">
-                    {/* Left: Image / Graphic Area (7 cols) */}
-                    <div className="lg:col-span-5 p-6 md:p-12 flex flex-col justify-center items-center lg:items-end relative border-b-2 lg:border-b-0 lg:border-r-2 border-black bg-zinc-50/50 overflow-hidden">
-                        {/* Decorative Background Shape */}
-                        <motion.div
-                            style={{ y: y1, rotate: rotate }}
-                            initial={{ rotate: -5, scale: 0.8 }}
-                            animate={{ rotate: 3, scale: 1 }}
-                            transition={{ duration: 1, delay: 0.2 }}
-                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[70%] bg-[#b0aefb] rounded-[2rem] border-2 border-black shadow-[var(--shadow-retro-md)] z-0"
-                        />
+                <motion.div variants={fadeUp} className="md:hidden mb-8">
+                    <div className="eyebrow">
+                        <span className="dot" />
+                        Senior Product Manager / Norway
+                    </div>
+                </motion.div>
 
-                        {/* Image placeholder wrapper */}
-                        <motion.div
-                            style={{ y: y2 }}
-                            whileHover={{ scale: 1.02, rotate: -2 }}
-                            className="relative w-64 h-80 md:w-80 md:h-96 bg-zinc-200 rounded-[2rem] border-2 border-black overflow-hidden -rotate-3 z-10 shadow-[var(--shadow-retro-md)] grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer"
+                {/* Editorial split */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
+                    {/* Left: Massive headline + lede + CTAs */}
+                    <div className="lg:col-span-8 order-2 lg:order-1">
+                        <motion.h1
+                            variants={fadeUp}
+                            className="font-medium text-[var(--ink)] text-[clamp(3.25rem,9vw,9.5rem)] h-display-lg"
                         >
-                            <Image
-                                src="/meg2.png"
-                                alt="Mohammed Barzinje"
-                                fill
-                                sizes="(max-width: 768px) 256px, 320px"
-                                className="object-cover"
-                                priority
-                            />
-                        </motion.div>
+                            <span className="block">Products</span>
+                            <span className="block">
+                                people <span className="italic font-normal">actually</span>
+                            </span>
+                            <span className="block">
+                                ship
+                                <span className="text-[var(--accent)]">.</span>
+                            </span>
+                        </motion.h1>
 
-
-
-                        {/* Floating Badge */}
-                        <Reveal delay={0.8} className="absolute bottom-16 left-8 md:left-12 z-20">
-                            <motion.div
-                                animate={{ y: [0, -10, 0] }}
-                                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                                className="bg-white border-2 border-black px-4 py-2 rounded-full shadow-[var(--shadow-retro-sm)] flex items-center gap-2"
-                            >
-                                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                                <span className="type-label text-[10px] tracking-widest text-black">Open to Work</span>
-                            </motion.div>
-                        </Reveal>
-                    </div>
-
-                    {/* Right: Content Area (5 cols) */}
-                    <div className="lg:col-span-7 p-6 md:p-16 flex flex-col justify-center text-left relative z-10">
-                        <Reveal>
-                            <h4 className="font-bold text-lg mb-4 text-[#666]">Hi, I&apos;m Mohammed!</h4>
-                        </Reveal>
-
-                        <div className="mb-8">
-                            <Reveal delay={0.35}>
-                                <div className="type-display text-5xl sm:text-6xl md:text-8xl leading-[0.9] text-[#1a1a1a]">Product</div>
-                            </Reveal>
-                            <Reveal delay={0.45}>
-                                <div
-                                    className="relative inline-block mt-2"
-                                >
-                                    <span className="sr-only">Manager</span>
-                                    {/* Keeping the complex gradient text but wrapping or styling it? 
-                                        Let's keep the existing complex letter logic but wrap the container 
-                                        Or just simplify for now to focus on the request.
-                                        Actually, let's keep the cool letter animation but maybe tighten the container?
-                                    */}
-                                    <span aria-hidden="true" className="type-display text-5xl sm:text-6xl md:text-8xl leading-[0.9] relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#b0aefb] to-[#cafb42]" style={{ WebkitTextStroke: "1.5px black" }}>
-                                        MANAGER
-                                    </span>
-                                    <span className="type-display text-5xl sm:text-6xl md:text-8xl leading-[0.9] absolute top-1 left-1 -z-10 text-black flex" style={{ WebkitTextStroke: "1.5px black" }}>
-                                        MANAGER
-                                    </span>
-                                </div>
-                            </Reveal>
-                        </div>
-
-                        <Reveal delay={0.6}>
-                            <p className="text-lg md:text-xl font-medium text-[#444] leading-relaxed max-w-lg mb-10">
-                                Based in Norway. Driving <span className="bg-[#cafb42] border border-black px-1 shadow-[var(--shadow-retro-sm)] hover:bg-[#b0aefb] transition-colors cursor-default">product strategy</span> and building meaningful digital experiences across esports and marketplace verticals.
-                                <br /><br />
-                                Founder of ReddMaten & Riddle Esports.
+                        <motion.div
+                            variants={fadeUp}
+                            className="mt-10 lg:mt-14 grid grid-cols-1 md:grid-cols-12 gap-8 items-end"
+                        >
+                            <p className="md:col-span-7 text-[15px] md:text-[17px] leading-[1.55] text-[var(--ink-soft)] max-w-xl">
+                                I&apos;m <span className="text-[var(--ink)] font-medium">Mohammed Barzinje</span> — a
+                                senior product manager based in Oslo. Ten years building digital
+                                products across <span className="text-[var(--ink)]">esports</span>,
+                                <span className="text-[var(--ink)]"> marketplaces</span> and
+                                <span className="text-[var(--ink)]"> consumer tech</span>. Founder
+                                of ReddMaten &amp; Riddle Esports.
                             </p>
-                        </Reveal>
 
-                        <Reveal delay={0.7}>
-                            <div className="flex gap-4">
-                                <motion.a
-                                    href="#projects"
-                                    className="retro-btn relative overflow-hidden group"
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                >
-                                    <span className="relative z-10">View Work</span>
-                                </motion.a>
-                                <motion.a
-                                    href="#about"
-                                    className="type-label px-6 py-2 border-2 border-transparent hover:border-black rounded-full transition-all hover:bg-white"
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                >
-                                    About Me
-                                </motion.a>
+                            <div className="md:col-span-5 flex flex-col items-start gap-4 md:items-end">
+                                <div className="flex flex-wrap items-center gap-3">
+                                    <Link
+                                        href="#work"
+                                        className="group inline-flex items-center gap-2 rounded-full bg-[var(--ink)] text-[var(--canvas-soft)] pl-5 pr-1.5 py-1.5 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[var(--ink-soft)] active:scale-[0.98]"
+                                    >
+                                        <span className="text-sm font-medium tracking-tight">
+                                            View selected work
+                                        </span>
+                                        <span className="flex items-center justify-center h-9 w-9 rounded-full bg-white/10 ring-1 ring-white/15 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px] group-hover:scale-105">
+                                            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                                                <path d="M3 9 9 3M9 3H4M9 3v5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                        </span>
+                                    </Link>
+                                    <Link
+                                        href="/case-studies"
+                                        className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium tracking-tight text-[var(--ink-soft)] hover:text-[var(--ink)] transition-colors duration-500"
+                                    >
+                                        Case studies
+                                        <span className="inline-block transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1">
+                                            →
+                                        </span>
+                                    </Link>
+                                </div>
+                                <div className="hidden md:flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
+                                    <span className="relative flex h-1.5 w-1.5">
+                                        <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
+                                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+                                    </span>
+                                    Available for new work
+                                </div>
                             </div>
-                        </Reveal>
+                        </motion.div>
                     </div>
+
+                    {/* Right: Portrait — double-bezel */}
+                    <motion.div
+                        variants={fadeUp}
+                        className="lg:col-span-4 order-1 lg:order-2 relative w-full"
+                    >
+                        <motion.div
+                            style={{ y: portraitY, scale: portraitScale }}
+                            className="relative w-full max-w-[400px] mx-auto lg:mx-0 lg:ml-auto"
+                        >
+                            {/* Outer shell */}
+                            <div className="bezel-shell relative">
+                                {/* Inner core */}
+                                <div className="bezel-core relative aspect-[4/5] overflow-hidden">
+                                    <Image
+                                        src="/meg2.png"
+                                        alt="Mohammed Barzinje"
+                                        fill
+                                        sizes="(max-width: 1024px) 90vw, 400px"
+                                        priority
+                                        className="object-cover"
+                                    />
+                                    {/* Subtle warm wash */}
+                                    <div className="absolute inset-0 pointer-events-none mix-blend-multiply bg-gradient-to-b from-transparent via-transparent to-[var(--canvas-deep)]/40" />
+                                </div>
+
+                                {/* Floating tag — bottom-left, escapes the bezel */}
+                                <div className="absolute -bottom-4 -left-4 md:-bottom-5 md:-left-5">
+                                    <div className="rounded-full bg-[var(--surface)] border border-[var(--rule-strong)] py-1.5 pl-2 pr-3.5 flex items-center gap-2 shadow-[var(--shadow-md)]">
+                                        <span className="relative flex h-2 w-2">
+                                            <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
+                                            <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--accent)]" />
+                                        </span>
+                                        <span className="text-[10.5px] uppercase tracking-[0.18em] font-medium text-[var(--ink-soft)]">
+                                            Open to work
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* Index badge — top-right, escapes the bezel */}
+                                <div className="absolute -top-3 -right-3 md:-top-4 md:-right-4">
+                                    <div className="rounded-full bg-[var(--ink)] text-[var(--canvas-soft)] h-12 w-12 md:h-14 md:w-14 flex items-center justify-center font-mono text-[10.5px] tabular-nums tracking-[0.15em] uppercase">
+                                        <span className="rotate-[-12deg] block leading-none">2026</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Caption block under portrait */}
+                            <div className="mt-6 flex items-start justify-between text-[11px] uppercase tracking-[0.22em] text-[var(--ink-mute)] px-1">
+                                <div>
+                                    <div>Currently</div>
+                                    <div className="mt-1 text-[var(--ink)] font-medium normal-case tracking-tight text-[13px]">
+                                        ReddMaten
+                                    </div>
+                                </div>
+                                <div className="text-right">
+                                    <div>Previously</div>
+                                    <div className="mt-1 text-[var(--ink)] font-medium normal-case tracking-tight text-[13px]">
+                                        ESL FACEIT
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
+
+                {/* Bottom hairline strip */}
+                <motion.div variants={fadeUp} className="mt-16 lg:mt-24 pt-6 border-t border-[var(--rule)]">
+                    <div className="flex flex-wrap items-center justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
+                        <span>Scroll to explore</span>
+                        <div className="flex items-center gap-2">
+                            <span className="h-px w-8 bg-[var(--rule-strong)]" aria-hidden="true" />
+                            <span className="font-mono text-[10px]">↓</span>
+                        </div>
+                    </div>
+                </motion.div>
             </motion.div>
         </section>
     );

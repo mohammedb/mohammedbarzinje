@@ -1,61 +1,68 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowLeft, Briefcase } from "lucide-react";
 import Link from "next/link";
 import { caseStudies } from "@/lib/case-studies";
 import { CaseStudyCard } from "@/components/ui/case-study-card";
 import { Reveal } from "@/components/ui/reveal";
 import { Navbar } from "@/components/ui/navbar";
+import { Footer } from "@/components/ui/footer";
 
 export function CaseStudiesContent() {
   return (
-    <main className="min-h-screen">
+    <main className="relative min-h-screen">
       <Navbar />
 
       {/* Hero */}
-      <section className="px-4 md:px-8 pt-8 pb-16">
-        <div className="max-w-6xl mx-auto">
-          {/* Back Link */}
+      <section className="relative pt-36 md:pt-48 pb-20 md:pb-28 px-4 md:px-8 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none -z-10">
+          <div className="absolute top-1/3 -right-32 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle_at_center,var(--mesh-warm),transparent_60%)] blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle_at_center,var(--mesh-cool),transparent_60%)] blur-3xl" />
+        </div>
+
+        <div className="max-w-[1280px] mx-auto">
           <Reveal>
-            <Link href="/#projects" className="inline-block mb-8">
-              <motion.div
-                whileHover={{ x: -4 }}
-                className="inline-flex items-center gap-2 font-bold uppercase text-xs bg-[var(--bg-window)] border-2 border-black px-4 py-2 rounded-full shadow-[var(--shadow-retro-sm)] hover:shadow-[var(--shadow-retro-md)] transition-shadow"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back to Projects
-              </motion.div>
+            <Link
+              href="/#work"
+              className="group inline-flex items-center gap-2 mb-12 text-[12px] uppercase tracking-[0.22em] text-[var(--ink-mute)] hover:text-[var(--ink)] transition-colors duration-300"
+            >
+              <span className="inline-block transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-x-1">
+                ←
+              </span>
+              Back to work
             </Link>
           </Reveal>
 
-          <Reveal delay={0.1}>
-            <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-6 shadow-[var(--shadow-retro-sm)] transform -rotate-1">
-              <span className="type-label text-lg text-black flex items-center gap-2">
-                <Briefcase className="w-4 h-4" />
-                Case_Studies
-              </span>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-end">
+            <div className="md:col-span-8">
+              <Reveal delay={0.05}>
+                <div className="eyebrow mb-6">
+                  <span className="dot" />
+                  Case Studies <span className="text-[var(--ink-mute)] ml-1">/ Deep dives</span>
+                </div>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <h1 className="font-medium text-[clamp(3rem,8vw,8rem)] h-display-lg text-[var(--ink)]">
+                  Selected{" "}
+                  <span className="italic font-normal text-[var(--ink-mute)]">
+                    deep dives.
+                  </span>
+                </h1>
+              </Reveal>
             </div>
-          </Reveal>
-
-          <Reveal delay={0.2}>
-            <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6">
-              Deep Dives
-            </h1>
-          </Reveal>
-
-          <Reveal delay={0.3}>
-            <p className="text-xl md:text-2xl max-w-2xl text-black/70 font-medium">
-              A closer look at the challenges, solutions, and results behind my key projects.
-            </p>
-          </Reveal>
+            <Reveal delay={0.2} className="md:col-span-4">
+              <p className="md:max-w-sm md:ml-auto text-[15px] md:text-[16px] leading-[1.6] text-[var(--ink-soft)]">
+                A closer look at the challenges, decisions, and outcomes behind a few
+                of the projects I&apos;ve owned end-to-end.
+              </p>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* Case Studies Grid */}
-      <section className="px-4 md:px-8 pb-24">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* Grid */}
+      <section className="px-4 md:px-8 pb-32">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
             {caseStudies.map((caseStudy, index) => (
               <CaseStudyCard key={caseStudy.slug} caseStudy={caseStudy} index={index} />
             ))}
@@ -63,27 +70,7 @@ export function CaseStudiesContent() {
         </div>
       </section>
 
-      {/* Footer CTA */}
-      <section className="px-4 md:px-8 pb-24">
-        <div className="max-w-6xl mx-auto">
-          <Reveal>
-            <div className="window-frame bg-black text-white p-8 md:p-12 text-center">
-              <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tight mb-4">
-                Want to work together?
-              </h2>
-              <p className="text-white/70 mb-8 max-w-lg mx-auto">
-                I'm always open to discussing new projects and opportunities.
-              </p>
-              <a
-                href="mailto:mohammedbarzinje@gmail.com"
-                className="inline-block bg-[var(--accent-lime)] text-black font-black px-8 py-3 border-2 border-white rounded-full hover:bg-white transition-colors uppercase tracking-wide text-sm"
-              >
-                Get in Touch
-              </a>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <Footer />
     </main>
   );
 }

@@ -1,73 +1,93 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
 @layer theme {
   :root {
-    --bg-page-start: #ffecd2;
-    /* Light Peach */
-    --bg-page-end: #fcb69f;
-    /* Warm Pink */
-    --bg-window: #fdfbf7;
-    /* Bone White */
-    --text-main: #1a1a1a;
-    /* Jet Black */
-    --text-muted: #666666;
+    /* Soft Structuralism — silver canvas, deep ink, two quiet accents */
+    --canvas: #f4f4f2;
+    --canvas-soft: #fafaf8;
+    --canvas-deep: #ebeae6;
+    --canvas-edge: #e1e0db;
+    --surface: #ffffff;
 
-    --accent-lime: #cafb42;
-    /* Neon Lime */
-    --accent-purple: #b0aefb;
-    /* Lavender */
-    --accent-dark: #121212;
+    --ink: #0a0a0a;
+    --ink-soft: #1f1f1d;
+    --ink-mute: #6b6b66;
+    --ink-faint: #aeaea8;
 
-    /* Semantic Shadows (Standardized) */
-    --shadow-retro-sm: 4px 4px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-retro-md: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-retro-lg: 12px 12px 0px 0px rgba(0, 0, 0, 0.8);
+    --rule: rgba(10, 10, 10, 0.06);
+    --rule-strong: rgba(10, 10, 10, 0.12);
+    --rule-faint: rgba(10, 10, 10, 0.04);
+
+    /* Accents — used sparingly for energy */
+    --accent: #ff4d2b;
+    --accent-soft: #ffe6dc;
+    --indigo: #4338ca;
+    --indigo-soft: #e0ddf9;
+
+    --mesh-warm: rgba(255, 77, 43, 0.10);
+    --mesh-cool: rgba(67, 56, 202, 0.08);
+
+    /* Diffused ambient shadows — daylight-soft, never harsh */
+    --shadow-xs: 0 1px 2px rgba(10, 10, 10, 0.04);
+    --shadow-sm: 0 2px 6px rgba(10, 10, 10, 0.04), 0 8px 16px -4px rgba(10, 10, 10, 0.04);
+    --shadow-md: 0 4px 12px -2px rgba(10, 10, 10, 0.06), 0 16px 32px -8px rgba(10, 10, 10, 0.06);
+    --shadow-lg: 0 8px 24px -4px rgba(10, 10, 10, 0.08), 0 32px 64px -16px rgba(10, 10, 10, 0.08);
+    --shadow-inset-hi: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+    /* Easing — never linear, never ease-in-out */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+    --ease-spring-soft: cubic-bezier(0.34, 1.4, 0.64, 1);
   }
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    background-color: var(--canvas);
   }
 
   body {
-    background-image: linear-gradient(135deg, var(--bg-page-start) 0%, var(--bg-page-end) 100%);
-    color: var(--text-main);
-    @apply antialiased font-sans min-h-screen selection:bg-[#cafb42] selection:text-black;
+    background-color: var(--canvas);
+    background-image:
+      radial-gradient(900px 520px at 8% -8%, var(--mesh-warm), transparent 65%),
+      radial-gradient(800px 480px at 100% 110%, var(--mesh-cool), transparent 60%);
+    color: var(--ink);
+    font-feature-settings: "ss01", "ss02", "cv11";
+    @apply antialiased font-sans min-h-screen selection:bg-[var(--ink)] selection:text-[var(--canvas-soft)];
     cursor: none;
     position: relative;
   }
 
-  /* Restore default cursor on mobile/touch devices */
   @media (max-width: 767px), (pointer: coarse) {
     body {
       cursor: auto;
     }
   }
 
-  /* Grain Texture */
+  /* Whisper-soft grain — for paper feel without noise */
   body::before {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     pointer-events: none;
-    z-index: 50;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-    opacity: 0.15;
-    mix-blend-mode: overlay;
+    z-index: 60;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    mix-blend-mode: multiply;
   }
 
-  /* Hide grain texture on mobile for better performance */
   @media (max-width: 767px) {
     body::before {
-      display: none;
+      opacity: 0.015;
     }
   }
 
-  /* Reduced motion support for accessibility and performance */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -83,47 +103,114 @@
     }
   }
 
-  /* Retro Window Utilities */
-  .window-frame {
-    @apply bg-[var(--bg-window)] border-2 border-black rounded-3xl overflow-hidden;
-    box-shadow: var(--shadow-retro-lg);
+  /* Eyebrow — micro pill before H1/H2 */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.22em] font-medium;
+    background-color: rgba(10, 10, 10, 0.04);
+    color: var(--ink-soft);
+    border: 1px solid var(--rule);
   }
 
-  .window-header {
-    @apply border-b-2 border-black bg-[var(--bg-window)] px-6 py-4 flex items-center justify-between;
+  .eyebrow .dot {
+    @apply h-[6px] w-[6px] rounded-full;
+    background-color: var(--accent);
   }
 
-  /* Typography Utilities */
-  .type-display {
-    @apply font-black uppercase tracking-tighter;
+  /* Hairline rule */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--rule-strong), transparent);
   }
 
-  .type-label {
-    @apply font-bold uppercase tracking-widest text-xs;
+  /* Double-bezel — outer shell + inner core */
+  .bezel-shell {
+    background-color: var(--canvas-deep);
+    border: 1px solid var(--rule-strong);
+    border-radius: 2rem;
+    padding: 0.4rem;
+    box-shadow: var(--shadow-md);
   }
 
-  .retro-btn {
-    @apply bg-[var(--accent-lime)] text-black font-black px-6 py-2 border-2 border-black rounded-full hover:bg-black hover:text-[#cafb42] transition-all duration-300 uppercase tracking-wide text-sm;
-    box-shadow: var(--shadow-retro-sm);
+  .bezel-core {
+    background-color: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: calc(2rem - 0.4rem);
+    box-shadow: var(--shadow-inset-hi);
   }
 
-  .retro-btn:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
-  }
-
-  /* Marquee Animation */
+  /* Marquee */
   @keyframes marquee {
     0% {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
-
     100% {
-      transform: translateX(-33.33%);
+      transform: translate3d(-33.333%, 0, 0);
     }
   }
 
   .animate-marquee {
-    animation: marquee 60s linear infinite;
+    animation: marquee 70s linear infinite;
+    will-change: transform;
+  }
+
+  /* Subtle floating idle */
+  @keyframes float-y {
+    0%, 100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -8px, 0);
+    }
+  }
+
+  .animate-float {
+    animation: float-y 6s var(--ease-out-fluid) infinite;
+  }
+
+  /* Caret blink */
+  @keyframes caret {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  .animate-caret {
+    animation: caret 1.05s steps(1, end) infinite;
+  }
+
+  /* Subtle conic glow for accent rings */
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 24s linear infinite;
+  }
+
+  /* Tighten display headlines */
+  .h-display {
+    letter-spacing: -0.04em;
+    line-height: 0.92;
+  }
+
+  .h-display-lg {
+    letter-spacing: -0.045em;
+    line-height: 0.88;
+  }
+
+  /* Custom transitions */
+  .tr-fluid {
+    transition-timing-function: var(--ease-out-fluid);
+    transition-duration: 700ms;
+  }
+
+  .tr-spring {
+    transition-timing-function: var(--ease-spring-soft);
+    transition-duration: 600ms;
+  }
+
+  .tr-expo {
+    transition-timing-function: var(--ease-out-expo);
+    transition-duration: 800ms;
   }
 }

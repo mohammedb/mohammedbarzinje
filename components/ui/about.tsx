@@ -1,114 +1,188 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Languages, Coffee, Gamepad2 } from "lucide-react";
+import { Reveal } from "@/components/ui/reveal";
 
 const facts = [
-    {
-        icon: MapPin,
-        label: "Based in",
-        value: "Norway",
-        color: "bg-[#cafb42]"
-    },
-    {
-        icon: Languages,
-        label: "Languages",
-        value: "Norwegian, English, Kurdish",
-        color: "bg-[#b0aefb]"
-    },
-    {
-        icon: Gamepad2,
-        label: "Focus",
-        value: "Product Strategy & UX",
-        color: "bg-[#ffcdc2]"
-    },
-    {
-        icon: Coffee,
-        label: "Experience",
-        value: "10+ Years in Tech",
-        color: "bg-white"
-    },
+    { label: "Based in", value: "Oslo / Norway", note: "On UTC+1" },
+    { label: "Languages", value: "5", note: "NO · EN · KU · DE · AR" },
+    { label: "Focus", value: "Product Strategy", note: "& Hands-on UX" },
+    { label: "Experience", value: "10+ years", note: "Since 2015" },
 ];
+
+const principles = ["Product-led", "Data-driven", "User-focused", "Quietly agile"];
 
 export function About() {
     return (
-        <section id="about" className="py-20 px-4">
-            <div className="max-w-5xl mx-auto">
-                {/* Section Title */}
-                <div className="inline-block bg-white border-2 border-black px-4 py-1 mb-12 shadow-[var(--shadow-retro-sm)] transform -rotate-1">
-                    <h2 className="text-xl font-black uppercase tracking-wider">About_Me.txt</h2>
+        <section id="about" className="relative py-32 md:py-40 px-4 md:px-8">
+            <div className="max-w-[1280px] mx-auto">
+                {/* Section header */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-16 md:mb-24 items-end">
+                    <div className="md:col-span-7">
+                        <Reveal>
+                            <div className="eyebrow mb-6">
+                                <span className="dot" />
+                                About <span className="text-[var(--ink-mute)] ml-1">/ N°.02</span>
+                            </div>
+                        </Reveal>
+                        <Reveal delay={0.05}>
+                            <h2 className="font-medium text-[clamp(2.5rem,6vw,5.5rem)] h-display text-[var(--ink)]">
+                                A decade of product,{" "}
+                                <span className="italic font-normal text-[var(--ink-mute)]">
+                                    quietly compounding.
+                                </span>
+                            </h2>
+                        </Reveal>
+                    </div>
+                    <Reveal delay={0.15} className="md:col-span-5">
+                        <div className="md:max-w-sm md:ml-auto text-[14px] uppercase tracking-[0.18em] text-[var(--ink-mute)] leading-[1.7]">
+                            From founding Northern Europe&apos;s largest esports org to leading
+                            tournament tech for ESL FACEIT — and now back to building from
+                            zero.
+                        </div>
+                    </Reveal>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {/* Left: Story Card */}
+                {/* Asymmetric bento */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-6">
+                    {/* Story — large card */}
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="window-frame p-8 bg-[#fdfbf7]"
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+                        className="lg:col-span-7"
                     >
-                        <h3 className="text-2xl font-black mb-6 uppercase">My Story</h3>
-                        <div className="space-y-4 text-[#444] font-medium leading-relaxed">
-                            <p>
-                                As a <span className="bg-[#cafb42] px-1 border border-black">Senior Product Manager</span> with 10+ years of experience,
-                                I specialize in turning complex challenges into elegant digital solutions. My journey
-                                began in <span className="bg-[#b0aefb] px-1 border border-black">2015</span> when I founded Riddle Esports,
-                                growing it into one of Northern Europe&apos;s largest esports organizations.
-                            </p>
-                            <p>
-                                I&apos;ve led product strategy and stakeholder management for large-scale tournament
-                                ecosystems at events like <span className="bg-[#b0aefb] px-1 border border-black">Gamers8</span> and
-                                the <span className="bg-[#ffcdc2] px-1 border border-black">Esports World Cup</span>, driving
-                                roadmap planning, cross-functional collaboration, and data-driven decision making.
-                            </p>
-                            <p>
-                                Today, I&apos;m applying my product management expertise to <span className="font-bold">ReddMaten</span>,
-                                a sustainability-focused marketplace where I lead end-to-end product development,
-                                user research, and agile sprints to tackle food waste one delivery at a time.
-                            </p>
+                        <div className="bezel-shell h-full">
+                            <div className="bezel-core h-full p-8 md:p-12 relative">
+                                <div className="flex items-center justify-between mb-10 text-[10.5px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
+                                    <span>Story</span>
+                                    <span className="font-mono">01 / 04</span>
+                                </div>
+                                <div className="space-y-6 text-[16px] md:text-[18px] leading-[1.65] text-[var(--ink-soft)]">
+                                    <p>
+                                        I&apos;ve spent the last ten years turning ambiguous
+                                        problems into products that actually ship — starting in
+                                        2015 by founding{" "}
+                                        <span className="text-[var(--ink)] font-medium">
+                                            Riddle Esports
+                                        </span>
+                                        , which grew into Northern Europe&apos;s most-decorated
+                                        org with five national titles and EU Masters
+                                        qualification.
+                                    </p>
+                                    <p>
+                                        At{" "}
+                                        <span className="text-[var(--ink)] font-medium">
+                                            ESL FACEIT
+                                        </span>
+                                        , I led product for the tournament ecosystem behind
+                                        Gamers8 and the Esports World Cup — owning roadmap,
+                                        data, and cross-functional delivery for the largest
+                                        gaming festivals on the planet.
+                                    </p>
+                                    <p>
+                                        Today I&apos;m building{" "}
+                                        <span className="text-[var(--ink)] font-medium">
+                                            ReddMaten
+                                        </span>
+                                        , a marketplace that diverts &lsquo;imperfect&rsquo;
+                                        produce from Norwegian farms straight to people&apos;s
+                                        kitchens. End-to-end product, design, and engineering.
+                                    </p>
+                                </div>
+
+                                {/* Sig line */}
+                                <div className="mt-10 pt-6 border-t border-[var(--rule)] flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
+                                    <span>— Mohammed</span>
+                                    <span className="font-mono">N°.02 / Story</span>
+                                </div>
+                            </div>
                         </div>
                     </motion.div>
 
-                    {/* Right: Quick Facts Grid */}
-                    <div className="grid grid-cols-2 gap-4">
-                        {facts.map((fact, index) => (
+                    {/* Facts — 2x2 inside col-span-5 */}
+                    <div className="lg:col-span-5 grid grid-cols-2 gap-5 md:gap-6">
+                        {facts.map((fact, i) => (
                             <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
+                                key={fact.label}
+                                initial={{ opacity: 0, y: 24 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                                whileHover={{ rotate: index % 2 === 0 ? 2 : -2, scale: 1.02 }}
-                                className={`window-frame p-6 ${fact.color} flex flex-col`}
+                                viewport={{ once: true, margin: "-60px" }}
+                                transition={{
+                                    duration: 0.7,
+                                    delay: 0.08 * i,
+                                    ease: [0.16, 1, 0.3, 1],
+                                }}
+                                className={`group relative rounded-[1.5rem] border border-[var(--rule-strong)] p-5 md:p-6 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 ${
+                                    i === 0
+                                        ? "bg-[var(--ink)] text-[var(--canvas-soft)] col-span-2 row-span-1"
+                                        : "bg-[var(--surface)]"
+                                }`}
+                                style={{
+                                    boxShadow:
+                                        i === 0
+                                            ? "0 12px 32px -8px rgba(10,10,10,0.20)"
+                                            : "var(--shadow-sm)",
+                                }}
                             >
-                                <fact.icon className="w-6 h-6 mb-4 stroke-[1.5]" />
-                                <span className="text-xs font-bold uppercase tracking-wider opacity-60 mb-1">
+                                <div
+                                    className={`text-[10px] uppercase tracking-[0.22em] mb-3 ${
+                                        i === 0 ? "text-white/55" : "text-[var(--ink-mute)]"
+                                    }`}
+                                >
                                     {fact.label}
-                                </span>
-                                <span className="font-bold text-sm">{fact.value}</span>
+                                </div>
+                                <div
+                                    className={`text-[28px] md:text-[34px] font-medium tracking-[-0.03em] leading-[1.05] ${
+                                        i === 0 ? "text-[var(--canvas-soft)]" : "text-[var(--ink)]"
+                                    }`}
+                                >
+                                    {fact.value}
+                                </div>
+                                <div
+                                    className={`mt-3 text-[12px] tracking-tight ${
+                                        i === 0 ? "text-white/60" : "text-[var(--ink-mute)]"
+                                    }`}
+                                >
+                                    {fact.note}
+                                </div>
+                                {i === 0 && (
+                                    <div className="absolute top-5 right-5 md:top-6 md:right-6 flex items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] text-white/55">
+                                        <span className="relative flex h-1.5 w-1.5">
+                                            <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
+                                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+                                        </span>
+                                        Live
+                                    </div>
+                                )}
                             </motion.div>
                         ))}
                     </div>
                 </div>
 
-                {/* Bottom: Values Strip */}
+                {/* Principles strip */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="mt-8 window-frame p-6 bg-black text-white"
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="mt-6 md:mt-8 rounded-[1.5rem] border border-[var(--rule)] bg-[var(--canvas-soft)] py-6 md:py-7 px-6 md:px-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-3"
                 >
-                    <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-                        {["Product-Led", "Data-Driven", "User-Focused", "Agile"].map((value, i) => (
-                            <span
-                                key={i}
-                                className="text-sm md:text-lg font-black uppercase tracking-wider opacity-80 hover:opacity-100 transition-opacity"
-                            >
-                                {value}
-                                {i < 3 && <span className="ml-4 md:ml-8 text-[#cafb42]">•</span>}
-                            </span>
-                        ))}
-                    </div>
+                    {principles.map((value, i) => (
+                        <span
+                            key={value}
+                            className="inline-flex items-center gap-3 text-[13px] md:text-[15px] tracking-tight text-[var(--ink-soft)]"
+                        >
+                            <span className="font-medium text-[var(--ink)]">{value}</span>
+                            {i < principles.length - 1 && (
+                                <span
+                                    className="h-1 w-1 rounded-full bg-[var(--ink-faint)]"
+                                    aria-hidden="true"
+                                />
+                            )}
+                        </span>
+                    ))}
                 </motion.div>
             </div>
         </section>

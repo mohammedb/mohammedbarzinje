@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import type { CaseStudy } from "@/lib/case-studies";
 
 interface CaseStudyCardProps {
@@ -10,104 +10,104 @@ interface CaseStudyCardProps {
   index: number;
 }
 
+const accents = [
+  { mesh: "bg-[var(--accent-soft)]" },
+  { mesh: "bg-[var(--indigo-soft)]" },
+];
+
 export function CaseStudyCard({ caseStudy, index }: CaseStudyCardProps) {
+  const accent = accents[index % accents.length];
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-60px" }}
       transition={{
-        delay: index * 0.1,
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
+        delay: index * 0.08,
+        duration: 0.85,
+        ease: [0.16, 1, 0.3, 1],
       }}
       className="h-full"
     >
-      <Link href={`/case-studies/${caseStudy.slug}`} className="h-full block">
-        <motion.div
-          whileHover={{ y: -8, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className="window-frame flex flex-col group bg-[var(--bg-window)] cursor-pointer h-full relative overflow-hidden"
-        >
-          {/* Animated Background Gradient */}
-          <div
-            className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br from-transparent to-black pointer-events-none`}
-          />
-
-          {/* Window Header */}
-          <div className="window-header py-3 bg-white border-b-2 border-black relative z-10">
-            <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full border border-black bg-[#ff5f56] group-hover:scale-110 transition-transform" />
-              <div className="w-3 h-3 rounded-full border border-black bg-[#ffbd2e] group-hover:scale-110 transition-transform delay-75" />
-              <div className="w-3 h-3 rounded-full border border-black bg-[#27c93f] group-hover:scale-110 transition-transform delay-150" />
-            </div>
-            <div className="flex items-center gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
-              <span className="text-[10px] font-mono uppercase tracking-widest">
-                {caseStudy.slug}.tsx
-              </span>
-            </div>
-          </div>
-
-          {/* Main Content */}
-          <div className={`p-8 flex-1 flex flex-col relative z-10 transition-colors duration-500 ease-in-out ${caseStudy.bg}`}>
-            {/* Category Badge & Role */}
-            <div className="flex justify-between items-start mb-6">
-              <span className="inline-block text-[10px] font-bold bg-black text-white px-3 py-1.5 uppercase tracking-widest shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none transition-all">
-                {caseStudy.category}
-              </span>
-              <span className="text-xs font-bold uppercase tracking-wide opacity-70">
-                {caseStudy.role}
+      <Link href={`/case-studies/${caseStudy.slug}`} className="h-full block group">
+        <div className="bezel-shell h-full transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-1">
+          <div className="bezel-core h-full overflow-hidden flex flex-col">
+            {/* Header rail */}
+            <div className="px-6 md:px-8 py-4 flex items-center justify-between border-b border-[var(--rule)]">
+              <div className="flex items-center gap-3 text-[10.5px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
+                <span className="font-mono tabular-nums">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="h-3 w-px bg-[var(--rule-strong)]" aria-hidden="true" />
+                <span>{caseStudy.category}</span>
+              </div>
+              <span className="text-[10.5px] uppercase tracking-[0.22em] text-[var(--ink-mute)] hidden md:inline">
+                {caseStudy.timeline}
               </span>
             </div>
 
-            {/* Title */}
-            <h3 className="text-4xl lg:text-5xl font-black mb-4 uppercase tracking-tighter leading-[0.9] group-hover:translate-x-1 transition-transform duration-300">
-              {caseStudy.title}
-            </h3>
+            {/* Preview */}
+            <div className={`relative w-full aspect-[16/10] ${accent.mesh} overflow-hidden`}>
+              {caseStudy.logo ? (
+                <Image
+                  src={caseStudy.logo}
+                  alt={caseStudy.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-medium text-[clamp(3rem,9vw,7rem)] tracking-[-0.04em] text-[var(--ink)]/8 select-none">
+                    {caseStudy.title}
+                  </span>
+                </div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
+            </div>
 
-            {/* Tagline */}
-            <p className="font-medium text-black/80 text-lg mb-8 leading-relaxed max-w-md">
-              {caseStudy.tagline}
-            </p>
+            {/* Body */}
+            <div className="px-6 md:px-8 py-7 md:py-8 flex-1 flex flex-col gap-5">
+              <h3 className="font-medium tracking-[-0.035em] leading-[1] text-[var(--ink)] text-[40px] md:text-[48px]">
+                {caseStudy.title}
+              </h3>
+              <p className="text-[14.5px] md:text-[15.5px] leading-[1.6] text-[var(--ink-soft)] max-w-2xl">
+                {caseStudy.tagline}
+              </p>
 
-            <div className="mt-auto">
-              {/* Results Preview (Hidden by default, slides up/in on hover) */}
-              <div className="grid grid-cols-2 gap-4 mb-6 opacity-80 lg:opacity-60 lg:group-hover:opacity-100 transition-opacity duration-300">
-                {caseStudy.results.slice(0, 2).map((result, i) => (
-                  <div key={i} className="border-l-2 border-black pl-3">
-                    <span className="block text-[10px] uppercase tracking-wider opacity-60 font-bold">{result.metric}</span>
-                    <span className="block font-black text-xl">{result.value}</span>
+              {/* Results preview */}
+              <div className="grid grid-cols-2 gap-x-6 gap-y-4 mt-2">
+                {caseStudy.results.slice(0, 2).map((result) => (
+                  <div key={result.metric} className="border-l border-[var(--rule-strong)] pl-3">
+                    <div className="text-[10px] uppercase tracking-[0.22em] text-[var(--ink-mute)] mb-1">
+                      {result.metric}
+                    </div>
+                    <div className="text-[22px] md:text-[26px] font-medium tracking-[-0.025em] text-[var(--ink)]">
+                      {result.value}
+                    </div>
                   </div>
                 ))}
               </div>
 
-              {/* Tech Stack (Horizontal Scroll/Wrap) */}
-              <div className="flex flex-wrap gap-2 mb-6 opacity-0 lg:group-hover:opacity-100 lg:-translate-y-4 lg:group-hover:translate-y-0 transition-all duration-300 ease-out delay-100 h-0 lg:h-auto overflow-hidden lg:overflow-visible group-hover:h-auto">
-                {caseStudy.technologies.slice(0, 4).map((tech) => (
-                  <span key={tech} className="text-[10px] font-mono border border-black/20 bg-white/50 px-2 py-1 rounded">
-                    {tech}
+              <div className="mt-auto pt-5 border-t border-[var(--rule)] flex items-center justify-between">
+                <div className="text-[11px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
+                  {caseStudy.role}
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full bg-[var(--ink)] text-[var(--canvas-soft)] pl-3.5 pr-1 py-1 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:bg-[var(--ink-soft)]">
+                  <span className="text-[12.5px] font-medium tracking-tight">
+                    Read case
                   </span>
-                ))}
-                {caseStudy.technologies.length > 4 && (
-                  <span className="text-[10px] font-mono px-2 py-1 opacity-50">+{caseStudy.technologies.length - 4}</span>
-                )}
-              </div>
-
-
-              {/* CTA */}
-              <div className="flex items-center justify-between border-t-2 border-black/10 pt-4 mt-2">
-                <span className="text-xs font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">
-                  {caseStudy.timeline}
-                </span>
-                <div className="flex items-center gap-2 font-black uppercase text-sm group-hover:gap-3 transition-all">
-                  View Case
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <span className="flex items-center justify-center h-6 w-6 rounded-full bg-white/10 ring-1 ring-white/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px]">
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                      <path d="M3 9 9 3M9 3H4M9 3v5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </Link>
     </motion.div>
   );

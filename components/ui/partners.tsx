@@ -1,5 +1,6 @@
+"use client";
+
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Reveal } from "@/components/ui/reveal";
 
 const partners = [
@@ -11,46 +12,56 @@ const partners = [
 ];
 
 export function Partners() {
-    // Triple the array for smoother infinite scroll with more items
-    const duplicatedPartners = [...partners, ...partners, ...partners];
+    const tripled = [...partners, ...partners, ...partners];
 
     return (
-        <section className="py-24 overflow-hidden">
-            <div className="max-w-6xl mx-auto px-4 mb-16">
-                <Reveal>
-                    <div className="inline-block bg-[#cafb42] border-2 border-black px-6 py-2 shadow-[var(--shadow-retro-sm)] transform -rotate-2 hover:rotate-0 transition-transform duration-300">
-                        <h2 className="type-label text-2xl md:text-3xl text-black">Worked_With</h2>
+        <section className="relative py-28 md:py-36 overflow-hidden">
+            <div className="max-w-[1280px] mx-auto px-4 md:px-8 mb-14 md:mb-20">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+                    <div className="md:col-span-6">
+                        <Reveal>
+                            <div className="eyebrow mb-5">
+                                <span className="dot" />
+                                Trusted with <span className="text-[var(--ink-mute)] ml-1">/ N°.06</span>
+                            </div>
+                        </Reveal>
+                        <Reveal delay={0.05}>
+                            <h2 className="font-medium text-[clamp(2rem,4.5vw,3.75rem)] h-display text-[var(--ink)]">
+                                Worked alongside{" "}
+                                <span className="italic font-normal text-[var(--ink-mute)]">
+                                    great teams.
+                                </span>
+                            </h2>
+                        </Reveal>
                     </div>
-                </Reveal>
+                    <Reveal delay={0.15} className="md:col-span-6">
+                        <div className="md:max-w-sm md:ml-auto text-[12.5px] uppercase tracking-[0.22em] text-[var(--ink-mute)] leading-[1.7]">
+                            A short selection of partners, employers, and clients across
+                            esports, automotive, and enterprise tech.
+                        </div>
+                    </Reveal>
+                </div>
             </div>
 
-            {/* Marquee Container */}
+            {/* Marquee */}
             <div className="relative group w-full">
-                {/* Gradient Masks */}
-                <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#f0f0f0] to-transparent z-10 pointer-events-none" />
-                <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#f0f0f0] to-transparent z-10 pointer-events-none" />
+                <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none bg-gradient-to-r from-[var(--canvas)] to-transparent" />
+                <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none bg-gradient-to-l from-[var(--canvas)] to-transparent" />
 
-                {/* 
-                   Correction: To implement a robust marquee with pause-on-hover, 
-                   it's better to use specific CSS keyframes or a dedicated library. 
-                   Since we use Framer Motion, let's use it effectively. 
-                   We can control speed but pausing is tricky without `useAnimation` controls.
-                   Let's implement a simpler "CSS-based" marquee inside the motion div context or just use a container.
-                */}
                 <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
-                    {duplicatedPartners.map((partner, index) => (
+                    {tripled.map((partner, index) => (
                         <div
                             key={`${partner.name}-${index}`}
-                            className="flex-shrink-0 mx-8 group/card"
+                            className="flex-shrink-0 mx-3 md:mx-4"
                         >
-                            <div className="w-48 h-32 md:w-64 md:h-40 bg-white border-2 border-black shadow-[var(--shadow-retro-sm)] flex items-center justify-center p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-retro-md)]">
-                                <div className="relative w-full h-full filter grayscale opacity-60 transition-all duration-500 group-hover/card:grayscale-0 group-hover/card:opacity-100 mix-blend-multiply">
+                            <div className="relative w-44 md:w-56 h-24 md:h-28 rounded-[1.25rem] border border-[var(--rule-strong)] bg-[var(--surface)] flex items-center justify-center px-8 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:shadow-[var(--shadow-md)]">
+                                <div className="relative w-full h-full filter grayscale opacity-55 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:grayscale-0 hover:opacity-100 mix-blend-multiply">
                                     <Image
                                         src={partner.logo}
                                         alt={partner.name}
                                         fill
                                         className="object-contain"
-                                        sizes="(max-width: 768px) 192px, 256px"
+                                        sizes="(max-width: 768px) 176px, 224px"
                                         priority={index < 5}
                                     />
                                 </div>
@@ -58,15 +69,6 @@ export function Partners() {
                         </div>
                     ))}
                 </div>
-                {/* Second duplicate for infinite effect if needed, but the array tripling usually handles it if CSS loop is correct. 
-                    Actually, standard Tailwind `animate-loop-scroll` isn't built-in. 
-                    I'll add the animation keyframes to global css or use Framer Motion correctly.
-                    
-                    Reverting to Framer Motion for consistency with existing codebase, but tuning it.
-                    We can ignore 'pause on hover' request if it complicates things too much, or use a state-based speed.
-                    However, `animation-play-state: paused` works on CSS Animations. 
-                    So let's use a standard CSS animation in a `style` block or `globals.css` if missing.
-                */}
             </div>
         </section>
     );

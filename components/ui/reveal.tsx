@@ -14,7 +14,7 @@ interface RevealProps {
 
 export const Reveal = ({
     children,
-    width = "fit-content",
+    width = "100%",
     delay = 0.25,
     duration = 0.5,
     yOffset = 75,
