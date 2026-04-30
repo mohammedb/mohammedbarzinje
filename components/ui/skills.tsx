@@ -26,7 +26,7 @@ const languages = [
 const stack = {
     Frontend: ["Next.js", "React", "TypeScript", "Tailwind", "Framer Motion"],
     Backend: ["PostgreSQL", "Supabase", "Node.js", "REST"],
-    Tooling: ["AI-coding", "Git", "Vercel", "VS Code"],
+    Tooling: ["Claude Code", "AI-coding", "Git", "Vercel", "VS Code"],
 };
 
 const builds = [

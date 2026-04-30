@@ -47,6 +47,17 @@ const projects: Project[] = [
         span: "side",
     },
     {
+        title: "enkelt.ai",
+        category: "Esports SaaS / Co-founder",
+        role: "Co-founder · Product",
+        description:
+            "An esports-organization management platform. AI-assisted tooling for clubs to run rosters, ops, finance, and league logistics in one place.",
+        tags: ["SaaS", "AI", "Next.js", "TypeScript"],
+        url: "https://enkelt.ai",
+        accent: "warm",
+        span: "feature",
+    },
+    {
         title: "Gamers8 / EWC",
         category: "Event Tech / Tournament",
         role: "Senior PM · ESL FACEIT",
@@ -55,7 +66,7 @@ const projects: Project[] = [
         tags: ["Roadmap", "KPIs", "Cross-functional"],
         url: "https://esportsworldcup.com/en",
         accent: "ink",
-        span: "wide",
+        span: "side",
     },
 ];
 
