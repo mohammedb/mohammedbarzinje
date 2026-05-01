@@ -232,7 +232,7 @@ export function Navbar() {
                                     </span>
                                 </a>
                                 <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
-                                    <span>Oslo / Norway</span>
+                                    <span>Sarpsborg / Norway</span>
                                     <span className="inline-flex items-center gap-1.5">
                                         <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
                                         Available

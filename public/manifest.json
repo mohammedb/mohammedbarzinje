@@ -1,16 +1,39 @@
 {
-    "name": "Mohammed Barzinje - Product Manager",
+    "name": "Mohammed Barzinje — Senior Product Manager",
     "short_name": "M. Barzinje",
-    "description": "Product Manager based in Norway. Founder of ReddMaten & Riddle Esports.",
+    "description": "Portfolio of Mohammed Barzinje, Senior Product Manager based in Sarpsborg, Norway. Founder of ReddMaten and Riddle Esports.",
     "start_url": "/",
+    "scope": "/",
     "display": "standalone",
+    "orientation": "portrait-primary",
+    "lang": "en",
+    "dir": "ltr",
     "background_color": "#fdfbf7",
-    "theme_color": "#1a1a1a",
+    "theme_color": "#0a0a0a",
+    "categories": ["business", "productivity", "portfolio"],
     "icons": [
         {
             "src": "/favicon.ico",
             "sizes": "any",
             "type": "image/x-icon"
+        },
+        {
+            "src": "/icon",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon1",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/apple-icon",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any"
         }
     ]
 }

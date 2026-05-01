@@ -54,7 +54,8 @@ export const metadata: Metadata = {
     "Riddle Esports",
     "ReddMaten",
     "Norway",
-    "Oslo",
+    "Sarpsborg",
+    "Østfold",
     "Digital Products",
     "Entrepreneur",
     "Startup Founder",
@@ -67,9 +68,13 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
+    alternateLocale: ["nb_NO"],
     url: siteConfig.url,
     title: siteConfig.title,
     description: siteConfig.description,
@@ -88,7 +93,8 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: "@mohammedbarzinje",
+    creator: "@kekmekn",
+    site: "@kekmekn",
   },
   robots: {
     index: true,
@@ -102,11 +108,17 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+    ],
     shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
   },
   manifest: "/manifest.json",
+  category: "technology",
+  referrer: "origin-when-cross-origin",
+  // verification: { google: "...", other: { "msvalidate.01": "..." } },
 };
 
 export default function RootLayout({

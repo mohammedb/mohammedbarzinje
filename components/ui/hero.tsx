@@ -23,7 +23,7 @@ const fadeUp = {
     },
 };
 
-function useOsloTime() {
+function useNorwayTime() {
     const [time, setTime] = useState<string>("");
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export function Hero() {
         target: ref,
         offset: ["start start", "end start"],
     });
-    const time = useOsloTime();
+    const time = useNorwayTime();
 
     const portraitY = useTransform(scrollYProgress, [0, 1], [0, 80]);
     const portraitScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
@@ -59,7 +59,16 @@ export function Hero() {
             id="top"
             className="relative min-h-[100dvh] flex items-end pt-32 pb-12 md:pt-40 md:pb-16 px-4 md:px-8 overflow-hidden"
         >
-            <div className="absolute inset-0 pointer-events-none -z-10">
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <Image
+                    src="/background.jpg"
+                    alt=""
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="object-cover opacity-[0.6] mix-blend-multiply"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-[var(--canvas-soft)]/20 via-[var(--canvas-soft)]/30 to-[var(--canvas-soft)]" />
                 <div className="absolute top-1/3 -right-40 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle_at_center,var(--mesh-warm),transparent_60%)] blur-3xl" />
                 <div className="absolute -bottom-20 -left-20 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle_at_center,var(--mesh-cool),transparent_60%)] blur-3xl" />
             </div>
@@ -79,7 +88,7 @@ export function Hero() {
                         Senior Product Manager
                     </div>
                     <div className="flex items-center gap-6 text-[11px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
-                        <span>Oslo / Norway</span>
+                        <span>Sarpsborg / Norway</span>
                         <span className="h-3 w-px bg-[var(--rule-strong)]" aria-hidden="true" />
                         <span>2015 — Now</span>
                         <span className="h-3 w-px bg-[var(--rule-strong)]" aria-hidden="true" />
@@ -122,7 +131,7 @@ export function Hero() {
                         <motion.div variants={fadeUp} className="mt-10 lg:mt-14">
                             <p className="text-[15px] md:text-[17px] leading-[1.55] text-[var(--ink-soft)] max-w-xl">
                                 I&apos;m <span className="text-[var(--ink)] font-medium">Mohammed Barzinje</span> — a
-                                senior product manager based in Oslo. Ten years building digital
+                                senior product manager based in Sarpsborg. Ten years building digital
                                 products across <span className="text-[var(--ink)]">esports</span>,
                                 <span className="text-[var(--ink)]"> marketplaces</span> and
                                 <span className="text-[var(--ink)]"> consumer tech</span>. Co-founder
@@ -219,9 +228,9 @@ export function Hero() {
                         </span>
                     </InfoCol>
                     <InfoCol label="Coordinates">
-                        <span className="font-mono tabular-nums">59.91°N</span>
+                        <span className="font-mono tabular-nums">59.28°N</span>
                         <span className="text-[var(--ink-mute)] mx-1.5">/</span>
-                        <span className="font-mono tabular-nums">10.75°E</span>
+                        <span className="font-mono tabular-nums">11.11°E</span>
                     </InfoCol>
                     <InfoCol label="Index">
                         <span className="font-mono tabular-nums">N°.01</span>

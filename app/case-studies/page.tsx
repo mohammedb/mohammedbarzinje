@@ -42,6 +42,15 @@ const jsonLd = {
   description:
     "A collection of detailed case studies showcasing Mohammed Barzinje's key projects and their outcomes.",
   url: "https://mohammedbarzinje.com/case-studies",
+  isPartOf: {
+    "@type": "WebSite",
+    "@id": "https://mohammedbarzinje.com/#website",
+  },
+  about: {
+    "@type": "Person",
+    "@id": "https://mohammedbarzinje.com/#person",
+    name: "Mohammed Barzinje",
+  },
   mainEntity: {
     "@type": "ItemList",
     itemListElement: [
@@ -61,12 +70,35 @@ const jsonLd = {
   },
 };
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://mohammedbarzinje.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Case Studies",
+      item: "https://mohammedbarzinje.com/case-studies",
+    },
+  ],
+};
+
 export default function CaseStudiesPage() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <CaseStudiesContent />
     </>

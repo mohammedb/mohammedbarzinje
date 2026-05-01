@@ -93,7 +93,7 @@ export function Footer() {
                     <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
                         <span>© 2026 Mohammed Barzinje</span>
                         <span className="hidden md:inline h-3 w-px bg-[var(--rule-strong)]" aria-hidden="true" />
-                        <span>Designed &amp; built in Oslo</span>
+                        <span>Designed &amp; built in Sarpsborg</span>
                     </div>
                     <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
                         <span className="font-mono tabular-nums">v3.0</span>

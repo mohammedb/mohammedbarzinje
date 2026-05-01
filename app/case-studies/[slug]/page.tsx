@@ -71,30 +71,71 @@ function generateJsonLd(slug: string) {
   const caseStudy = getCaseStudy(slug);
   if (!caseStudy) return null;
 
+  const url = `https://mohammedbarzinje.com/case-studies/${slug}`;
+
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: `${caseStudy.title} - ${caseStudy.tagline}`,
     description: caseStudy.challenge,
+    image: caseStudy.logo
+      ? [`https://mohammedbarzinje.com${caseStudy.logo}`]
+      : undefined,
     author: {
       "@type": "Person",
+      "@id": "https://mohammedbarzinje.com/#person",
       name: "Mohammed Barzinje",
       url: "https://mohammedbarzinje.com",
     },
     publisher: {
       "@type": "Person",
+      "@id": "https://mohammedbarzinje.com/#person",
       name: "Mohammed Barzinje",
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://mohammedbarzinje.com/case-studies/${slug}`,
+      "@id": url,
     },
+    url,
+    inLanguage: "en",
+    articleSection: caseStudy.category,
     keywords: [caseStudy.category, ...caseStudy.technologies].join(", "),
     about: {
       "@type": "CreativeWork",
       name: caseStudy.title,
       description: caseStudy.tagline,
+      url: caseStudy.externalLink,
     },
+  };
+}
+
+function generateBreadcrumbJsonLd(slug: string) {
+  const caseStudy = getCaseStudy(slug);
+  if (!caseStudy) return null;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://mohammedbarzinje.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Case Studies",
+        item: "https://mohammedbarzinje.com/case-studies",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: caseStudy.title,
+        item: `https://mohammedbarzinje.com/case-studies/${slug}`,
+      },
+    ],
   };
 }
 
@@ -107,6 +148,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
   }
 
   const jsonLd = generateJsonLd(slug);
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd(slug);
 
   return (
     <>
@@ -114,6 +156,12 @@ export default async function CaseStudyPage({ params }: PageProps) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      {breadcrumbJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         />
       )}
       <CaseStudyContent caseStudy={caseStudy} currentSlug={slug} />

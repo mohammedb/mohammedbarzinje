@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { Reveal } from "@/components/ui/reveal";
 
 const facts = [
-    { label: "Based in", value: "Oslo / Norway", note: "On UTC+1" },
+    { label: "Based in", value: "Sarpsborg / Norway", note: "On UTC+1" },
     { label: "Languages", value: "5", note: "NO · EN · KU · DE · AR" },
     { label: "Focus", value: "Product Strategy", note: "& Hands-on UX" },
     { label: "Experience", value: "10+ years", note: "Since 2015" },

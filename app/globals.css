@@ -50,6 +50,8 @@
   html {
     scroll-behavior: smooth;
     background-color: var(--canvas);
+    scrollbar-width: thin;
+    scrollbar-color: var(--ink-faint) transparent;
   }
 
   body {
