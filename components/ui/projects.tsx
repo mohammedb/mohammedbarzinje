@@ -47,11 +47,11 @@ const projects: Project[] = [
         span: "side",
     },
     {
-        title: "enkelt.ai",
+        title: "Enkelt.ai",
         category: "Esports SaaS / Co-founder",
         role: "Co-founder · Product",
         description:
-            "An esports-organization management platform. AI-assisted tooling for clubs to run rosters, ops, finance, and league logistics in one place.",
+            "A unified operating system for esports organizations (pre-launch) — replacing 10+ fragmented tools with one workspace for scrims, contracts, scouting, financials, and roster ops.",
         tags: ["SaaS", "AI", "Next.js", "TypeScript"],
         url: "https://enkelt.ai",
         accent: "warm",

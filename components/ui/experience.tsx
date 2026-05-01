@@ -6,6 +6,24 @@ import { Reveal } from "@/components/ui/reveal";
 
 const experiences = [
     {
+        role: "Marketing & AI-Specialist",
+        company: "ThePitch AS",
+        period: "2026 — Now",
+        meta: ["Paid Search", "AI", "Automation"],
+        description:
+            "Splitting focus between paid search and AI automation — running and optimizing campaigns end-to-end (analysis, reporting, budgets, client comms) while embedding AI and AI agents into daily operations to streamline workflows.",
+        live: true,
+    },
+    {
+        role: "Co-founder & Product Lead",
+        company: "Enkelt.ai",
+        period: "2026 — Now",
+        meta: ["Pre-launch", "AI", "Esports"],
+        description:
+            "Co-founding a pre-launch SaaS for esports organizations — leading product and engineering on a platform built to replace 10+ fragmented tools with one workspace for scrims, contracts, scouting, financials, and roster ops.",
+        live: true,
+    },
+    {
         role: "Founder & Product Lead",
         company: "ReddMaten",
         period: "2025 — Now",

@@ -70,8 +70,8 @@ export function CustomCursor() {
             <motion.div
                 className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full border"
                 style={{
-                    borderColor: "rgba(10, 10, 10, 0.35)",
-                    mixBlendMode: "multiply",
+                    borderColor: "rgba(255, 255, 255, 0.85)",
+                    mixBlendMode: "difference",
                 }}
                 animate={{
                     x: ringX - ringSize / 2,
@@ -89,7 +89,11 @@ export function CustomCursor() {
             />
             {/* Dot */}
             <motion.div
-                className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full bg-[var(--ink)]"
+                className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full"
+                style={{
+                    backgroundColor: "#ffffff",
+                    mixBlendMode: "difference",
+                }}
                 animate={{
                     x: pos.x - dotSize / 2,
                     y: pos.y - dotSize / 2,
