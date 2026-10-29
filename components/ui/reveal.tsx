@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView, useAnimation, Variants } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 interface RevealProps {
     children: React.ReactNode;
@@ -12,48 +11,23 @@ interface RevealProps {
     className?: string;
 }
 
+// Fades content up once it scrolls into view. MotionProvider (reducedMotion="user") drops the movement.
 export const Reveal = ({
     children,
     width = "100%",
-    delay = 0.25,
-    duration = 0.5,
-    yOffset = 75,
-    className = ""
-}: RevealProps) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-50px" });
-    const mainControls = useAnimation();
-
-    useEffect(() => {
-        if (isInView) {
-            mainControls.start("visible");
-        }
-    }, [isInView, mainControls]);
-
-    const variants: Variants = {
-        hidden: { opacity: 0, y: yOffset },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: duration,
-                delay: delay,
-                type: "spring",
-                stiffness: 100,
-                damping: 20
-            }
-        },
-    };
-
-    return (
-        <div ref={ref} style={{ position: "relative", width, overflow: "visible" }} className={className}>
-            <motion.div
-                variants={variants}
-                initial="hidden"
-                animate={mainControls}
-            >
-                {children}
-            </motion.div>
-        </div>
-    );
-};
+    delay = 0,
+    duration = 0.8,
+    yOffset = 24,
+    className,
+}: RevealProps) => (
+    <motion.div
+        initial={{ opacity: 0, y: yOffset }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "0px 0px -12% 0px" }}
+        transition={{ duration, delay, ease: [0.16, 1, 0.3, 1] }}
+        style={{ width }}
+        className={className}
+    >
+        {children}
+    </motion.div>
+);

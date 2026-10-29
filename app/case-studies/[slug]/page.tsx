@@ -47,8 +47,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         ? [
             {
               url: caseStudy.logo,
-              width: 1200,
-              height: 630,
+              width: 1600,
+              height: 1000,
               alt: `${caseStudy.title} preview`,
             },
           ]
