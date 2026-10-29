@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { SITE_URL } from "@/lib/profile";
 import { CaseStudiesContent } from "./case-studies-content";
 
 export const metadata: Metadata = {
@@ -41,14 +42,14 @@ const jsonLd = {
   name: "Case Studies",
   description:
     "A collection of detailed case studies showcasing Mohammed Barzinje's key projects and their outcomes.",
-  url: "https://mohammedbarzinje.com/case-studies",
+  url: `${SITE_URL}/case-studies`,
   isPartOf: {
     "@type": "WebSite",
-    "@id": "https://mohammedbarzinje.com/#website",
+    "@id": `${SITE_URL}/#website`,
   },
   about: {
     "@type": "Person",
-    "@id": "https://mohammedbarzinje.com/#person",
+    "@id": `${SITE_URL}/#person`,
     name: "Mohammed Barzinje",
   },
   mainEntity: {
@@ -58,13 +59,13 @@ const jsonLd = {
         "@type": "ListItem",
         position: 1,
         name: "ReddMaten",
-        url: "https://mohammedbarzinje.com/case-studies/reddmaten",
+        url: `${SITE_URL}/case-studies/reddmaten`,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "RIDDLE Esports",
-        url: "https://mohammedbarzinje.com/case-studies/riddle-esports",
+        url: `${SITE_URL}/case-studies/riddle-esports`,
       },
     ],
   },
@@ -78,13 +79,13 @@ const breadcrumbJsonLd = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://mohammedbarzinje.com",
+      item: SITE_URL,
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Case Studies",
-      item: "https://mohammedbarzinje.com/case-studies",
+      item: `${SITE_URL}/case-studies`,
     },
   ],
 };

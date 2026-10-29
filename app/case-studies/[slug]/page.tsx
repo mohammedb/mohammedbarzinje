@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getCaseStudy, caseStudies } from "@/lib/case-studies";
+import { SITE_URL } from "@/lib/profile";
 import { CaseStudyContent } from "./case-study-content";
 
 interface PageProps {
@@ -71,7 +72,7 @@ function generateJsonLd(slug: string) {
   const caseStudy = getCaseStudy(slug);
   if (!caseStudy) return null;
 
-  const url = `https://mohammedbarzinje.com/case-studies/${slug}`;
+  const url = `${SITE_URL}/case-studies/${slug}`;
 
   return {
     "@context": "https://schema.org",
@@ -79,17 +80,17 @@ function generateJsonLd(slug: string) {
     headline: `${caseStudy.title} - ${caseStudy.tagline}`,
     description: caseStudy.challenge,
     image: caseStudy.logo
-      ? [`https://mohammedbarzinje.com${caseStudy.logo}`]
+      ? [`${SITE_URL}${caseStudy.logo}`]
       : undefined,
     author: {
       "@type": "Person",
-      "@id": "https://mohammedbarzinje.com/#person",
+      "@id": `${SITE_URL}/#person`,
       name: "Mohammed Barzinje",
-      url: "https://mohammedbarzinje.com",
+      url: SITE_URL,
     },
     publisher: {
       "@type": "Person",
-      "@id": "https://mohammedbarzinje.com/#person",
+      "@id": `${SITE_URL}/#person`,
       name: "Mohammed Barzinje",
     },
     mainEntityOfPage: {
@@ -121,19 +122,19 @@ function generateBreadcrumbJsonLd(slug: string) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://mohammedbarzinje.com",
+        item: SITE_URL,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Case Studies",
-        item: "https://mohammedbarzinje.com/case-studies",
+        item: `${SITE_URL}/case-studies`,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: caseStudy.title,
-        item: `https://mohammedbarzinje.com/case-studies/${slug}`,
+        item: `${SITE_URL}/case-studies/${slug}`,
       },
     ],
   };

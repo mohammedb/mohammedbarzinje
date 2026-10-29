@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { caseStudies } from "@/lib/case-studies";
+import { SITE_URL } from "@/lib/profile";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = "https://mohammedbarzinje.com";
+    const baseUrl = SITE_URL;
 
     // Static pages
     const staticPages: MetadataRoute.Sitemap = [

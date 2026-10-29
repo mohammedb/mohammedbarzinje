@@ -4,7 +4,8 @@
 
 import { DEFAULT_CONFIG, type ConfigId } from "@/lib/config";
 
-export const SITE_URL = "https://mohammedbarzinje.com";
+// Base for every absolute URL. Vercel redirects the bare domain to www, so canonical URLs use www.
+export const SITE_URL = "https://www.mohammedbarzinje.com";
 
 export const profile = {
     name: "Mohammed Barzinje",

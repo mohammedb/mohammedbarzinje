@@ -26,7 +26,7 @@ Portfolio and recruiter landing page for Mohammed Barzinje, built with Next.js 1
 - `components/ui/`
   - Sections in page order: `hero`, `highlights`, `lineup`, `changelog`, `specs`, `faq`, `contact`
   - Shared: `navbar`, `footer`, `action-dock` (sticky CV / copy email / LinkedIn bar), `config-switch`, `toast` (`toast()`, `copyText()`), `reveal`, `logo-stage`, `brand-mark`, `case-study-card`, `cookie-banner`, `smooth-scroll`, `scroll-progress`, `motion-provider`
-- `lib/profile.ts` - Single source of truth for landing-page copy and data: profile, configurations, highlights, products, releases, specs, clients and FAQ. The JSON-LD reads from it too.
+- `lib/profile.ts` - Single source of truth for landing-page copy and data: profile, configurations, highlights, products, releases, specs, clients and FAQ. The JSON-LD reads from it too. `SITE_URL` (www, because Vercel redirects the bare domain there) is the base for every absolute URL, so never hardcode the domain.
 - `lib/config.ts`, `lib/hooks/use-config.ts` - The configuration system (below)
 - `lib/case-studies.ts` - Case-study content
 - `lib/utils.ts` - `cn()` helper (clsx + tailwind-merge)
