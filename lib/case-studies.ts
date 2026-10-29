@@ -34,16 +34,16 @@ export const caseStudies: CaseStudy[] = [
       "Every year, millions of tons of perfectly edible produce are discarded simply because they don't meet cosmetic standards. Farmers lose revenue, consumers miss out on affordable options, and the environmental impact is massive. Traditional supply chains have no room for 'imperfect' fruits and vegetables.",
 
     solution:
-      "Built ReddMaten, a direct-to-consumer marketplace connecting Norwegian farms directly to environmentally conscious consumers. The platform handles everything from farmer onboarding and inventory management to logistics coordination and subscription boxes. By cutting out middlemen and embracing imperfection, we created a win-win-win for farmers, consumers, and the planet.",
+      "Founded ReddMaten and built the platform for a direct-to-consumer marketplace where Norwegian farms sell surplus and 'imperfect' produce straight to consumers. Designed both sides of the marketplace, from farmer onboarding and inventory to logistics and subscription boxes, and an operating model built around food-waste reduction, local agriculture and affordable fresh food. The concept earned media coverage.",
 
     results: [
-      { metric: "Status", value: "Building" },
-      { metric: "Stage", value: "Early" },
-      { metric: "Launch", value: "2026" },
+      { metric: "Stage", value: "Concept" },
+      { metric: "Press", value: "Featured" },
+      { metric: "Model", value: "Two-sided" },
       { metric: "Focus", value: "Norway" },
     ],
 
-    timeline: "2024 - Present",
+    timeline: "2025 - 2026",
     role: "Founder & Full-Stack Developer",
     technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Vipps", "Vercel"],
     externalLink: "https://reddmaten.no",

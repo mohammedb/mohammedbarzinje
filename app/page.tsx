@@ -32,7 +32,7 @@ const ventures = [
     key: "reddmaten",
     name: "ReddMaten",
     url: "https://reddmaten.no",
-    description: "Local marketplace where farmers sell surplus produce straight to consumers.",
+    description: "Marketplace concept connecting farmers directly with consumers to sell surplus and imperfect produce.",
   },
   {
     key: "riddle",
@@ -52,7 +52,7 @@ const person = {
   familyName: "Barzinje",
   jobTitle: profile.role,
   description:
-    "Senior Product Manager in Sarpsborg, Norway, with 10+ years shipping digital products across esports, marketplaces and AI. Previously Senior Product Manager at ESL FACEIT Group for the Esports World Cup. Founder of Riddle Esports and ReddMaten, co-founder of Enkelt.ai and Ditt Eventyr.",
+    "Senior Product Manager in Sarpsborg, Norway, with 10+ years building products, teams and brands across esports, marketplaces and AI. Previously Senior Product Manager at ESL FACEIT Group on Gamers8 and the Esports World Cup. Founder of Riddle Esports, ReddMaten and Enkelt.ai, technical co-founder of Ditt Eventyr.",
   url: SITE_URL,
   image: `${SITE_URL}${profile.portrait}`,
   email: `mailto:${profile.email}`,
@@ -74,9 +74,9 @@ const person = {
     "Product Strategy",
     "Product Roadmaps",
     "Product Leadership",
-    "Agile Methodologies",
+    "User Discovery",
     "Stakeholder Management",
-    "User Experience Design",
+    "Go-to-Market Strategy",
     "AI Product Development",
     "AI Automation",
     "AI Agents",
@@ -91,15 +91,11 @@ const person = {
     name: profile.role,
     occupationLocation: { "@type": "City", name: "Sarpsborg" },
     skills:
-      "Product Strategy, Roadmapping, Stakeholder Management, UX, Agile, Data Analysis, Cross-functional Leadership, AI Automation",
+      "Product Strategy, Roadmapping, User Discovery, Stakeholder Management, Data Analysis, Cross-functional Leadership, AI Automation",
   },
-  worksFor: [
-    { "@id": ventureId("enkelt") },
-    { "@id": ventureId("ditteventyr") },
-    { "@type": "Organization", name: "ThePitch AS", url: "https://thepitch.no" },
-    { "@id": ventureId("reddmaten") },
-  ],
+  worksFor: [{ "@id": ventureId("enkelt") }, { "@id": ventureId("ditteventyr") }],
   alumniOf: [
+    { "@type": "Organization", name: "ThePitch AS", url: "https://thepitch.no" },
     { "@type": "CollegeOrUniversity", name: "Østfold University College", url: "https://www.hiof.no" },
     { "@type": "Organization", name: "ESL FACEIT Group", url: "https://www.eslfaceitgroup.com" },
     { "@type": "Organization", name: "s360", url: "https://www.s360digital.com" },

@@ -30,7 +30,7 @@ Portfolio and recruiter landing page for Mohammed Barzinje, built with Next.js 1
 - `lib/config.ts`, `lib/hooks/use-config.ts` - The configuration system (below)
 - `lib/case-studies.ts` - Case-study content
 - `lib/utils.ts` - `cn()` helper (clsx + tailwind-merge)
-- `public/Resume.pdf` - The CV behind every "Download CV" button (saved as `Mohammed-Barzinje-CV.pdf`)
+- `public/Resume.pdf` - The CV behind every "Download CV" button (saved as `Mohammed-Barzinje-CV.pdf`). Built with LuaLaTeX from the latest English PM CV in the ai-job-search project (`Z:\Web Projects\ai-job-search\applications\`), with the phone number removed for the public copy.
 - `public/projects/*.jpg` - 1600x1000 product screenshots; `public/logos/` - client logos, rendered white with `brightness(0) invert(1)`
 
 ### Configurations (tailored links)
@@ -65,6 +65,7 @@ Tokens are defined on `:root` and mapped to Tailwind in `@theme inline` (`app/gl
 - No em or en dashes in visible copy (write "2023-24", "27-1").
 - American spelling ("personalized").
 - The FAQ section and the FAQPage JSON-LD both render `faqs` from `lib/profile.ts`, so edit it there.
+- Facts (titles, dates, education, languages, venture status) must match the CV and the candidate profile in the ai-job-search project (`.claude/skills/job-application-assistant/01-candidate-profile.md` there). It records corrections such as: no bachelor's degree, no Scrum or sprint experience, and ReddMaten never launched.
 
 ### Path Aliases
 

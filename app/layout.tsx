@@ -31,7 +31,7 @@ const siteConfig = {
   name: profile.name,
   title: "Mohammed Barzinje | Senior Product Manager in Norway",
   description:
-    "Senior Product Manager in Norway. 10+ years shipping products, from the Esports World Cup to AI-personalized children's books. Open to PM, Product Lead and AI roles.",
+    "Senior Product Manager and founder in Norway, from the Esports World Cup to AI-personalized children's books. Open to PM, Product Lead and AI roles.",
   url: SITE_URL,
 };
 
