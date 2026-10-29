@@ -4,7 +4,7 @@ import { CaseStudiesContent } from "./case-studies-content";
 export const metadata: Metadata = {
   title: "Case Studies - Deep Dives into Key Projects",
   description:
-    "Explore detailed case studies of my key projects including ReddMaten (sustainable food marketplace) and RIDDLE Esports (Northern Europe's premier esports organization). Learn about the challenges, solutions, and results.",
+    "Explore detailed case studies of my key projects including ReddMaten (a food-waste marketplace concept) and RIDDLE Esports (Northern Europe's premier esports organization). Learn about the challenges, solutions, and results.",
   keywords: [
     "Case Studies",
     "Portfolio",

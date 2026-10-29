@@ -36,20 +36,20 @@ export const configurations: Record<ConfigId, Configuration> = {
     pm: {
         label: "Senior PM",
         role: "Senior Product Manager",
-        pitch: "Senior Product Manager with ten years of launches, from the Esports World Cup to AI-personalized children's books.",
+        pitch: "Senior Product Manager and founder with ten years of launches, from the Esports World Cup to AI-personalized children's books.",
         lookingFor: "Senior Product Manager roles",
-        highlightsIntro: "Senior PM configuration: roadmaps, KPIs and delivery at festival scale.",
+        highlightsIntro: "Senior PM configuration: roadmaps, requirements and delivery at festival scale.",
         summary:
-            "10+ years shipping digital products. Senior Product Manager at ESL FACEIT Group for Gamers8 and the Esports World Cup, owning roadmap, KPIs and cross-functional delivery. Technical co-founder of Ditt Eventyr (AI-personalized children's books) and co-founder of Enkelt.ai (esports management platform, live on web and iPhone).",
+            "10+ years building products, teams and brands. Senior Product Manager at ESL FACEIT Group on the Gamers8 ecosystem that became the Esports World Cup: product requirements, workflows and roadmap, on site in Riyadh. Founder of Enkelt.ai, a live B2B SaaS built end to end with Claude Code, and technical co-founder of Ditt Eventyr (AI-personalized children's books).",
     },
     lead: {
         label: "Product Lead",
         role: "Product Lead",
-        pitch: "Product leader who builds from zero: ten years running Riddle Esports, now co-founder of Enkelt.ai and Ditt Eventyr.",
+        pitch: "Product leader who builds from zero: ten years running Riddle Esports, now founder of Enkelt.ai and co-founder of Ditt Eventyr.",
         lookingFor: "Product Lead and Head of Product roles",
         highlightsIntro: "Product Lead configuration: organizations and products built from zero.",
         summary:
-            "Founder and operator. Built Riddle Esports from zero and ran it for ten years: five national titles, a 27-1 run and EU Masters qualification. Co-founder and Product Lead of Enkelt.ai, technical co-founder of Ditt Eventyr and founder of ReddMaten. Previously Senior Product Manager at ESL FACEIT Group for the Esports World Cup.",
+            "Founder and operator. Built Riddle Esports from zero and ran it for ten years, leading up to 30 players and staff: five national titles, a 27-1 run and EU Masters qualification. Founder and Product Manager of Enkelt.ai, a live B2B SaaS, technical co-founder of Ditt Eventyr and founder of ReddMaten, a marketplace concept. Previously Senior Product Manager at ESL FACEIT Group on Gamers8 and the Esports World Cup.",
     },
     ai: {
         label: "AI product",
@@ -58,7 +58,7 @@ export const configurations: Record<ConfigId, Configuration> = {
         lookingFor: "AI product and automation roles",
         highlightsIntro: "AI product configuration: AI pipelines and automation running in production.",
         summary:
-            "Builds AI products end to end. Technical co-founder of Ditt Eventyr, where an AI illustration pipeline puts a child's face into a hardcover book printed in Norway. Marketing & AI Specialist at ThePitch AS, building AI automation and agents for paid search. Ships software with Claude Code, including GGWP Studio. 10+ years in product, including ESL FACEIT Group.",
+            "Builds AI products end to end. Technical co-founder of Ditt Eventyr, where an AI illustration pipeline puts a child's face into a hardcover book printed in Norway. Built Enkelt.ai, a live B2B SaaS for esports teams, and GGWP Studio with Claude Code. At ThePitch AS, put AI agents into daily operations and built internal tools such as a contract builder. Previously Senior Product Manager at ESL FACEIT Group.",
     },
 };
 
@@ -73,6 +73,7 @@ export function hiringSummary(id: ConfigId): string {
         config.summary,
         "",
         `Looking for: ${config.lookingFor}`,
+        "Availability: short notice",
         "Languages: Norwegian, Kurdish, English, German, Arabic",
         `Email: ${profile.email}`,
         `LinkedIn: ${profile.linkedinShort}`,
@@ -104,7 +105,7 @@ const shots = {
 } satisfies Record<string, Img>;
 
 export const heroCallouts = [
-    { value: "10+ years", label: "in product, since 2015" },
+    { value: "10+ years", label: "building since 2015" },
     { value: "5 languages", label: "NO, KU, EN, DE, AR" },
     { value: "ESL FACEIT", label: "Gamers8 and Esports World Cup" },
     { value: "4 ventures", label: "founded or co-founded" },
@@ -129,7 +130,7 @@ export const highlights: Record<ConfigId, { feature: Highlight; side: [Highlight
             org: "ESL FACEIT Group",
             meta: "Senior Product Manager, 2023-24",
             title: "Product for the world's largest esports festivals.",
-            body: "Owned roadmap, KPIs and cross-functional delivery for the tournament-ecosystem product behind Gamers8 and the Esports World Cup.",
+            body: "Product requirements, workflows and roadmap for the Gamers8 ecosystem that became the Esports World Cup. On site in Riyadh within four weeks of joining.",
             logo: ewcLogo,
             href: "https://esportsworldcup.com/en",
         },
@@ -138,7 +139,7 @@ export const highlights: Record<ConfigId, { feature: Highlight; side: [Highlight
                 org: "Track record",
                 meta: "Since 2015",
                 value: "10+",
-                title: "years shipping digital products",
+                title: "years building products and teams",
                 body: "From founding Riddle Esports to AI products in production today.",
             },
             {
@@ -175,9 +176,9 @@ export const highlights: Record<ConfigId, { feature: Highlight; side: [Highlight
             },
             {
                 org: "Enkelt.ai",
-                meta: "Co-founder & Product Lead",
+                meta: "Founder & Product Manager",
                 title: "One platform instead of ten scattered tools.",
-                body: "Rosters, scrims, finances, scouting, contracts and scheduling for esports teams. Live on web and iPhone.",
+                body: "Rosters, scrims, finances, scouting, contracts and scheduling for esports teams, with a Discord bot and an AI chat that do the admin. Live since June 2026.",
                 image: shots.enkelt,
                 href: "https://enkelt.ai",
             },
@@ -195,9 +196,9 @@ export const highlights: Record<ConfigId, { feature: Highlight; side: [Highlight
         side: [
             {
                 org: "ThePitch AS",
-                meta: "Marketing & AI Specialist, 2026-now",
-                title: "AI agents and automation for paid search.",
-                body: "Builds AI automation and agents into day-to-day paid search work.",
+                meta: "Marketing & AI Specialist, 2026",
+                title: "AI agents and internal tools, built with Claude Code.",
+                body: "Put AI agents into daily operations and built a contract builder with ready-made clauses and signing in one system.",
             },
             {
                 org: "GGWP Studio",
@@ -235,7 +236,7 @@ export const products: Product[] = [
     },
     {
         name: "Enkelt.ai",
-        role: "Co-founder & Product Lead",
+        role: "Founder & Product Manager",
         period: "2026-now",
         status: { label: "Live", live: true },
         description: "Esports management in one place: rosters, scrims, finances, scouting, contracts and scheduling.",
@@ -244,10 +245,10 @@ export const products: Product[] = [
     },
     {
         name: "ReddMaten",
-        role: "Founder & Product Lead",
-        period: "2025-now",
-        status: { label: "Waitlist" },
-        description: "A local marketplace where farmers sell surplus produce straight to consumers.",
+        role: "Founder",
+        period: "2025-26",
+        status: { label: "Concept" },
+        description: "A marketplace concept where farmers sell surplus and imperfect produce straight to consumers.",
         href: "https://reddmaten.no",
         image: shots.reddmaten,
         caseStudy: "/case-studies/reddmaten",
@@ -265,7 +266,7 @@ export const products: Product[] = [
         name: "Esports World Cup",
         role: "Senior PM, ESL FACEIT Group",
         period: "2023-24",
-        description: "Tournament-ecosystem product for Gamers8 and the Esports World Cup.",
+        description: "Product requirements, workflows and roadmap for the Gamers8 ecosystem that became the Esports World Cup.",
         href: "https://esportsworldcup.com/en",
         logo: ewcLogo,
     },
@@ -293,9 +294,10 @@ export interface Release {
 export const currentReleases: Release[] = [
     {
         org: "Enkelt.ai",
-        role: "Co-founder & Product Lead",
+        role: "Founder & Product Manager",
         period: "Since 2026",
-        summary: "Esports management platform replacing ten scattered tools. Live on web and iPhone.",
+        summary:
+            "B2B SaaS that replaces around ten tools for esports teams. Built end to end with Claude Code, live since June 2026.",
         href: "https://enkelt.ai",
     },
     {
@@ -304,35 +306,45 @@ export const currentReleases: Release[] = [
         summary: "AI-personalized children's books, printed in Norway. Owns the store, the AI pipeline and privacy.",
         href: "https://www.ditteventyr.no",
     },
+];
+
+export const pastReleases: Release[] = [
     {
         org: "ThePitch AS",
         role: "Marketing & AI Specialist",
-        period: "Since 2026",
-        summary: "Paid search, plus AI automation and agents.",
+        period: "2026",
+        summary:
+            "Fixed-term cover. Put AI agents into daily operations, built internal tools with Claude Code (including a contract builder) and ran paid search for client accounts.",
         href: "https://thepitch.no",
     },
     {
         org: "ReddMaten",
-        role: "Founder & Product Lead",
-        period: "Since 2025",
-        summary: "Local marketplace for surplus produce, straight from farms. Pre-launch with a waitlist.",
-        href: "https://reddmaten.no",
+        role: "Founder",
+        period: "2025-26",
+        summary:
+            "Marketplace concept connecting farmers directly with consumers to sell surplus and imperfect produce. Designed both value propositions and the operating model; the concept earned media coverage.",
+        href: "/case-studies/reddmaten",
     },
-];
-
-export const pastReleases: Release[] = [
     {
         org: "ESL FACEIT Group",
         role: "Senior Product Manager",
         period: "2023-24",
         summary:
-            "Tournament-ecosystem product for Gamers8 and the Esports World Cup: roadmap, KPIs and cross-functional delivery.",
+            "Product requirements, workflows and roadmap for the Gamers8 ecosystem that became the Esports World Cup. Managing events on site in Riyadh within four weeks of joining.",
     },
     {
         org: "s360",
-        role: "Digital Marketing Manager",
+        role: "Paid Search Coordinator",
         period: "2021-23",
-        summary: "Paid search and analytics for enterprise clients, including Toyota Norway.",
+        summary:
+            "Paid search for a client portfolio including Toyota Norway at an award-winning Nordic agency: bidding, budgets, testing and ROAS reporting.",
+    },
+    {
+        org: "Microsoft",
+        role: "Market Manager",
+        period: "2020-21",
+        summary:
+            "Commercial execution across 30+ retail stores with retail partners and store teams, consistently exceeding sales targets.",
     },
     {
         org: "Riddle Esports",
@@ -344,7 +356,7 @@ export const pastReleases: Release[] = [
 ];
 
 export const featuredSpecs = [
-    { value: "10+", label: "Years in product", note: "Shipping since 2015" },
+    { value: "10+", label: "Years building", note: "Founder since 2015" },
     { value: "4", label: "Ventures", note: "Founded or co-founded" },
     { value: "5", label: "Languages", note: "Norwegian, Kurdish, English, German, Arabic" },
     { value: "27-1", label: "Match record", note: "Riddle Esports, three seasons" },
@@ -355,7 +367,14 @@ export const specGroups: { label: string; items: string[] }[] = [
     { label: "Based in", items: ["Sarpsborg, Norway", "CET (UTC+1)"] },
     {
         label: "Product",
-        items: ["Product strategy", "Roadmapping", "User research", "Stakeholder management", "Sprint planning", "Data & analytics"],
+        items: [
+            "Product strategy",
+            "Roadmapping",
+            "User discovery",
+            "Pricing & go-to-market",
+            "Stakeholder management",
+            "Data & analytics",
+        ],
     },
     { label: "Growth", items: ["SEM & paid search", "Analytics", "AI automation & agents"] },
     { label: "Leadership", items: ["Ten years as founder & GM", "Cross-functional delivery", "Esports operations"] },
@@ -374,6 +393,7 @@ export const specGroups: { label: string; items: string[] }[] = [
             "Git",
             "Vercel",
             "Claude Code",
+            "Codex",
         ],
     },
     {
@@ -381,12 +401,12 @@ export const specGroups: { label: string; items: string[] }[] = [
         items: [
             "Norwegian (native)",
             "Kurdish (native)",
-            "English (fluent)",
-            "German (conversational)",
-            "Arabic (conversational)",
+            "English (native)",
+            "German (limited working)",
+            "Arabic (limited working)",
         ],
     },
-    { label: "Education", items: ["Bachelor in Information Systems, Østfold University College, 2014-17"] },
+    { label: "Education", items: ["Information Systems studies, Østfold University College, 2014-16"] },
     {
         label: "Riddle Esports",
         items: [
@@ -411,7 +431,7 @@ export const clients: (Logo & { displayHeight: number })[] = [
 export const faqs: { question: string; answer: string }[] = [
     {
         question: "Is Mohammed Barzinje open to new roles?",
-        answer: "Yes. Mohammed is open to Senior Product Manager, Product Lead or Head of Product, and AI product roles. The fastest route is email at mohammedbarzinje@gmail.com or a message on LinkedIn.",
+        answer: "Yes, and available at short notice. Mohammed is open to Senior Product Manager, Product Lead or Head of Product, and AI product roles. The fastest route is email at mohammedbarzinje@gmail.com or a message on LinkedIn.",
     },
     {
         question: "Where is Mohammed Barzinje based?",
@@ -419,23 +439,23 @@ export const faqs: { question: string; answer: string }[] = [
     },
     {
         question: "Who is Mohammed Barzinje?",
-        answer: "Mohammed Barzinje is a Senior Product Manager based in Sarpsborg, Norway, with more than ten years of experience building digital products across esports, marketplaces and AI. Previously Senior Product Manager at ESL FACEIT Group; founder of Riddle Esports and ReddMaten; co-founder of Enkelt.ai and Ditt Eventyr.",
+        answer: "Mohammed Barzinje is a Senior Product Manager based in Sarpsborg, Norway, with more than ten years of building products, teams and brands across esports, marketplaces and AI. Previously Senior Product Manager at ESL FACEIT Group; founder of Riddle Esports, ReddMaten and Enkelt.ai; technical co-founder of Ditt Eventyr.",
     },
     {
         question: "What did Mohammed do at ESL FACEIT Group?",
-        answer: "From 2023 to 2024, Mohammed was a Senior Product Manager on the tournament-ecosystem product for Gamers8 and the Esports World Cup, owning the roadmap, KPIs and cross-functional delivery for the world's largest esports festivals.",
+        answer: "From May 2023 to March 2024, Mohammed was a Senior Product Manager at ESL FACEIT Group, working cross-functionally on product requirements, workflows and roadmap for the Gamers8 ecosystem, which became the Esports World Cup. Within four weeks of joining, Mohammed was managing events on site in Riyadh and stayed for the full duration of Gamers8.",
     },
     {
         question: "What companies has Mohammed Barzinje founded?",
-        answer: "Riddle Esports in 2015, run for ten years: five national titles, EU Masters qualification and a 27-1 record across three seasons. Mohammed also founded ReddMaten, a local marketplace for surplus produce, and co-founded Enkelt.ai, an esports management platform, and Ditt Eventyr, a service for AI-personalized children's books.",
+        answer: "Riddle Esports in 2015, run for ten years: five national titles, EU Masters qualification and a 27-1 record across three seasons. Mohammed also founded Enkelt.ai, a live B2B SaaS for esports teams, and ReddMaten, a marketplace concept for surplus produce, and is technical co-founder of Ditt Eventyr, a service for AI-personalized children's books.",
     },
     {
         question: "What AI products has Mohammed built?",
-        answer: "As technical co-founder of Ditt Eventyr, Mohammed built and runs the AI illustration pipeline that puts a child's face into a personalized book. At ThePitch AS the focus is AI automation and agents for paid search, and Mohammed ships software with Claude Code, including GGWP Studio.",
+        answer: "As technical co-founder of Ditt Eventyr, Mohammed built and runs the AI illustration pipeline that puts a child's face into a personalized book. Mohammed also built Enkelt.ai and GGWP Studio with Claude Code, and at ThePitch AS put AI agents into daily operations and built internal tools, including a contract builder.",
     },
     {
         question: "Which languages does Mohammed speak?",
-        answer: "Five: Norwegian and Kurdish (native), English (fluent), and German and Arabic (conversational).",
+        answer: "Five: Norwegian, Kurdish and English at native level, plus German and Arabic at a limited working level.",
     },
     {
         question: "Which industries does Mohammed know best?",
