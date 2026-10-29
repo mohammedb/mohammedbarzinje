@@ -1,93 +1,106 @@
 @import "tailwindcss";
 
-@theme {
+/*
+  "The Launch": one dark canvas, one lime accent, launch-page structure.
+  Radius rule: interactive controls (buttons, switch, chips) are pills. Surfaces use
+  rounded-surface (28px); anything nested inside a surface uses 28px minus its inset.
+  The hero device frame is the one exception (36px shell, 26px screen).
+*/
+
+@theme inline {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+
+  --color-canvas: var(--canvas);
+  --color-raised: var(--raised);
+  --color-surface: var(--surface);
+  --color-surface-hi: var(--surface-hi);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+
+  --radius-surface: 28px;
+
+  --ease-launch: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-@layer theme {
-  :root {
-    /* Soft Structuralism — silver canvas, deep ink, two quiet accents */
-    --canvas: #f4f4f2;
-    --canvas-soft: #fafaf8;
-    --canvas-deep: #ebeae6;
-    --canvas-edge: #e1e0db;
-    --surface: #ffffff;
+:root {
+  --canvas: #08080a;
+  --raised: #0d0d10;
+  --surface: #121216;
+  --surface-hi: #18181d;
 
-    --ink: #0a0a0a;
-    --ink-soft: #1f1f1d;
-    --ink-mute: #6b6b66;
-    --ink-faint: #aeaea8;
+  --ink: #f4f3ef;
+  --ink-soft: #c4c1bb;
+  --muted: #8f8c87;
+  /* Decorative only: below 4.5:1 on the canvas */
+  --faint: #6b6964;
 
-    --rule: rgba(10, 10, 10, 0.06);
-    --rule-strong: rgba(10, 10, 10, 0.12);
-    --rule-faint: rgba(10, 10, 10, 0.04);
+  --line: rgb(244 243 239 / 0.09);
+  --line-strong: rgb(244 243 239 / 0.16);
 
-    /* Accents — used sparingly for energy */
-    --accent: #ff4d2b;
-    --accent-soft: #ffe6dc;
-    --indigo: #4338ca;
-    --indigo-soft: #e0ddf9;
+  --accent: #cafb42;
+  --accent-ink: #0b0c07;
 
-    --mesh-warm: rgba(255, 77, 43, 0.10);
-    --mesh-cool: rgba(67, 56, 202, 0.08);
+  /* Burgundy of the portrait backdrop, used for glows */
+  --wine: 128 32 48;
 
-    /* Diffused ambient shadows — daylight-soft, never harsh */
-    --shadow-xs: 0 1px 2px rgba(10, 10, 10, 0.04);
-    --shadow-sm: 0 2px 6px rgba(10, 10, 10, 0.04), 0 8px 16px -4px rgba(10, 10, 10, 0.04);
-    --shadow-md: 0 4px 12px -2px rgba(10, 10, 10, 0.06), 0 16px 32px -8px rgba(10, 10, 10, 0.06);
-    --shadow-lg: 0 8px 24px -4px rgba(10, 10, 10, 0.08), 0 32px 64px -16px rgba(10, 10, 10, 0.08);
-    --shadow-inset-hi: inset 0 1px 0 rgba(255, 255, 255, 0.7);
-
-    /* Easing — never linear, never ease-in-out */
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-out-fluid: cubic-bezier(0.32, 0.72, 0, 1);
-    --ease-spring-soft: cubic-bezier(0.34, 1.4, 0.64, 1);
-  }
+  color-scheme: dark;
 }
 
 @layer base {
   html {
-    scroll-behavior: smooth;
     background-color: var(--canvas);
-    scrollbar-width: thin;
-    scrollbar-color: var(--ink-faint) transparent;
+    scroll-behavior: smooth;
+    /* Hash jumps land below the fixed 64px navbar */
+    scroll-padding-top: 4rem;
+    -webkit-tap-highlight-color: transparent;
+    scrollbar-color: var(--faint) transparent;
+  }
+
+  /* Lenis drives scrolling on desktop; native smooth scrolling would fight it */
+  html.lenis {
+    scroll-behavior: auto;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: clip;
+  }
+
+  .lenis [data-lenis-prevent] {
+    overscroll-behavior: contain;
   }
 
   body {
+    min-height: 100dvh;
     background-color: var(--canvas);
-    background-image:
-      radial-gradient(900px 520px at 8% -8%, var(--mesh-warm), transparent 65%),
-      radial-gradient(800px 480px at 100% 110%, var(--mesh-cool), transparent 60%);
     color: var(--ink);
-    font-feature-settings: "ss01", "ss02", "cv11";
-    @apply antialiased font-sans min-h-screen selection:bg-[var(--ink)] selection:text-[var(--canvas-soft)];
-    cursor: none;
-    position: relative;
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  @media (max-width: 767px), (pointer: coarse) {
-    body {
-      cursor: auto;
-    }
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-ink);
   }
 
-  /* Whisper-soft grain — for paper feel without noise */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 60;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-    opacity: 0.025;
-    mix-blend-mode: multiply;
-  }
-
-  @media (max-width: 767px) {
-    body::before {
-      opacity: 0.015;
-    }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -96,123 +109,276 @@
     *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
+      animation-delay: 0ms !important;
       transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
       scroll-behavior: auto !important;
     }
+  }
+}
 
-    body::before {
-      display: none;
-    }
+@layer components {
+  /* Small mono label, used for control captions and the odd section marker */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
-  /* Eyebrow — micro pill before H1/H2 */
-  .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.22em] font-medium;
-    background-color: rgba(10, 10, 10, 0.04);
-    color: var(--ink-soft);
-    border: 1px solid var(--rule);
+  /* Buttons: pill shape, one primary (lime) per view */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 3rem;
+    padding-inline: 1.375rem;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    transition:
+      transform 0.5s var(--ease-fluid),
+      box-shadow 0.5s var(--ease-fluid),
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      color 0.3s ease;
   }
 
-  .eyebrow .dot {
-    @apply h-[6px] w-[6px] rounded-full;
+  .btn-sm {
+    height: 2.375rem;
+    padding-inline: 1rem;
+    font-size: 13.5px;
+  }
+
+  .btn-primary {
     background-color: var(--accent);
+    color: var(--accent-ink);
   }
 
-  /* Hairline rule */
-  .hairline {
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--rule-strong), transparent);
+  .btn-ghost {
+    border: 1px solid var(--line-strong);
+    background-color: rgb(244 243 239 / 0.02);
+    color: var(--ink);
+    font-weight: 500;
   }
 
-  /* Double-bezel — outer shell + inner core */
-  .bezel-shell {
-    background-color: var(--canvas-deep);
-    border: 1px solid var(--rule-strong);
-    border-radius: 2rem;
-    padding: 0.4rem;
-    box-shadow: var(--shadow-md);
-  }
-
-  .bezel-core {
-    background-color: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: calc(2rem - 0.4rem);
-    box-shadow: var(--shadow-inset-hi);
-  }
-
-  /* Marquee */
-  @keyframes marquee {
-    0% {
-      transform: translate3d(0, 0, 0);
+  @media (hover: hover) {
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 40px -12px rgb(202 251 66 / 0.6);
     }
-    100% {
-      transform: translate3d(-33.333%, 0, 0);
+
+    .btn-ghost:hover {
+      background-color: rgb(244 243 239 / 0.07);
+      border-color: rgb(244 243 239 / 0.28);
     }
   }
 
-  .animate-marquee {
-    animation: marquee 70s linear infinite;
-    will-change: transform;
+  .btn:active {
+    transform: scale(0.98);
   }
 
-  /* Subtle floating idle */
-  @keyframes float-y {
-    0%, 100% {
-      transform: translate3d(0, 0, 0);
+  /* Entrances are plain CSS so the hero paints before hydration */
+  .rise {
+    animation: rise 0.9s var(--ease-launch) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  .rise-device {
+    animation: rise-device 1.3s var(--ease-launch) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  .draw-x {
+    animation: draw-x 0.9s var(--ease-launch) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  .ping-soft {
+    animation: ping-soft 2.4s var(--ease-launch) infinite;
+  }
+
+  /* Action dock: sits above the cookie banner (--cookie-offset) only at widths where the two collide */
+  .dock-position {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem + var(--cookie-offset, 0px));
+  }
+
+  @media (min-width: 1400px) {
+    .dock-position {
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
     }
-    50% {
-      transform: translate3d(0, -8px, 0);
+  }
+
+  /* Configuration variants: siblings share one grid cell; CSS shows the active one */
+  .stack {
+    display: grid;
+  }
+
+  .stack > * {
+    grid-area: 1 / 1;
+  }
+
+  .variant {
+    visibility: hidden;
+    opacity: 0;
+    transform: translate3d(0, 0.5rem, 0);
+    transition:
+      opacity 0.3s var(--ease-launch),
+      transform 0.3s var(--ease-launch),
+      visibility 0s linear 0.3s;
+  }
+
+  :root:not([data-config]) .variant[data-variant~="pm"],
+  :root[data-config="pm"] .variant[data-variant~="pm"],
+  :root[data-config="lead"] .variant[data-variant~="lead"],
+  :root[data-config="ai"] .variant[data-variant~="ai"] {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.55s var(--ease-launch) 0.1s,
+      transform 0.55s var(--ease-launch) 0.1s,
+      visibility 0s;
+  }
+
+  /* Configuration switch: the pill position also comes from data-config, so no jump on load */
+  .cfg-pill {
+    transition: transform 0.55s var(--ease-fluid);
+  }
+
+  :root[data-config="lead"] .cfg-pill {
+    transform: translateX(100%);
+  }
+
+  :root[data-config="ai"] .cfg-pill {
+    transform: translateX(200%);
+  }
+
+  .cfg-seg {
+    color: var(--ink-soft);
+    transition: color 0.3s ease;
+  }
+
+  @media (hover: hover) {
+    .cfg-seg:hover {
+      color: var(--ink);
     }
   }
 
-  .animate-float {
-    animation: float-y 6s var(--ease-out-fluid) infinite;
+  :root:not([data-config]) .cfg-seg[data-seg="pm"],
+  :root[data-config="pm"] .cfg-seg[data-seg="pm"],
+  :root[data-config="lead"] .cfg-seg[data-seg="lead"],
+  :root[data-config="ai"] .cfg-seg[data-seg="ai"] {
+    color: var(--accent-ink);
   }
 
-  /* Caret blink */
-  @keyframes caret {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
+  /* Hero product shot */
+  .hero-glow {
+    background: radial-gradient(
+      closest-side,
+      rgb(var(--wine) / 0.6),
+      rgb(var(--wine) / 0.18) 55%,
+      transparent 78%
+    );
   }
 
-  .animate-caret {
-    animation: caret 1.05s steps(1, end) infinite;
+  .device {
+    position: relative;
+    border-radius: 36px;
+    padding: 10px;
+    background: linear-gradient(180deg, rgb(244 243 239 / 0.16), rgb(244 243 239 / 0.03));
+    border: 1px solid rgb(244 243 239 / 0.12);
+    box-shadow:
+      0 40px 120px -24px rgb(var(--wine) / 0.85),
+      inset 0 1px 0 rgb(244 243 239 / 0.1);
   }
 
-  /* Subtle conic glow for accent rings */
-  @keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "device device"
+      "c1 c3"
+      "c2 c4";
+    column-gap: 1.5rem;
+    row-gap: 1.75rem;
   }
 
-  .animate-spin-slow {
-    animation: spin-slow 24s linear infinite;
+  @media (min-width: 768px) {
+    .product-grid {
+      grid-template-columns: 1fr minmax(0, 300px) 1fr;
+      grid-template-areas:
+        "c1 device c3"
+        "c2 device c4";
+      column-gap: 3rem;
+      row-gap: 0;
+      align-items: center;
+    }
   }
 
-  /* Tighten display headlines */
-  .h-display {
-    letter-spacing: -0.04em;
-    line-height: 0.92;
+  @media (min-width: 1024px) {
+    .product-grid {
+      grid-template-columns: 1fr minmax(0, 360px) 1fr;
+    }
   }
 
-  .h-display-lg {
-    letter-spacing: -0.045em;
-    line-height: 0.88;
+  /* Horizontal rail: first card lines up with the 1200px container, the rest bleeds off-screen */
+  .rail {
+    --gutter: 1rem;
+    --rail-pad: max(var(--gutter), calc((100% - 1200px) / 2 + var(--gutter)));
+    padding-inline: var(--rail-pad);
+    scroll-padding-inline: var(--rail-pad);
   }
 
-  /* Custom transitions */
-  .tr-fluid {
-    transition-timing-function: var(--ease-out-fluid);
-    transition-duration: 700ms;
+  @media (min-width: 640px) {
+    .rail {
+      --gutter: 1.5rem;
+    }
   }
 
-  .tr-spring {
-    transition-timing-function: var(--ease-spring-soft);
-    transition-duration: 600ms;
+  .no-scrollbar {
+    scrollbar-width: none;
   }
 
-  .tr-expo {
-    transition-timing-function: var(--ease-out-expo);
-    transition-duration: 800ms;
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.25rem, 0);
+  }
+}
+
+@keyframes rise-device {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 2.5rem, 0) scale(0.96);
+  }
+}
+
+@keyframes draw-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes ping-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+
+  70%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
   }
 }

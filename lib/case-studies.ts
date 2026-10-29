@@ -28,7 +28,7 @@ export const caseStudies: CaseStudy[] = [
     category: "Sustainability",
     tagline: "Saving 'ugly' produce from going to waste",
     bg: "bg-[#cafb42]",
-    logo: "/projects/reddmaten.png",
+    logo: "/projects/reddmaten.jpg",
 
     challenge:
       "Every year, millions of tons of perfectly edible produce are discarded simply because they don't meet cosmetic standards. Farmers lose revenue, consumers miss out on affordable options, and the environmental impact is massive. Traditional supply chains have no room for 'imperfect' fruits and vegetables.",
@@ -54,7 +54,7 @@ export const caseStudies: CaseStudy[] = [
     category: "Esports",
     tagline: "Building Northern Europe's premier esports organization",
     bg: "bg-[#b0aefb]",
-    logo: "/projects/riddle.png",
+    logo: "/projects/riddle.jpg",
 
     challenge:
       "The Norwegian esports scene lacked a professional, sustainable organization that could compete at the highest European level. Most teams were short-lived, poorly managed, and couldn't provide the infrastructure players needed to develop into world-class competitors.",

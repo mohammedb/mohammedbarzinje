@@ -1,10 +1,11 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const CookieBanner = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const consent = localStorage.getItem("cookie-consent");
@@ -13,6 +14,21 @@ export const CookieBanner = () => {
             return () => clearTimeout(timer);
         }
     }, []);
+
+    // Lifts the action dock above the banner for as long as it is on screen
+    useEffect(() => {
+        const node = ref.current;
+        if (!isVisible || !node) return;
+        const root = document.documentElement;
+        const observer = new ResizeObserver(() => {
+            root.style.setProperty("--cookie-offset", `${node.offsetHeight + 12}px`);
+        });
+        observer.observe(node);
+        return () => {
+            observer.disconnect();
+            root.style.removeProperty("--cookie-offset");
+        };
+    }, [isVisible]);
 
     const handleAccept = () => {
         localStorage.setItem("cookie-consent", "true");
@@ -28,51 +44,39 @@ export const CookieBanner = () => {
         <AnimatePresence>
             {isVisible && (
                 <motion.div
-                    initial={{ y: 24, opacity: 0, filter: "blur(6px)" }}
-                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-                    exit={{ y: 16, opacity: 0, filter: "blur(4px)" }}
+                    ref={ref}
+                    role="region"
+                    aria-label="Cookie consent"
+                    initial={{ y: 24, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 16, opacity: 0 }}
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    className="fixed bottom-4 right-4 left-4 sm:left-auto z-[75] sm:right-6 sm:bottom-6 max-w-md"
+                    className="fixed left-4 right-4 z-[75] max-w-md rounded-surface border border-line-strong bg-surface-hi/95 p-5 shadow-[0_24px_60px_-20px_rgb(0_0_0/0.9)] backdrop-blur-xl sm:left-auto sm:right-6 md:p-6"
+                    style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)" }}
                 >
-                    <div className="bezel-shell">
-                        <div className="bezel-core p-5 md:p-6 relative">
-                            <div className="flex items-center justify-between mb-4 text-[10.5px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
-                                <span className="inline-flex items-center gap-2">
-                                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-                                    Cookies
-                                </span>
-                                <span className="font-mono">/ EU GDPR</span>
-                            </div>
-                            <p className="text-[15px] font-medium tracking-tight text-[var(--ink)] leading-snug mb-2">
-                                Just the essentials.
-                            </p>
-                            <p className="text-[13.5px] leading-[1.55] text-[var(--ink-soft)] mb-6">
-                                This site uses minimal cookies for performance and analytics —
-                                nothing creepy, no third-party tracking.
-                            </p>
+                    <div className="mb-4 flex items-center justify-between">
+                        <span className="label">Cookies</span>
+                        <span className="font-mono text-[11px] text-muted">/ EU GDPR</span>
+                    </div>
+                    <p className="mb-2 text-[15px] font-medium leading-snug tracking-tight text-ink">
+                        Just the essentials.
+                    </p>
+                    <p className="mb-6 text-[13.5px] leading-[1.55] text-ink-soft">
+                        This site uses minimal cookies for performance and analytics —
+                        nothing creepy, no third-party tracking.
+                    </p>
 
-                            <div className="flex items-center gap-2">
-                                <button
-                                    onClick={handleAccept}
-                                    className="group inline-flex items-center gap-2 rounded-full bg-[var(--ink)] text-[var(--canvas-soft)] pl-4 pr-1 py-1 transition-colors duration-500 hover:bg-[var(--ink-soft)]"
-                                >
-                                    <span className="text-[12.5px] font-medium tracking-tight">
-                                        Accept
-                                    </span>
-                                    <span className="flex items-center justify-center h-7 w-7 rounded-full bg-white/10 ring-1 ring-white/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px]">
-                                        <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                                            <path d="M2.5 6.2 5 8.6 9.5 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                    </span>
-                                </button>
-                                <button
-                                    onClick={handleDecline}
-                                    className="px-4 py-2 rounded-full text-[12.5px] font-medium tracking-tight text-[var(--ink-soft)] hover:text-[var(--ink)] hover:bg-[var(--canvas-deep)] transition-colors duration-300"
-                                >
-                                    Decline
-                                </button>
-                            </div>
-                        </div>
+                    <div className="flex items-center gap-2">
+                        <button
+                            type="button"
+                            onClick={handleAccept}
+                            className="btn btn-sm bg-ink text-canvas hover:bg-ink-soft"
+                        >
+                            Accept
+                        </button>
+                        <button type="button" onClick={handleDecline} className="btn btn-ghost btn-sm">
+                            Decline
+                        </button>
                     </div>
                 </motion.div>
             )}

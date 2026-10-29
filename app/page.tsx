@@ -1,25 +1,62 @@
-import { HomeContent } from "@/components/ui/home-content";
+import { ActionDock } from "@/components/ui/action-dock";
+import { Changelog } from "@/components/ui/changelog";
+import { Contact } from "@/components/ui/contact";
+import { Faq } from "@/components/ui/faq";
+import { Footer } from "@/components/ui/footer";
+import { Hero } from "@/components/ui/hero";
+import { Highlights } from "@/components/ui/highlights";
+import { Lineup } from "@/components/ui/lineup";
+import { Navbar } from "@/components/ui/navbar";
+import { Specs } from "@/components/ui/specs";
+import { faqs, profile, SITE_URL } from "@/lib/profile";
 
-const SITE_URL = "https://mohammedbarzinje.com";
+const personId = `${SITE_URL}/#person`;
+const ventureId = (key: string) => `${SITE_URL}/#org-${key}`;
 
-// Person — the canonical entity describing Mohammed
-const personJsonLd = {
-  "@context": "https://schema.org",
+// Organizations Mohammed founded or co-founded. Each one names the Person as founder
+// (schema.org has no "founder" property on Person itself).
+const ventures = [
+  {
+    key: "ditteventyr",
+    name: "Ditt Eventyr",
+    url: "https://www.ditteventyr.no",
+    description: "Personalized children's books with AI illustrations of the child, printed in Norway.",
+  },
+  {
+    key: "enkelt",
+    name: "Enkelt.ai",
+    url: "https://enkelt.ai",
+    description: "Esports management platform for rosters, scrims, finances, scouting, contracts and scheduling.",
+  },
+  {
+    key: "reddmaten",
+    name: "ReddMaten",
+    url: "https://reddmaten.no",
+    description: "Local marketplace where farmers sell surplus produce straight to consumers.",
+  },
+  {
+    key: "riddle",
+    name: "Riddle Esports",
+    url: "https://riddle.no",
+    foundingDate: "2015",
+    description:
+      "League of Legends esports organization with five national titles, EU Masters qualification and a 27-1 record.",
+  },
+];
+
+const person = {
   "@type": "Person",
-  "@id": `${SITE_URL}/#person`,
-  name: "Mohammed Barzinje",
+  "@id": personId,
+  name: profile.name,
   givenName: "Mohammed",
   familyName: "Barzinje",
-  jobTitle: "Senior Product Manager",
+  jobTitle: profile.role,
   description:
-    "Senior Product Manager based in Sarpsborg, Norway with 10+ years building digital products across esports, marketplaces, and consumer tech. Founder of ReddMaten and Riddle Esports. Co-founder of Enkelt.ai.",
+    "Senior Product Manager in Sarpsborg, Norway, with 10+ years shipping digital products across esports, marketplaces and AI. Previously Senior Product Manager at ESL FACEIT Group for the Esports World Cup. Founder of Riddle Esports and ReddMaten, co-founder of Enkelt.ai and Ditt Eventyr.",
   url: SITE_URL,
-  image: `${SITE_URL}/meg2.png`,
-  email: "mailto:digital@thepitch.no",
-  nationality: {
-    "@type": "Country",
-    name: "Norway",
-  },
+  image: `${SITE_URL}${profile.portrait}`,
+  email: `mailto:${profile.email}`,
+  nationality: { "@type": "Country", name: "Norway" },
   address: {
     "@type": "PostalAddress",
     addressLocality: "Sarpsborg",
@@ -27,8 +64,8 @@ const personJsonLd = {
   },
   knowsLanguage: [
     { "@type": "Language", name: "Norwegian", alternateName: "no" },
-    { "@type": "Language", name: "English", alternateName: "en" },
     { "@type": "Language", name: "Kurdish", alternateName: "ku" },
+    { "@type": "Language", name: "English", alternateName: "en" },
     { "@type": "Language", name: "German", alternateName: "de" },
     { "@type": "Language", name: "Arabic", alternateName: "ar" },
   ],
@@ -36,187 +73,87 @@ const personJsonLd = {
     "Product Management",
     "Product Strategy",
     "Product Roadmaps",
+    "Product Leadership",
     "Agile Methodologies",
     "Stakeholder Management",
     "User Experience Design",
+    "AI Product Development",
+    "AI Automation",
+    "AI Agents",
     "Marketplace Development",
     "Esports Operations",
     "Tournament Platforms",
-    "AI Product Development",
     "Paid Search Marketing",
     "Digital Marketing",
   ],
   hasOccupation: {
     "@type": "Occupation",
-    name: "Senior Product Manager",
-    occupationLocation: {
-      "@type": "City",
-      name: "Sarpsborg",
-    },
+    name: profile.role,
+    occupationLocation: { "@type": "City", name: "Sarpsborg" },
     skills:
-      "Product Strategy, Roadmapping, Stakeholder Management, UX, Agile, Data Analysis, Cross-functional Leadership",
-    yearsOfExperience: 10,
+      "Product Strategy, Roadmapping, Stakeholder Management, UX, Agile, Data Analysis, Cross-functional Leadership, AI Automation",
   },
-  alumniOf: [
-    {
-      "@type": "Organization",
-      name: "ESL FACEIT Group",
-      url: "https://www.eslfaceitgroup.com",
-    },
-    {
-      "@type": "Organization",
-      name: "s360",
-      url: "https://www.s360digital.com",
-    },
-  ],
   worksFor: [
-    {
-      "@type": "Organization",
-      name: "Enkelt.ai",
-      url: "https://enkelt.ai",
-    },
-    {
-      "@type": "Organization",
-      name: "ThePitch AS",
-      url: "https://thepitch.no",
-    },
-    {
-      "@type": "Organization",
-      name: "ReddMaten",
-      url: "https://reddmaten.no",
-    },
+    { "@id": ventureId("enkelt") },
+    { "@id": ventureId("ditteventyr") },
+    { "@type": "Organization", name: "ThePitch AS", url: "https://thepitch.no" },
+    { "@id": ventureId("reddmaten") },
   ],
-  founder: [
-    {
-      "@type": "Organization",
-      name: "ReddMaten",
-      url: "https://reddmaten.no",
-      description:
-        "Norwegian D2C marketplace diverting 'imperfect' produce from farms straight to consumers.",
-    },
-    {
-      "@type": "Organization",
-      name: "Riddle Esports",
-      url: "https://riddle.no",
-      description:
-        "Northern Europe's most-decorated League of Legends esports organization. Five national titles, EU Masters qualifier, 27-1 record.",
-    },
-    {
-      "@type": "Organization",
-      name: "Enkelt.ai",
-      url: "https://enkelt.ai",
-      description:
-        "Pre-launch operating-system SaaS for esports organizations.",
-    },
+  alumniOf: [
+    { "@type": "CollegeOrUniversity", name: "Østfold University College", url: "https://www.hiof.no" },
+    { "@type": "Organization", name: "ESL FACEIT Group", url: "https://www.eslfaceitgroup.com" },
+    { "@type": "Organization", name: "s360", url: "https://www.s360digital.com" },
   ],
-  sameAs: [
-    "https://www.linkedin.com/in/mohammed-barzinje-9237b5a5/",
-    "https://riddle.no",
-    "https://reddmaten.no",
-    "https://enkelt.ai",
-  ],
+  sameAs: [profile.linkedin],
 };
 
-// ProfilePage — Google's canonical pattern for personal sites (mainEntity Person)
-const profilePageJsonLd = {
+const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  "@id": `${SITE_URL}/#profile`,
-  url: SITE_URL,
-  name: "Mohammed Barzinje | Senior Product Manager in Norway",
-  description:
-    "Portfolio and selected work of Mohammed Barzinje — Senior Product Manager based in Sarpsborg, Norway.",
-  inLanguage: "en",
-  mainEntity: { "@id": `${SITE_URL}/#person` },
-  about: { "@id": `${SITE_URL}/#person` },
-  primaryImageOfPage: {
-    "@type": "ImageObject",
-    url: `${SITE_URL}/meg2.png`,
-    caption: "Mohammed Barzinje",
-  },
-};
-
-const websiteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": `${SITE_URL}/#website`,
-  name: "Mohammed Barzinje — Senior Product Manager",
-  url: SITE_URL,
-  description:
-    "Portfolio of Mohammed Barzinje, Senior Product Manager based in Norway specializing in digital products, esports ecosystems, and marketplace development.",
-  inLanguage: "en",
-  publisher: { "@id": `${SITE_URL}/#person` },
-  author: { "@id": `${SITE_URL}/#person` },
-};
-
-// FAQPage — Princeton GEO research: +40% AI search visibility
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
+  "@graph": [
+    person,
+    ...ventures.map(({ key, ...venture }) => ({
+      "@type": "Organization",
+      "@id": ventureId(key),
+      ...venture,
+      founder: { "@id": personId },
+    })),
+    // ProfilePage: Google's canonical pattern for personal sites
     {
-      "@type": "Question",
-      name: "Who is Mohammed Barzinje?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Mohammed Barzinje is a Senior Product Manager based in Sarpsborg, Norway with over 10 years of experience building digital products across esports, marketplaces, and consumer technology. He is the founder of ReddMaten and Riddle Esports, and co-founder of Enkelt.ai.",
+      "@type": "ProfilePage",
+      "@id": `${SITE_URL}/#profile`,
+      url: SITE_URL,
+      name: "Mohammed Barzinje | Senior Product Manager in Norway",
+      description:
+        "Portfolio of Mohammed Barzinje, Senior Product Manager in Sarpsborg, Norway: highlights, products, experience and a copy-ready summary for hiring managers.",
+      inLanguage: "en",
+      mainEntity: { "@id": personId },
+      about: { "@id": personId },
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}${profile.portrait}`,
+        caption: profile.name,
       },
     },
     {
-      "@type": "Question",
-      name: "What does Mohammed Barzinje do?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Mohammed leads product strategy, roadmaps, and end-to-end execution for digital products. He currently works at ThePitch AS as a Marketing & AI Specialist, co-founds Enkelt.ai (an operating system for esports organizations), and is building ReddMaten — a Norwegian sustainability-first marketplace.",
-      },
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: profile.name,
+      url: SITE_URL,
+      description:
+        "Portfolio of Mohammed Barzinje, Senior Product Manager in Norway: products shipped across esports, marketplaces and AI.",
+      inLanguage: "en",
+      publisher: { "@id": personId },
+      author: { "@id": personId },
     },
+    // Mirrors the visible FAQ section 1:1
     {
-      "@type": "Question",
-      name: "Where is Mohammed Barzinje based?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Mohammed Barzinje is based in Sarpsborg, Norway (UTC+1) and works with clients and teams across Europe.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What companies has Mohammed Barzinje founded?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Mohammed founded Riddle Esports in 2015 — Northern Europe's most-decorated League of Legends organization, with 5 national titles, EU Masters qualification, and a historic 27-1 record across three consecutive seasons. He also founded ReddMaten, a Norwegian direct-to-consumer marketplace for 'imperfect' produce, and co-founded Enkelt.ai, a SaaS platform for esports organizations.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What was Mohammed Barzinje's role at ESL FACEIT Group?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "At ESL FACEIT Group (2023-2024), Mohammed was a Senior Product Manager leading the tournament-ecosystem product surface for Gamers8 and the Esports World Cup — owning roadmap, KPIs, and cross-functional delivery for the largest esports festivals in the world.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What languages does Mohammed Barzinje speak?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Mohammed speaks five languages: Norwegian, English, Kurdish, German, and Arabic.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Is Mohammed Barzinje available for work?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. Mohammed is open to new product, advisory, and consulting opportunities. He can be reached via email at digital@thepitch.no or on LinkedIn.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What industries does Mohammed Barzinje specialize in?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Mohammed specializes in three industries: esports (tournament platforms, organization operations, fan products), marketplaces (D2C commerce, sustainability, two-sided platforms), and AI-driven consumer and B2B SaaS.",
-      },
+      "@type": "FAQPage",
+      "@id": `${SITE_URL}/#faq`,
+      mainEntity: faqs.map(({ question, answer }) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: { "@type": "Answer", text: answer },
+      })),
     },
   ],
 };
@@ -226,21 +163,21 @@ export default function Home() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        // Escape "<" so no string in the data can close the script tag
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <HomeContent />
+      <Navbar />
+      <main id="main">
+        <Hero />
+        <Highlights />
+        <Lineup />
+        <Changelog />
+        <Specs />
+        <Faq />
+        <Contact />
+      </main>
+      <Footer />
+      <ActionDock />
     </>
   );
 }

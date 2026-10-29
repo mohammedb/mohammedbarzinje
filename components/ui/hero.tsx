@@ -1,264 +1,145 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { ArrowDown } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { ConfigSwitch } from "@/components/ui/config-switch";
+import { CONFIGS } from "@/lib/config";
+import { configurations, heroCallouts, profile } from "@/lib/profile";
+import { cn } from "@/lib/utils";
 
-const stagger = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: { staggerChildren: 0.08, delayChildren: 0.1 },
-    },
-};
+const delay = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
 
-const fadeUp = {
-    hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
-    show: {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] as const },
-    },
-};
-
-function useNorwayTime() {
-    const [time, setTime] = useState<string>("");
-
-    useEffect(() => {
-        const formatter = new Intl.DateTimeFormat("en-GB", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
-            timeZone: "Europe/Oslo",
-        });
-        const update = () => setTime(formatter.format(new Date()));
-        update();
-        const id = window.setInterval(update, 30_000);
-        return () => window.clearInterval(id);
-    }, []);
-
-    return time;
-}
+const calloutAreas = ["c1", "c2", "c3", "c4"] as const;
 
 export function Hero() {
     const ref = useRef<HTMLElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start start", "end start"],
-    });
-    const time = useNorwayTime();
-
-    const portraitY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-    const portraitScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
+    const reduceMotion = useReducedMotion();
+    const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+    const productY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 80]);
+    const glowOpacity = useTransform(scrollYProgress, [0, 0.9], [1, reduceMotion ? 1 : 0.3]);
 
     return (
         <section
             ref={ref}
             id="top"
-            className="relative min-h-[100dvh] flex items-end pt-32 pb-12 md:pt-40 md:pb-16 px-4 md:px-8 overflow-hidden"
+            aria-labelledby="hero-title"
+            className="relative isolate min-h-[100dvh] overflow-hidden pb-20 pt-24 sm:pt-28 md:pb-28"
         >
-            <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <Image
-                    src="/background.jpg"
-                    alt=""
-                    fill
-                    priority
-                    sizes="100vw"
-                    className="object-cover opacity-[0.6] mix-blend-multiply"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-[var(--canvas-soft)]/20 via-[var(--canvas-soft)]/30 to-[var(--canvas-soft)]" />
-                <div className="absolute top-1/3 -right-40 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle_at_center,var(--mesh-warm),transparent_60%)] blur-3xl" />
-                <div className="absolute -bottom-20 -left-20 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle_at_center,var(--mesh-cool),transparent_60%)] blur-3xl" />
-            </div>
-
             <motion.div
-                variants={stagger}
-                initial="hidden"
-                animate="show"
-                className="relative w-full max-w-[1280px] mx-auto"
-            >
-                <motion.div
-                    variants={fadeUp}
-                    className="hidden md:flex items-center justify-between mb-16 lg:mb-20"
+                aria-hidden="true"
+                style={{ opacity: glowOpacity }}
+                className="hero-glow pointer-events-none absolute left-1/2 top-[46%] -z-10 h-[900px] w-[1200px] -translate-x-1/2 md:top-[50%]"
+            />
+
+            <div className="mx-auto flex max-w-[1200px] flex-col items-center px-4 text-center sm:px-6">
+                <p
+                    className="rise inline-flex items-center gap-2.5 rounded-full border border-line bg-white/[0.04] py-1.5 pl-3 pr-4 text-[13px] text-ink-soft"
+                    style={delay(0)}
                 >
-                    <div className="eyebrow">
-                        <span className="dot" />
-                        Senior Product Manager
-                    </div>
-                    <div className="flex items-center gap-6 text-[11px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
-                        <span>Sarpsborg / Norway</span>
-                        <span className="h-3 w-px bg-[var(--rule-strong)]" aria-hidden="true" />
-                        <span>2015 — Now</span>
-                        <span className="h-3 w-px bg-[var(--rule-strong)]" aria-hidden="true" />
-                        <span className="font-mono tabular-nums">N°.01</span>
-                    </div>
-                </motion.div>
+                    <span className="relative flex size-2" aria-hidden="true">
+                        <span className="ping-soft absolute inset-0 rounded-full bg-accent" />
+                        <span className="relative size-2 rounded-full bg-accent shadow-[0_0_12px_var(--accent)]" />
+                    </span>
+                    <span className="font-medium text-ink">Available now</span>
+                    <span className="sr-only">,</span>
+                    <span className="h-3 w-px bg-line-strong" aria-hidden="true" />
+                    <span>{profile.location}</span>
+                </p>
 
-                <motion.div variants={fadeUp} className="md:hidden mb-8">
-                    <div className="eyebrow">
-                        <span className="dot" />
-                        Senior Product Manager / Norway
-                    </div>
-                </motion.div>
+                <h1
+                    id="hero-title"
+                    className="rise mt-7 pb-[0.12em] text-[clamp(3rem,9vw,7rem)] font-semibold leading-[0.95] tracking-[-0.055em] text-ink"
+                    style={delay(90)}
+                >
+                    <span className="block">Mohammed Barzinje.</span>
+                    <span className="block">
+                        Built to <em className="font-serif font-normal tracking-[-0.02em] text-accent">ship.</em>
+                    </span>
+                </h1>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
-                    <div className="lg:col-span-8 order-2 lg:order-1">
-                        <motion.h1
-                            variants={fadeUp}
-                            className="font-medium text-[var(--ink)] text-[clamp(3.25rem,9vw,9.5rem)] h-display-lg"
+                <div className="rise stack mt-5 max-w-[42rem]" style={delay(180)}>
+                    {CONFIGS.map((id) => (
+                        <p
+                            key={id}
+                            data-variant={id}
+                            className="variant text-pretty text-[clamp(1.0625rem,1.6vw,1.3125rem)] leading-[1.5] tracking-[-0.01em] text-ink-soft"
                         >
-                            <span className="block">Products</span>
-                            <span className="block">
-                                people{" "}
-                                <motion.span
-                                    initial={{ opacity: 0, y: 18 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 1.1, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
-                                    style={{ opacity: 0 }}
-                                    className="italic font-normal inline-block"
-                                >
-                                    actually
-                                </motion.span>
-                            </span>
-                            <span className="block">
-                                ship
-                                <span className="text-[var(--accent)]">.</span>
-                            </span>
-                        </motion.h1>
-
-                        <motion.div variants={fadeUp} className="mt-10 lg:mt-14">
-                            <p className="text-[15px] md:text-[17px] leading-[1.55] text-[var(--ink-soft)] max-w-xl">
-                                I&apos;m <span className="text-[var(--ink)] font-medium">Mohammed Barzinje</span> — a
-                                senior product manager based in Sarpsborg. Ten years building digital
-                                products across <span className="text-[var(--ink)]">esports</span>,
-                                <span className="text-[var(--ink)]"> marketplaces</span> and
-                                <span className="text-[var(--ink)]"> consumer tech</span>. Co-founder
-                                of Enkelt.ai. Founder of ReddMaten &amp; Riddle Esports.
-                            </p>
-
-                            <div className="mt-8 flex flex-wrap items-center gap-3">
-                                <Link
-                                    href="#work"
-                                    className="group inline-flex items-center gap-2 rounded-full bg-[var(--ink)] text-[var(--canvas-soft)] pl-5 pr-1.5 py-1.5 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[var(--ink-soft)] active:scale-[0.98]"
-                                >
-                                    <span className="text-sm font-medium tracking-tight">
-                                        View selected work
-                                    </span>
-                                    <span className="flex items-center justify-center h-9 w-9 rounded-full bg-white/10 ring-1 ring-white/15 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-[2px] group-hover:-translate-y-[1px] group-hover:scale-105">
-                                        <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                                            <path d="M3 9 9 3M9 3H4M9 3v5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                    </span>
-                                </Link>
-                                <Link
-                                    href="/case-studies"
-                                    className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium tracking-tight text-[var(--ink-soft)] hover:text-[var(--ink)] transition-colors duration-500"
-                                >
-                                    Case studies
-                                    <span className="inline-block transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1">
-                                        →
-                                    </span>
-                                </Link>
-                            </div>
-                        </motion.div>
-                    </div>
-
-                    <motion.div
-                        variants={fadeUp}
-                        className="lg:col-span-4 order-1 lg:order-2 relative w-full"
-                    >
-                        <motion.div
-                            style={{ y: portraitY, scale: portraitScale }}
-                            className="relative w-full max-w-[400px] mx-auto lg:mx-0 lg:ml-auto"
-                        >
-                            <div className="bezel-shell relative">
-                                <div className="bezel-core relative aspect-[4/5] overflow-hidden">
-                                    <Image
-                                        src="/meg2.png"
-                                        alt="Mohammed Barzinje"
-                                        fill
-                                        sizes="(max-width: 1024px) 90vw, 400px"
-                                        priority
-                                        className="object-cover"
-                                    />
-                                    <div className="absolute inset-0 pointer-events-none mix-blend-multiply bg-gradient-to-b from-transparent via-transparent to-[var(--canvas-deep)]/40" />
-                                </div>
-
-                                <div className="absolute -bottom-4 -left-4 md:-bottom-5 md:-left-5">
-                                    <div className="rounded-full bg-[var(--surface)] border border-[var(--rule-strong)] py-1.5 pl-2 pr-3.5 flex items-center gap-2 shadow-[var(--shadow-md)]">
-                                        <span className="relative flex h-2 w-2">
-                                            <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
-                                            <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--accent)]" />
-                                        </span>
-                                        <span className="text-[10.5px] uppercase tracking-[0.18em] font-medium text-[var(--ink-soft)]">
-                                            Open to work
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="mt-6 flex items-start justify-between text-[11px] uppercase tracking-[0.22em] text-[var(--ink-mute)] px-1">
-                                <div>
-                                    <div>Currently</div>
-                                    <div className="mt-1 text-[var(--ink)] font-medium normal-case tracking-tight text-[13px]">
-                                        Enkelt.ai &amp; ThePitch
-                                    </div>
-                                </div>
-                                <div className="text-right">
-                                    <div>Previously</div>
-                                    <div className="mt-1 text-[var(--ink)] font-medium normal-case tracking-tight text-[13px]">
-                                        ESL FACEIT
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
+                            {configurations[id].pitch}
+                        </p>
+                    ))}
                 </div>
 
-                <motion.dl
-                    variants={fadeUp}
-                    className="mt-16 lg:mt-24 pt-6 border-t border-[var(--rule)] grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-6 md:gap-x-10"
+                <div
+                    id="hero-actions"
+                    className="rise mt-8 flex flex-wrap items-center justify-center gap-3"
+                    style={delay(270)}
                 >
-                    <InfoCol label="Local time">
-                        <span className="font-mono tabular-nums">{time || "00:00"}</span>
-                        <span className="ml-1.5 text-[10px] uppercase tracking-[0.22em] text-[var(--ink-mute)]">
-                            CET
-                        </span>
-                    </InfoCol>
-                    <InfoCol label="Coordinates">
-                        <span className="font-mono tabular-nums">59.28°N</span>
-                        <span className="text-[var(--ink-mute)] mx-1.5">/</span>
-                        <span className="font-mono tabular-nums">11.11°E</span>
-                    </InfoCol>
-                    <InfoCol label="Index">
-                        <span className="font-mono tabular-nums">N°.01</span>
-                        <span className="ml-1.5 text-[var(--ink-mute)]">— Hero</span>
-                    </InfoCol>
-                    <InfoCol label="Status">
-                        <span className="relative inline-flex h-1.5 w-1.5 mr-2">
-                            <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
-                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-                        </span>
-                        Available
-                    </InfoCol>
-                </motion.dl>
+                    <a href={profile.cv} download={profile.cvFileName} className="btn btn-primary">
+                        Download CV
+                        <ArrowDown className="size-4" strokeWidth={2.25} aria-hidden="true" />
+                    </a>
+                    <a href={`mailto:${profile.email}`} className="btn btn-ghost">
+                        Email me
+                    </a>
+                </div>
+
+                <div className="rise mt-10 flex flex-col items-center gap-3" style={delay(360)}>
+                    <span id="hero-config-label" className="label">
+                        Choose your configuration
+                    </span>
+                    <ConfigSwitch labelledBy="hero-config-label" />
+                </div>
+            </div>
+
+            <motion.div style={{ y: productY }} className="relative mx-auto mt-14 max-w-[1080px] px-4 sm:px-6 md:mt-16">
+                <div className="product-grid">
+                    <div
+                        className="rise-device mx-auto w-full max-w-[320px] [grid-area:device] md:max-w-none"
+                        style={delay(420)}
+                    >
+                        <div className="device">
+                            <Image
+                                src={profile.portrait}
+                                alt="Portrait of Mohammed Barzinje"
+                                width={800}
+                                height={800}
+                                preload
+                                sizes="(min-width: 1024px) 340px, (min-width: 768px) 280px, 300px"
+                                className="aspect-[4/5] w-full rounded-[26px] object-cover"
+                            />
+                        </div>
+                    </div>
+
+                    {heroCallouts.map((callout, index) => {
+                        const onLeft = index < 2;
+                        return (
+                            <div
+                                key={callout.value}
+                                className={cn(
+                                    "rise relative border-t border-line pt-3 text-left md:border-0 md:pt-0",
+                                    onLeft && "md:text-right"
+                                )}
+                                style={{ gridArea: calloutAreas[index], ...delay(820 + index * 90) }}
+                            >
+                                <span
+                                    aria-hidden="true"
+                                    className={cn(
+                                        "draw-x absolute top-[1.15rem] hidden h-px w-9 bg-white/30 md:block",
+                                        onLeft ? "-right-11 origin-right" : "-left-11 origin-left"
+                                    )}
+                                    style={delay(700 + index * 90)}
+                                />
+                                <p className="text-[clamp(1.375rem,2.4vw,1.875rem)] font-semibold leading-tight tracking-[-0.035em] text-ink">
+                                    {callout.value}
+                                </p>
+                                <p className="mt-1 text-[14px] leading-snug text-muted">{callout.label}</p>
+                            </div>
+                        );
+                    })}
+                </div>
             </motion.div>
         </section>
-    );
-}
-
-function InfoCol({ label, children }: { label: string; children: React.ReactNode }) {
-    return (
-        <div className="flex flex-col gap-1.5">
-            <dt className="text-[10px] uppercase tracking-[0.22em] text-[var(--ink-mute)] flex items-center gap-1.5">
-                <span className="h-px w-3 bg-[var(--rule-strong)]" aria-hidden="true" />
-                {label}
-            </dt>
-            <dd className="text-[14px] text-[var(--ink)] tracking-tight inline-flex items-center">
-                {children}
-            </dd>
-        </div>
     );
 }

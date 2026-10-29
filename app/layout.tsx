@@ -1,10 +1,13 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { SmoothScroll } from "@/components/ui/smooth-scroll";
 import { CookieBanner } from "@/components/ui/cookie-banner";
-import { CustomCursor } from "@/components/ui/cursor";
+import { MotionProvider } from "@/components/ui/motion-provider";
+import { Toaster } from "@/components/ui/toast";
+import { configBootScript } from "@/lib/config";
+import { profile, SITE_URL } from "@/lib/profile";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,17 +19,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Only used for the italic "ship." in the hero headline
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+});
+
 const siteConfig = {
-  name: "Mohammed Barzinje",
+  name: profile.name,
   title: "Mohammed Barzinje | Senior Product Manager in Norway",
   description:
-    "Senior Product Manager based in Norway with 10+ years experience in digital products, esports ecosystems, and marketplace development. Expert in agile methodologies, stakeholder management, and product strategy. Founder of ReddMaten & Riddle Esports.",
-  url: "https://mohammedbarzinje.com",
-  ogImage: "/og-image.png",
-  links: {
-    email: "mailto:mohammedbarzinje@gmail.com",
-    linkedin: "https://www.linkedin.com/in/mohammed-barzinje-9237b5a5/",
-  },
+    "Senior Product Manager in Norway. 10+ years shipping products, from the Esports World Cup to AI-personalized children's books. Open to PM, Product Lead and AI roles.",
+  url: SITE_URL,
 };
 
 export const metadata: Metadata = {
@@ -41,23 +47,25 @@ export const metadata: Metadata = {
     "Product Manager",
     "Senior Product Manager",
     "Product Manager Norway",
+    "Product Lead",
+    "Head of Product",
+    "AI Product Manager",
     "Digital Product Manager",
     "Product Management",
     "Product Strategy",
-    "Agile Product Manager",
-    "Tech Product Manager",
-    "Stakeholder Management",
     "Product Roadmap",
-    "User Experience",
+    "Stakeholder Management",
     "Esports Product Manager",
     "Marketplace Product Manager",
+    "Esports World Cup",
+    "ESL FACEIT Group",
+    "Ditt Eventyr",
+    "Enkelt.ai",
     "Riddle Esports",
     "ReddMaten",
     "Norway",
     "Sarpsborg",
     "Østfold",
-    "Digital Products",
-    "Entrepreneur",
     "Startup Founder",
   ],
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
@@ -71,28 +79,22 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  // Share images come from app/opengraph-image.tsx
   openGraph: {
-    type: "website",
+    type: "profile",
+    firstName: "Mohammed",
+    lastName: "Barzinje",
     locale: "en_US",
     alternateLocale: ["nb_NO"],
     url: siteConfig.url,
     title: siteConfig.title,
     description: siteConfig.description,
     siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.title,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [siteConfig.ogImage],
     creator: "@kekmekn",
     site: "@kekmekn",
   },
@@ -121,21 +123,33 @@ export const metadata: Metadata = {
   // verification: { google: "...", other: { "msvalidate.01": "..." } },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#08080a",
+  colorScheme: "dark",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <CustomCursor />
-        <SmoothScroll />
-        <ScrollProgress />
-        <CookieBanner />
-        {children}
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: configBootScript }} />
+      </head>
+      <body className="antialiased">
+        <MotionProvider>
+          <SmoothScroll />
+          <ScrollProgress />
+          {children}
+          <CookieBanner />
+          <Toaster />
+        </MotionProvider>
       </body>
     </html>
   );
