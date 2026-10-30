@@ -32,9 +32,10 @@ export default function robots(): MetadataRoute.Robots {
     return {
         rules: [
             {
+                // Never block /_next/: Googlebot needs the CSS, JS, fonts and optimized images to render pages
                 userAgent: "*",
                 allow: "/",
-                disallow: ["/api/", "/_next/"],
+                disallow: ["/api/"],
             },
             ...aiCrawlers.map((bot) => ({
                 userAgent: bot,

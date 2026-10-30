@@ -2,9 +2,10 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { profile } from "@/lib/profile";
+import { shareCard } from "@/lib/seo";
 
-export const alt = "Mohammed Barzinje, Senior Product Manager in Sarpsborg, Norway. Built to ship.";
-export const size = { width: 1200, height: 630 };
+export const alt = shareCard.alt;
+export const size = { width: shareCard.width, height: shareCard.height };
 export const contentType = "image/png";
 
 const subline = "Senior Product Manager in Norway. Open to PM, Product Lead and AI roles.";

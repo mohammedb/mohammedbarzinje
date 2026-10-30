@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getCaseStudy, caseStudies } from "@/lib/case-studies";
 import { SITE_URL } from "@/lib/profile";
+import { sharedOpenGraph } from "@/lib/seo";
 import { CaseStudyContent } from "./case-study-content";
 
 interface PageProps {
@@ -26,8 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const title = `${caseStudy.title} - ${caseStudy.tagline}`;
-  const description = `${caseStudy.challenge.slice(0, 155)}...`;
+  const { metaTitle: title, metaDescription: description } = caseStudy;
 
   return {
     title,
@@ -40,10 +40,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       "Mohammed Barzinje",
     ],
     openGraph: {
+      ...sharedOpenGraph,
       title,
       description,
       type: "article",
       url: `/case-studies/${slug}`,
+      publishedTime: caseStudy.published,
+      modifiedTime: caseStudy.updated,
       images: caseStudy.logo
         ? [
             {
@@ -54,12 +57,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             },
           ]
         : undefined,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: caseStudy.logo ? [caseStudy.logo] : undefined,
     },
     alternates: {
       canonical: `/case-studies/${slug}`,
@@ -77,8 +74,10 @@ function generateJsonLd(slug: string) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: `${caseStudy.title} - ${caseStudy.tagline}`,
-    description: caseStudy.challenge,
+    headline: caseStudy.metaTitle,
+    description: caseStudy.metaDescription,
+    datePublished: caseStudy.published,
+    dateModified: caseStudy.updated,
     image: caseStudy.logo
       ? [`${SITE_URL}${caseStudy.logo}`]
       : undefined,

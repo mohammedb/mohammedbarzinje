@@ -6,6 +6,15 @@ export interface CaseStudy {
   bg: string;
   logo?: string;
 
+  // Search and share copy. The title template adds " | Mohammed Barzinje" (20 characters),
+  // so metaTitle stays at 40 or fewer to keep the full title within 60.
+  metaTitle: string;
+  metaDescription: string;
+
+  // ISO dates for the sitemap and the Article JSON-LD. Bump `updated` when the content changes.
+  published: string;
+  updated: string;
+
   // Core content
   challenge: string;
   solution: string;
@@ -30,6 +39,12 @@ export const caseStudies: CaseStudy[] = [
     bg: "bg-[#cafb42]",
     logo: "/projects/reddmaten.jpg",
 
+    metaTitle: "ReddMaten: Food Waste Marketplace",
+    metaDescription:
+      "Case study: how Mohammed Barzinje designed ReddMaten, a two-sided marketplace concept where Norwegian farms sell surplus and imperfect produce to consumers.",
+    published: "2025-12-10",
+    updated: "2026-10-30",
+
     challenge:
       "Every year, millions of tons of perfectly edible produce are discarded simply because they don't meet cosmetic standards. Farmers lose revenue, consumers miss out on affordable options, and the environmental impact is massive. Traditional supply chains have no room for 'imperfect' fruits and vegetables.",
 
@@ -50,17 +65,23 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "riddle-esports",
-    title: "RIDDLE Esports",
+    title: "Riddle Esports",
     category: "Esports",
     tagline: "Building Northern Europe's premier esports organization",
     bg: "bg-[#b0aefb]",
     logo: "/projects/riddle.jpg",
 
+    metaTitle: "Riddle Esports: Grassroots to EU Masters",
+    metaDescription:
+      "Case study: how Mohammed Barzinje grew Riddle Esports from a grassroots team to five national titles, a 27-1 record and EU Masters qualification.",
+    published: "2025-12-10",
+    updated: "2026-10-30",
+
     challenge:
       "The Norwegian esports scene lacked a professional, sustainable organization that could compete at the highest European level. Most teams were short-lived, poorly managed, and couldn't provide the infrastructure players needed to develop into world-class competitors.",
 
     solution:
-      "Founded and grew RIDDLE from a grassroots team into a multi-title esports organization. Built comprehensive player development programs, secured major sponsorships, and created operational systems for scouting, coaching, and competition. Dominated Norwegian League of Legends for 6+ years with an unprecedented 27-1 record across 3 consecutive seasons. Qualified for EU Masters and reached 17th in European rankings.",
+      "Founded and grew Riddle from a grassroots team into a multi-title esports organization. Built comprehensive player development programs, secured major sponsorships, and created operational systems for scouting, coaching, and competition. Dominated Norwegian League of Legends for 6+ years with an unprecedented 27-1 record across 3 consecutive seasons. Qualified for EU Masters and reached 17th in European rankings.",
 
     results: [
       { metric: "National Titles", value: "5+" },

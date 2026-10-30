@@ -1,16 +1,21 @@
 import { Metadata } from "next";
+import { caseStudies } from "@/lib/case-studies";
 import { SITE_URL } from "@/lib/profile";
+import { shareCard, sharedOpenGraph } from "@/lib/seo";
 import { CaseStudiesContent } from "./case-studies-content";
 
+const title = "Case Studies: Marketplaces and Esports";
+const description =
+  "How Mohammed Barzinje designed ReddMaten, a marketplace concept for surplus produce, and built Riddle Esports from a grassroots team to EU Masters.";
+
 export const metadata: Metadata = {
-  title: "Case Studies - Deep Dives into Key Projects",
-  description:
-    "Explore detailed case studies of my key projects including ReddMaten (a food-waste marketplace concept) and RIDDLE Esports (Northern Europe's premier esports organization). Learn about the challenges, solutions, and results.",
+  title,
+  description,
   keywords: [
     "Case Studies",
     "Portfolio",
     "ReddMaten",
-    "RIDDLE Esports",
+    "Riddle Esports",
     "Product Management",
     "Mohammed Barzinje",
     "Norway",
@@ -18,17 +23,12 @@ export const metadata: Metadata = {
     "Esports",
   ],
   openGraph: {
-    title: "Case Studies - Mohammed Barzinje",
-    description:
-      "Deep dives into the challenges, solutions, and results behind my key projects.",
+    ...sharedOpenGraph,
+    title,
+    description,
     type: "website",
     url: "/case-studies",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Case Studies - Mohammed Barzinje",
-    description:
-      "Deep dives into the challenges, solutions, and results behind my key projects.",
+    images: [shareCard],
   },
   alternates: {
     canonical: "/case-studies",
@@ -54,20 +54,12 @@ const jsonLd = {
   },
   mainEntity: {
     "@type": "ItemList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "ReddMaten",
-        url: `${SITE_URL}/case-studies/reddmaten`,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "RIDDLE Esports",
-        url: `${SITE_URL}/case-studies/riddle-esports`,
-      },
-    ],
+    itemListElement: caseStudies.map((cs, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: cs.title,
+      url: `${SITE_URL}/case-studies/${cs.slug}`,
+    })),
   },
 };
 

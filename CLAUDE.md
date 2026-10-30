@@ -21,6 +21,7 @@ Portfolio and recruiter landing page for Mohammed Barzinje, built with Next.js 1
   - `layout.tsx` - Root layout: metadata, fonts (Geist, Geist Mono, and Instrument Serif for the hero's italic "ship." only), the `?for=` boot script, and global UI (`SmoothScroll`, `ScrollProgress`, `CookieBanner`, `Toaster`) inside `MotionProvider`
   - `page.tsx` - Homepage (server component): one JSON-LD graph (Person, founded Organizations, ProfilePage, WebSite, FAQPage) plus the sections
   - `opengraph-image.tsx` - 1200x630 share card; fetches Geist from Google Fonts at build time and falls back to the next/og font
+  - `robots.ts`, `sitemap.ts`, `manifest.ts`, `llms.txt/route.ts` - Crawl rules, sitemap, web app manifest and llms.txt, all built from `lib/` data
   - `case-studies/` - Index and `[slug]` pages, content from `lib/case-studies.ts`
   - `globals.css` - Tailwind import, design tokens and component classes
 - `components/ui/`
@@ -28,7 +29,8 @@ Portfolio and recruiter landing page for Mohammed Barzinje, built with Next.js 1
   - Shared: `navbar`, `footer`, `action-dock` (sticky CV / copy email / LinkedIn bar), `config-switch`, `toast` (`toast()`, `copyText()`), `reveal`, `logo-stage`, `brand-mark`, `case-study-card`, `cookie-banner`, `smooth-scroll`, `scroll-progress`, `motion-provider`
 - `lib/profile.ts` - Single source of truth for landing-page copy and data: profile, configurations, highlights, products, releases, specs, clients and FAQ. The JSON-LD reads from it too. `SITE_URL` (www, because Vercel redirects the bare domain there) is the base for every absolute URL, so never hardcode the domain.
 - `lib/config.ts`, `lib/hooks/use-config.ts` - The configuration system (below)
-- `lib/case-studies.ts` - Case-study content
+- `lib/seo.ts` - Site title and description (`siteConfig`), `sharedOpenGraph` and `shareCard` (see SEO below)
+- `lib/case-studies.ts` - Case-study content, plus `metaTitle`, `metaDescription` and `published`/`updated` dates
 - `lib/utils.ts` - `cn()` helper (clsx + tailwind-merge)
 - `public/Resume.pdf` - The CV behind every "Download CV" button (saved as `Mohammed-Barzinje-CV.pdf`). Built with LuaLaTeX from the latest English PM CV in the ai-job-search project (`Z:\Web Projects\ai-job-search\applications\`), with the phone number removed for the public copy.
 - `public/projects/*.jpg` - 1600x1000 product screenshots; `public/logos/` - client logos, rendered white with `brightness(0) invert(1)`
@@ -48,6 +50,13 @@ The page has three configurations: `pm` (Senior PM, the default), `lead` (Produc
 - `MotionProvider` sets `reducedMotion="user"`, and `globals.css` zeroes CSS animations under `prefers-reduced-motion`.
 - Lenis runs on desktop only (skipped on touch or small screens and with reduced motion). It animates hash links with a -64px offset for the fixed navbar; native jumps use `scroll-padding-top: 4rem`.
 - Section links: plain `<a href="#id">` on the homepage, `<Link href="/#id">` elsewhere (see `SectionLink` in `navbar.tsx`).
+
+### SEO
+
+- Next.js replaces the root `openGraph` with a page's own instead of merging them. A page that sets `openGraph` spreads `sharedOpenGraph` into it, and adds `shareCard` when it has no image of its own. Pages leave `twitter` alone: the root sets the card and handle, and Next.js copies title, description and image from `openGraph`.
+- The title template adds " | Mohammed Barzinje" (20 characters), so page titles stay at 40 characters or fewer. Descriptions run about 150 characters, in the third person.
+- The sitemap's `lastmod` reads `PROFILE_UPDATED` in `lib/profile.ts` (homepage) and each case study's `updated`. Bump them when that copy changes; never use the build time.
+- `robots.ts` must not disallow `/_next/`: Googlebot needs the CSS, JS, fonts and images to render pages.
 
 ### Design System
 

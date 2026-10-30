@@ -1,21 +1,23 @@
 import { MetadataRoute } from "next";
 import { caseStudies } from "@/lib/case-studies";
-import { SITE_URL } from "@/lib/profile";
+import { PROFILE_UPDATED, SITE_URL } from "@/lib/profile";
 
+// lastmod is the date the content last changed, never the build time, so Google can trust it
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = SITE_URL;
+    const latestCaseStudy = caseStudies.map((cs) => cs.updated).sort().at(-1);
 
     // Static pages
     const staticPages: MetadataRoute.Sitemap = [
         {
             url: baseUrl,
-            lastModified: new Date(),
+            lastModified: PROFILE_UPDATED,
             changeFrequency: "monthly",
             priority: 1,
         },
         {
             url: `${baseUrl}/case-studies`,
-            lastModified: new Date(),
+            lastModified: latestCaseStudy,
             changeFrequency: "weekly",
             priority: 0.9,
         },
@@ -24,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Dynamic case study pages
     const caseStudyPages: MetadataRoute.Sitemap = caseStudies.map((cs) => ({
         url: `${baseUrl}/case-studies/${cs.slug}`,
-        lastModified: new Date(),
+        lastModified: cs.updated,
         changeFrequency: "monthly" as const,
         priority: 0.8,
     }));

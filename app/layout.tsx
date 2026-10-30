@@ -7,7 +7,7 @@ import { CookieBanner } from "@/components/ui/cookie-banner";
 import { MotionProvider } from "@/components/ui/motion-provider";
 import { Toaster } from "@/components/ui/toast";
 import { configBootScript } from "@/lib/config";
-import { profile, SITE_URL } from "@/lib/profile";
+import { sharedOpenGraph, siteConfig } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,14 +26,6 @@ const instrumentSerif = Instrument_Serif({
   weight: "400",
   style: "italic",
 });
-
-const siteConfig = {
-  name: profile.name,
-  title: "Mohammed Barzinje | Senior Product Manager in Norway",
-  description:
-    "Senior Product Manager and founder in Norway, from the Esports World Cup to AI-personalized children's books. Open to PM, Product Lead and AI roles.",
-  url: SITE_URL,
-};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -81,20 +73,17 @@ export const metadata: Metadata = {
   },
   // Share images come from app/opengraph-image.tsx
   openGraph: {
+    ...sharedOpenGraph,
     type: "profile",
     firstName: "Mohammed",
     lastName: "Barzinje",
-    locale: "en_US",
-    alternateLocale: ["nb_NO"],
     url: siteConfig.url,
     title: siteConfig.title,
     description: siteConfig.description,
-    siteName: siteConfig.name,
   },
+  // No title, description or image here: Next.js copies them from each page's openGraph
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.title,
-    description: siteConfig.description,
     creator: "@kekmekn",
     site: "@kekmekn",
   },
@@ -117,7 +106,6 @@ export const metadata: Metadata = {
     ],
     shortcut: "/favicon.ico",
   },
-  manifest: "/manifest.json",
   category: "technology",
   referrer: "origin-when-cross-origin",
   // verification: { google: "...", other: { "msvalidate.01": "..." } },

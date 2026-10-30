@@ -17,7 +17,7 @@ export function CaseStudyCard({ caseStudy, index }: CaseStudyCardProps) {
           {caseStudy.logo && (
             <Image
               src={caseStudy.logo}
-              alt=""
+              alt={`${caseStudy.title} website`}
               fill
               // The first row sits above the fold on the case-studies page
               loading={index < 2 ? "eager" : "lazy"}

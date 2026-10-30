@@ -7,6 +7,9 @@ import { DEFAULT_CONFIG, type ConfigId } from "@/lib/config";
 // Base for every absolute URL. Vercel redirects the bare domain to www, so canonical URLs use www.
 export const SITE_URL = "https://www.mohammedbarzinje.com";
 
+// Last real change to the landing-page copy. The sitemap's lastmod for the homepage reads it, so bump it with the copy.
+export const PROFILE_UPDATED = "2026-10-29";
+
 export const profile = {
     name: "Mohammed Barzinje",
     role: "Senior Product Manager",
